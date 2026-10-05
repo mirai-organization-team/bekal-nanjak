@@ -229,6 +229,19 @@ footer a{color:var(--green)}
 .preset b{display:block}
 .preset small{display:block;color:var(--muted);font-size:.84rem}
 .confirm p{margin:8px 0 0}
+.items span.late{background:var(--amberbg)}
+.items span em{font-style:normal;color:var(--blaze-ink);font-weight:600;font-size:.8rem}
+.balrow{display:flex;flex-wrap:wrap;gap:6px;margin:-4px 0 10px}
+.bal{font-size:.8rem;color:var(--muted);padding:2px 8px;border-radius:99px;border:1px solid var(--line)}
+.bal.ok{color:var(--green);border-color:transparent;background:var(--greenbg)}
+.bal.no{color:var(--muted)}
+.sgh{display:flex;justify-content:space-between;padding:8px 12px;background:var(--bg);font-weight:700;font-size:.9rem;border-top:1px solid var(--line)}
+.sgh:first-child{border-top:0}
+.sgh span{color:var(--muted);font-weight:600}
+.pk{border-top:1px solid var(--line);padding:4px 0}
+.pk:first-of-type{border-top:0}
+.pk>summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center}
+.pk .tips{margin:4px 0 12px}
 /* history */
 .hist{display:flex;gap:10px;align-items:center;border-top:1px solid var(--line);padding:12px 0}
 .hist:first-of-type{border-top:0}
@@ -328,73 +341,96 @@ const ROUTES={
 const MT={}; PROV.forEach(([p,list])=>list.forEach(([k,n,peak])=>MT[k]={k,n,prov:p,peak}));
 
 /* ===================== DATA MAKANAN (kkal, gram, harga perkiraan Rp) ===================== */
-const FOODS={
-  beras:{n:["Beras","Rice"],u:["100 g","100 g"],k:360,g:100,p:1500,c:"main"},
-  mie:{n:["Mie instan","Instant noodles"],u:["bks","pack"],k:390,g:85,p:3500,c:"main"},
-  nasib:{n:["Nasi bungkus","Packed rice meal"],u:["bks","pack"],k:600,g:350,p:15000,c:"main"},
-  oat:{n:["Oatmeal instan","Instant oatmeal"],u:["sachet","sachet"],k:150,g:40,p:4000,c:"main"},
-  roti:{n:["Roti tawar","White bread"],u:["2 lbr","2 slices"],k:160,g:60,p:2700,c:"main"},
-  rotisi:{n:["Roti isi","Filled bun"],u:["bks","pack"],k:230,g:70,p:6000,c:"main"},
-  abon:{n:["Abon","Meat floss"],u:["30 g","30 g"],k:150,g:30,p:8000,c:"side"},
-  tempe:{n:["Kering tempe","Crispy tempeh"],u:["50 g","50 g"],k:250,g:50,p:6000,c:"side"},
-  sosis:{n:["Sosis siap makan","Ready-to-eat sausage"],u:["2 btg","2 pcs"],k:120,g:50,p:5000,c:"side"},
-  sarden:{n:["Sarden kaleng","Canned sardines"],u:["kaleng 155 g","155 g can"],k:330,g:190,p:13000,c:"side"},
-  telur:{n:["Telur rebus","Boiled egg"],u:["btr","pc"],k:75,g:60,p:2500,c:"side"},
-  sop:{n:["Sop instan","Instant soup"],u:["sachet","sachet"],k:50,g:15,p:3000,c:"side"},
-  kurma:{n:["Kurma","Dates"],u:["5 btr","5 pcs"],k:140,g:50,p:5000,c:"snack"},
-  coklat:{n:["Cokelat batang","Chocolate bar"],u:["50 g","50 g"],k:260,g:50,p:12000,c:"snack"},
-  kacang:{n:["Kacang campur","Mixed nuts"],u:["50 g","50 g"],k:290,g:50,p:7000,c:"snack"},
-  wafer:{n:["Wafer","Wafer"],u:["bks 50 g","50 g pack"],k:240,g:50,p:4000,c:"snack"},
-  aren:{n:["Gula aren","Palm sugar"],u:["30 g","30 g"],k:110,g:30,p:2000,c:"snack"},
-  kismis:{n:["Kismis","Raisins"],u:["50 g","50 g"],k:150,g:50,p:8000,c:"snack"},
-  madu:{n:["Madu sachet","Honey sachet"],u:["sachet","sachet"],k:60,g:20,p:2000,c:"snack"},
-  biskuit:{n:["Biskuit padat","Dense biscuits"],u:["bks 100 g","100 g pack"],k:480,g:100,p:10000,c:"snack"},
-  energen:{n:["Sereal instan","Instant cereal drink"],u:["sachet","sachet"],k:130,g:30,p:2500,c:"drink"},
-  teh:{n:["Teh atau kopi manis","Sweet tea or coffee"],u:["sachet","sachet"],k:100,g:25,p:2000,c:"drink"},
-  jahe:{n:["Jahe instan","Instant ginger drink"],u:["sachet","sachet"],k:90,g:25,p:2000,c:"drink"},
-  skm:{n:["Susu kental manis","Sweetened condensed milk"],u:["sachet","sachet"],k:130,g:40,p:2500,c:"drink"},
-  elektrolit:{n:["Minuman elektrolit","Electrolyte drink"],u:["sachet","sachet"],k:20,g:20,p:3000,c:"drink"},
-  spaghetti:{n:["Spaghetti kering","Dry spaghetti"],u:["100 g","100 g"],k:360,g:100,p:6000,c:"main"},
-  makaroni:{n:["Makaroni","Macaroni"],u:["100 g","100 g"],k:370,g:100,p:5000,c:"main"},
-  bihun:{n:["Bihun","Rice vermicelli"],u:["100 g","100 g"],k:360,g:100,p:5000,c:"main"},
-  bubur:{n:["Bubur instan","Instant porridge"],u:["sachet","sachet"],k:150,g:40,p:4000,c:"main"},
-  granola:{n:["Granola","Granola"],u:["50 g","50 g"],k:220,g:50,p:8000,c:"main"},
-  sauspasta:{n:["Saus pasta instan","Instant pasta sauce"],u:["sachet","sachet"],k:90,g:80,p:8000,c:"side"},
-  bumbunasgor:{n:["Bumbu nasi goreng","Fried rice seasoning"],u:["sachet","sachet"],k:40,g:20,p:2500,c:"side"},
-  supkrim:{n:["Sup krim instan","Instant cream soup"],u:["sachet","sachet"],k:110,g:25,p:5000,c:"side"},
-  kornet:{n:["Kornet kaleng","Canned corned beef"],u:["kaleng 198 g","198 g can"],k:430,g:230,p:25000,c:"side"},
-  rendang:{n:["Rendang kemasan","Packaged rendang"],u:["pouch","pouch"],k:250,g:110,p:20000,c:"side"},
-  dendeng:{n:["Dendeng kering","Beef jerky"],u:["50 g","50 g"],k:150,g:50,p:15000,c:"side"},
-  keju:{n:["Keju lembaran","Cheese slice"],u:["lbr","slice"],k:60,g:20,p:2500,c:"side"},
-  selaikacang:{n:["Selai kacang","Peanut butter"],u:["2 sdm","2 tbsp"],k:190,g:32,p:3000,c:"side"},
-  selaicoklat:{n:["Selai cokelat","Chocolate spread"],u:["2 sdm","2 tbsp"],k:160,g:30,p:3000,c:"side"},
-  pisang:{n:["Pisang","Banana"],u:["buah","piece"],k:105,g:120,p:2500,c:"snack"},
-  energybar:{n:["Energy bar","Energy bar"],u:["btg","bar"],k:170,g:40,p:10000,c:"snack"},
-  keripik:{n:["Keripik kentang","Potato chips"],u:["bks 68 g","68 g pack"],k:360,g:68,p:12000,c:"snack"},
-  jelly:{n:["Jelly minum","Drinkable jelly"],u:["sachet","pouch"],k:150,g:150,p:5000,c:"snack"},
-  permen:{n:["Permen","Hard candy"],u:["5 btr","5 pcs"],k:100,g:25,p:2000,c:"snack"},
-  susububuk:{n:["Susu bubuk","Powdered milk"],u:["sachet","sachet"],k:120,g:27,p:3000,c:"drink"}
-};
+/* [id, nama, name, satuan, unit, kkal, gram, harga Rp, kelompok, protein g, serat g, tahan tanpa kulkas (hari)]
+   Angka gizi dan harga adalah perkiraan rata-rata per porsi. */
+const FOOD_ROWS=[
+ ["beras","Beras","Rice","100 g","100 g",360,100,1500,"karbo",7,1.3,60],
+ ["kentang","Kentang","Potatoes","150 g","150 g",115,150,3000,"karbo",3,3,14],
+ ["mie","Mie instan","Instant noodles","bks","pack",390,85,3500,"karbo",8,2,60],
+ ["nasib","Nasi bungkus","Packed rice meal","bks","pack",600,350,15000,"karbo",20,3,.5],
+ ["oat","Oatmeal instan","Instant oatmeal","sachet","sachet",150,40,4000,"karbo",5,4,60],
+ ["roti","Roti tawar","Bread","2 lbr","2 slices",160,60,2700,"karbo",5,1.5,3],
+ ["rotisi","Roti isi","Filled bun","bks","pack",230,70,6000,"karbo",6,1.5,2],
+ ["spaghetti","Spaghetti kering","Dry spaghetti","100 g","100 g",360,100,6000,"karbo",13,3,60],
+ ["makaroni","Makaroni","Macaroni","100 g","100 g",370,100,5000,"karbo",13,3,60],
+ ["bihun","Bihun","Rice vermicelli","100 g","100 g",360,100,5000,"karbo",6,1,60],
+ ["bubur","Bubur instan","Instant porridge","sachet","sachet",150,40,4000,"karbo",3,1,60],
+ ["granola","Granola","Granola","50 g","50 g",220,50,8000,"karbo",5,4,60],
+ ["telurmentah","Telur mentah","Raw egg","btr","pc",72,60,2200,"protein",6,0,5],
+ ["telur","Telur rebus","Boiled egg","btr","pc",75,60,2500,"protein",6,0,1],
+ ["ayamungkep","Ayam ungkep matang","Spiced cooked chicken","100 g","100 g",260,100,12000,"protein",25,0,1],
+ ["tempegoreng","Tempe bacem matang","Sweet braised tempeh","2 ptg","2 pcs",200,80,3000,"protein",15,3,1],
+ ["tahubacem","Tahu bacem matang","Sweet braised tofu","2 ptg","2 pcs",160,100,3000,"protein",10,1,1],
+ ["tempementah","Tempe mentah","Raw tempeh","100 g","100 g",190,100,4000,"protein",19,4,2],
+ ["teri","Teri goreng kering","Crispy fried anchovies","30 g","30 g",120,30,6000,"protein",15,0,14],
+ ["abon","Abon","Meat floss","30 g","30 g",150,30,8000,"protein",6,.5,30],
+ ["tempe","Kering tempe","Crispy tempeh","50 g","50 g",250,50,6000,"protein",8,2,14],
+ ["sosis","Sosis siap makan","Ready-to-eat sausage","2 btg","2 pcs",120,50,5000,"protein",6,0,7],
+ ["nugget","Nugget beku","Frozen nuggets","5 pcs","5 pcs",250,100,10000,"protein",12,1,.5],
+ ["sarden","Sarden kaleng","Canned sardines","kaleng 155 g","155 g can",330,190,13000,"protein",30,0,365],
+ ["kornet","Kornet kaleng","Canned corned beef","kaleng 198 g","198 g can",430,230,25000,"protein",45,0,365],
+ ["rendang","Rendang kemasan","Packaged rendang","pouch","pouch",250,110,20000,"protein",20,1,180],
+ ["dendeng","Dendeng kering","Beef jerky","50 g","50 g",150,50,15000,"protein",17,0,30],
+ ["keju","Keju lembaran","Cheese slice","lbr","slice",60,20,2500,"protein",4,0,3],
+ ["susububuk","Susu bubuk","Powdered milk","sachet","sachet",120,27,3000,"protein",6,0,60],
+ ["sayurmix","Sayur segar: wortel, kol, buncis","Fresh veg: carrot, cabbage, beans","150 g","150 g",45,150,5000,"sayur",2,4,3],
+ ["sawi","Sawi atau bayam","Mustard greens or spinach","100 g","100 g",25,100,3000,"sayur",2,2.5,1],
+ ["sop","Sop sayur instan","Instant vegetable soup","sachet","sachet",50,15,3000,"sayur",1,1,60],
+ ["supkrim","Sup krim instan","Instant cream soup","sachet","sachet",110,25,5000,"sayur",2,.5,60],
+ ["pisang","Pisang","Banana","buah","piece",105,120,2500,"sayur",1.3,3,3],
+ ["jeruk","Jeruk","Orange","buah","piece",60,150,2000,"sayur",1,3,7],
+ ["apel","Apel","Apple","buah","piece",95,180,4000,"sayur",.5,4,10],
+ ["kurma","Kurma","Dates","5 btr","5 pcs",140,50,5000,"camilan",1,4,60],
+ ["kismis","Kismis","Raisins","50 g","50 g",150,50,8000,"camilan",1.5,2,60],
+ ["kacang","Kacang campur","Mixed nuts","50 g","50 g",290,50,7000,"camilan",10,4,60],
+ ["coklat","Cokelat batang","Chocolate bar","50 g","50 g",260,50,12000,"camilan",3,3,60],
+ ["wafer","Wafer","Wafer","bks 50 g","50 g pack",240,50,4000,"camilan",2,.5,60],
+ ["biskuit","Biskuit padat","Dense biscuits","bks 100 g","100 g pack",480,100,10000,"camilan",7,2,90],
+ ["energybar","Energy bar","Energy bar","btg","bar",170,40,10000,"camilan",4,3,90],
+ ["keripik","Keripik kentang","Potato chips","bks 68 g","68 g pack",360,68,12000,"camilan",4,3,60],
+ ["jelly","Jelly minum","Drinkable jelly","sachet","pouch",150,150,5000,"camilan",0,0,90],
+ ["permen","Permen","Hard candy","5 btr","5 pcs",100,25,2000,"camilan",0,0,180],
+ ["aren","Gula aren","Palm sugar","30 g","30 g",110,30,2000,"camilan",0,0,90],
+ ["madu","Madu sachet","Honey sachet","sachet","sachet",60,20,2000,"camilan",0,0,180],
+ ["kopi","Kopi hitam","Black coffee","sachet","sachet",5,10,1500,"minum",0,0,180],
+ ["teh","Teh atau kopi manis","Sweet tea or coffee","sachet","sachet",100,25,2000,"minum",0,0,180],
+ ["jahe","Wedang jahe instan","Instant ginger drink","sachet","sachet",90,25,2000,"minum",0,0,180],
+ ["coklatpanas","Cokelat panas","Hot chocolate","sachet","sachet",120,30,3000,"minum",2,1,180],
+ ["energen","Sereal instan","Instant cereal drink","sachet","sachet",130,30,2500,"minum",3,1,180],
+ ["skm","Susu kental manis","Sweetened condensed milk","sachet","sachet",130,40,2500,"minum",3,0,90],
+ ["elektrolit","Minuman elektrolit","Electrolyte drink","sachet","sachet",20,20,3000,"minum",0,0,180],
+ ["sambal","Sambal","Chilli sauce","sachet","sachet",20,10,1000,"bumbu",0,0,30],
+ ["bumbudapur","Bawang, cabai, garam","Shallots, chillies, salt","paket","pack",20,50,5000,"bumbu",0,1,7],
+ ["minyak","Minyak goreng","Cooking oil","sdm","tbsp",120,14,500,"bumbu",0,0,180],
+ ["tepungbumbu","Tepung bumbu","Seasoned flour","50 g","50 g",180,50,2500,"bumbu",4,1,90],
+ ["bumbunasgor","Bumbu nasi goreng","Fried rice seasoning","sachet","sachet",40,20,2500,"bumbu",0,0,90],
+ ["sauspasta","Saus pasta instan","Instant pasta sauce","sachet","sachet",90,80,8000,"bumbu",2,2,90],
+ ["selaikacang","Selai kacang","Peanut butter","2 sdm","2 tbsp",190,32,3000,"bumbu",8,2,60],
+ ["selaicoklat","Selai cokelat","Chocolate spread","2 sdm","2 tbsp",160,30,3000,"bumbu",2,1,60]
+];
+const FOODS={}; FOOD_ROWS.forEach(([id,n1,n2,u1,u2,k,g,p,c,pr,fb,keep])=>FOODS[id]={n:[n1,n2],u:[u1,u2],k,g,p,c,pr,fb,keep});
+const CATS={karbo:["Karbohidrat","Carbohydrates"],protein:["Protein: lauk, daging, telur","Protein: meat, eggs, tempeh"],sayur:["Sayur dan buah","Vegetables and fruit"],camilan:["Camilan","Snacks"],minum:["Minuman","Drinks"],bumbu:["Bumbu, minyak, dan olesan","Seasoning, oil, and spreads"],own:["Buatan sendiri","Your own"]};
 // Ide menu racikan (kkal dihitung otomatis dari bahan)
 const PRESETS=[
+  {id:"ayamsambal",n:["Nasi ayam ungkep sambal","Rice, spiced chicken, chilli"],for:["siang","malam"],items:[["beras",1],["ayamungkep",1],["sayurmix",1],["sambal",1]],tip:["Ayam dimasak kering di rumah, untuk hari pertama.","Cook the chicken dry at home; for day one."]},
+  {id:"teluresop",n:["Nasi telur dadar dan sayur sop","Rice, omelette, vegetable soup"],for:["sarapan","malam"],items:[["beras",1],["telurmentah",2],["sayurmix",1],["minyak",1],["bumbudapur",1]]},
+  {id:"bacem",n:["Nasi tempe tahu bacem","Rice with braised tempeh and tofu"],for:["siang","malam"],items:[["beras",1],["tempegoreng",1],["tahubacem",1],["sambal",1]],tip:["Bacem dimasak di rumah, makan di hari pertama.","Braise at home and eat on day one."]},
+  {id:"bakwan",n:["Bakwan sayur","Vegetable fritters"],for:["malam","cemilan"],items:[["tepungbumbu",1],["sayurmix",1],["minyak",2]],tip:["Gorengan hangat yang disukai banyak pendaki.","A warm fried snack many hikers love."]},
+  {id:"tempegoreng",n:["Tempe goreng tepung","Battered fried tempeh"],for:["malam"],items:[["tempementah",1],["tepungbumbu",1],["minyak",2]]},
+  {id:"kentang",n:["Kentang goreng dan sosis","Fried potatoes and sausage"],for:["malam","sarapan"],items:[["kentang",2],["sosis",1],["minyak",2]]},
+  {id:"nasgor",n:["Nasi goreng telur","Fried rice with egg"],for:["sarapan","malam"],items:[["beras",1],["bumbunasgor",1],["telurmentah",1],["sayurmix",1],["minyak",1]]},
+  {id:"tumissawi",n:["Tumis sawi dan teri","Stir-fried greens with anchovies"],for:["malam"],items:[["sawi",1],["teri",1],["bumbudapur",1],["minyak",1]]},
   {id:"spag",n:["Spaghetti saus daging","Spaghetti with meat sauce"],for:["siang","malam"],items:[["spaghetti",1],["sauspasta",1],["sosis",1],["keju",1]]},
-  {id:"makkeju",n:["Makaroni keju","Mac and cheese"],for:["siang","malam"],items:[["makaroni",1],["keju",2],["susububuk",1]]},
-  {id:"nasgor",n:["Nasi goreng instan","Instant fried rice"],for:["sarapan","siang","malam"],items:[["beras",1],["bumbunasgor",1],["telur",1],["sosis",1]]},
-  {id:"nasikornet",n:["Nasi kornet","Rice with corned beef"],for:["malam"],items:[["beras",1],["kornet",1]]},
-  {id:"nasirendang",n:["Nasi rendang","Rice with rendang"],for:["siang","malam"],items:[["beras",1],["rendang",1]]},
-  {id:"miekuah",n:["Mie kuah telur","Noodle soup with egg"],for:["sarapan","malam"],items:[["mie",1],["telur",2]]},
-  {id:"bihungoreng",n:["Bihun goreng","Fried vermicelli"],for:["malam"],items:[["bihun",1],["bumbunasgor",1],["sosis",1]]},
-  {id:"bubur",n:["Bubur abon","Porridge with meat floss"],for:["sarapan"],items:[["bubur",2],["abon",1]]},
+  {id:"nasikornet",n:["Nasi kornet dan sayur","Rice, corned beef, vegetables"],for:["malam"],items:[["beras",1],["kornet",1],["sayurmix",1]]},
+  {id:"miekuah",n:["Mie kuah telur sayur","Noodle soup with egg and greens"],for:["sarapan","malam"],items:[["mie",1],["telurmentah",1],["sawi",1]]},
   {id:"oatpisang",n:["Oat pisang madu","Oats with banana and honey"],for:["sarapan"],items:[["oat",2],["pisang",1],["madu",1]]},
-  {id:"granolasusu",n:["Granola susu","Granola with milk"],for:["sarapan"],items:[["granola",2],["susububuk",1]]},
-  {id:"rotiselai",n:["Roti selai kacang","Peanut butter bread"],for:["sarapan","siang"],items:[["roti",2],["selaikacang",1]]},
-  {id:"supkrim",n:["Sup krim dan roti","Cream soup with bread"],for:["sarapan","malam"],items:[["supkrim",1],["roti",2]]},
+  {id:"rotiselai",n:["Roti selai kacang dan pisang","Peanut butter banana bread"],for:["sarapan","siang"],items:[["roti",2],["selaikacang",1],["pisang",1]]},
+  {id:"jahearen",n:["Wedang jahe gula aren","Ginger drink with palm sugar"],for:["malam","sarapan"],items:[["jahe",1],["aren",1]]},
+  {id:"kopisusu",n:["Kopi susu hangat","Hot milk coffee"],for:["sarapan"],items:[["kopi",1],["skm",1]]},
   {id:"trailmix",n:["Trail mix","Trail mix"],for:["cemilan","cadangan"],items:[["kacang",1],["kismis",1],["coklat",1]]},
   {id:"energi",n:["Paket energi cepat","Quick energy pack"],for:["cemilan","cadangan"],items:[["energybar",1],["jelly",1],["permen",1]]}
 ];
-// Batas porsi yang masuk akal: tubuh hanya bisa mencerna sekitar 200–300 kkal per jam saat berjalan
 const CAP={sarapan:800,siang:900,malam:1100}, SNACK_PER_H=250;
-const CATS={main:["Makanan pokok","Staples"],side:["Lauk","Sides"],snack:["Camilan","Snacks"],drink:["Minuman","Drinks"],own:["Buatan sendiri","Your own"]};
 const SLOTS={
   sarapan:{n:["Sarapan","Breakfast"],t:["Pagi, sebelum jalan","Morning, before hiking"],share:.22},
   cemilan:{n:["Camilan jalur","Trail snacks"],t:["Sedikit tiap 45–60 menit","A little every 45–60 minutes"],share:.23},
@@ -457,6 +493,7 @@ const fname=id=>{const f=food(id);return f?(Array.isArray(f.n)?L(f.n[0],f.n[1]):
 const funit=id=>{const f=food(id);return f?(Array.isArray(f.u)?L(f.u[0],f.u[1]):f.u):""};
 const fprice=id=>id in S.prices?+S.prices[id]:(food(id)?food(id).p||0:0);
 function qty(id,q){const u=funit(id);return /^\d/.test(u)?(q>1?`${q} × ${u}`:u):`${q} ${u}`}
+const nut=list=>list.reduce((a,[id,q])=>{const f=food(id); if(f){a.pr+=(f.pr||0)*q; a.fb+=(f.fb||0)*q; a.g[f.c]=1;} return a},{pr:0,fb:0,g:{}});
 const kOf=list=>list.reduce((a,[id,q])=>a+(food(id)?food(id).k*q:0),0);
 const days=()=>S.type==="oneday"?1:Math.max(2,Math.round((new Date(S.end+"T00:00:00")-new Date(S.start+"T00:00:00"))/864e5)+1||2);
 const durLabel=n=>n===1?L("Tektok 1 hari","Day hike"):L(`${n} hari ${n-1} malam`,`${n} days ${n-1} night${n>2?"s":""}`);
@@ -485,7 +522,7 @@ const TOPO='<svg class="topo" aria-hidden="true"><use href="#topo"/></svg>';
 const LOGO='<svg class="logo" aria-hidden="true"><use href="#logo"/></svg>';
 
 /* ===================== PERHITUNGAN ===================== */
-function slotsOfDay(i,n){return ORDER}
+function slotsOfDay(i,n){return ORDER.filter(s=>!(s==="malam"&&i===n-1))}
 function defaultMealOn(i,slot,n){
   const h=parseInt(S.startTime,10); const startH=isFinite(h)?h:8;
   if(n===1) return slot==="cemilan"||(slot==="siang"&&startH<13);
@@ -500,11 +537,20 @@ function hoursPerDay(rd,n){
   return Array.from({length:n},(_,i)=>i<n-1?{up:rd.up*0.8/(n-1),down:0}:{up:rd.up*0.2,down:rd.down});
 }
 function template(slot,i){
-  const veg=S.veg, light=S.light, lauk=veg?"tempe":(light?"abon":"sosis");
+  const veg=S.veg, light=S.light;
   switch(slot){
-    case "sarapan": return [["oat",2,1],["roti",1,1],["energen",1,0]];
-    case "siang": return (i===0&&!light)?[["nasib",1,0],["rotisi",1,1]]:[["rotisi",2,1],[veg?"tempe":"abon",1,0]];
-    case "malam": return light?[["mie",1,1],[lauk,1,0],["sop",1,0],["teh",1,0]]:[["beras",1,1],["mie",1,0],[lauk,1,0],["sop",1,0],["teh",1,0]];
+    case "sarapan":
+      if(light) return [["oat",2,1],["pisang",1,0],["kopi",1,0],["skm",1,0]];
+      return i<=2?[["beras",1,1],["bumbunasgor",1,0],["telurmentah",2,0],["sayurmix",1,0],["minyak",1,0],["jahe",1,0]]
+                 :[["oat",2,1],["roti",1,1],["selaikacang",1,0],["kopi",1,0],["skm",1,0]];
+    case "siang":
+      if(i===0&&!light) return [["nasib",1,0],["pisang",1,0]];
+      return [["rotisi",2,1],[veg?"tempe":"abon",1,0],["jeruk",1,0]];
+    case "malam":
+      if(light) return [["mie",1,1],[veg?"tempe":"abon",1,0],["sop",1,0],["jahe",1,0]];
+      if(i===0) return [["beras",1,1],[veg?"tempegoreng":"ayamungkep",1,0],["tahubacem",1,0],["sayurmix",1,0],["sambal",1,0],["jahe",1,0]];
+      if(i===1) return [["beras",1,1],["telurmentah",2,0],["sayurmix",1,0],["tempementah",1,0],["minyak",2,0],["sambal",1,0],["coklatpanas",1,0]];
+      return [["beras",1,1],[veg?"tempe":"teri",1,0],["sop",1,0],["sambal",1,0],["teh",1,0]];
     case "cemilan": return light?[["kacang",3,1],["coklat",3,1],["kurma",2,1],["aren",1,1]]:[["kurma",2,1],["coklat",2,1],["kacang",2,1],["wafer",2,1],["aren",1,1]];
     case "cadangan": return [["mie",1,0],["biskuit",1,1],["coklat",1,1],["aren",1,1]];
   }
@@ -516,9 +562,14 @@ function suggest(slot,i,target){
   const remain=Math.max(0,target-fixed);
   return t.map(([id,q,f])=>f?[id,Math.max(1,Math.round(remain*(FOODS[id].k*q/flexK)/FOODS[id].k))]:[id,q]);
 }
-function itemsFor(key,slot,i,target){
+function itemsFor(key,slot,i,target,stops){
   if(S.custom[key]) return S.custom[key].filter(([id,q])=>food(id)&&q>0);
-  return suggest(slot,i,target);
+  const it=suggest(slot,i,target);
+  if(slot==="cemilan"&&stops){
+    let units=it.reduce((a,[,q])=>a+q,0); const fill=["kurma","aren","permen"]; let f=0;
+    while(units<stops){ const id=fill[f++%fill.length]; const x=it.find(y=>y[0]===id); if(x) x[1]++; else it.push([id,1]); units++; }
+  }
+  return it;
 }
 function calc(){
   const rd=routeData(); if(!rd) return null;
@@ -534,10 +585,10 @@ function calc(){
     const meals=slotsOfDay(i,n).map(slot=>{
       const key=`d${i}-${slot}`, on=mealOn(i,slot), raw=need*SLOTS[slot].share;
       const target=slot==="cemilan"?Math.min(raw,Math.max(300,trekH*SNACK_PER_H)):Math.min(raw,CAP[slot]);
-      return {key,slot,on,target,custom:!!S.custom[key],items:on?itemsFor(key,slot,i,target):[]};
+      return {key,slot,on,target,custom:!!S.custom[key],items:on?itemsFor(key,slot,i,target,slot==="cemilan"?Math.max(0,Math.ceil(trekH-1.25)):0):[]};
     });
     const packed=meals.reduce((a,m)=>a+kOf(m.items),0);
-    const home=meals.filter(m=>!m.on).reduce((a,m)=>a+m.target,0);
+    const home=need*ORDER.filter(sl=>!meals.some(m=>m.slot===sl&&m.on)).reduce((a,sl)=>a+SLOTS[sl].share,0);
     return {i,trekH,need,trekK,water,meals,up:h.up,down:h.down,packed,home,gap:Math.max(0,need-packed-home)};
   });
   const rT=S.reserve==="none"?0:S.reserve==="day"?bmr*1.6:750;
@@ -695,7 +746,7 @@ function dayPlan(R,d){
     const p=d.down?(t-d.up)/d.down:1; return eTop-(eTop-rd.base)*Math.pow(p,1.1); };
   const has=slot=>d.meals.find(m=>m.slot===slot);
   const lunch=has("siang"); let tL=null;
-  if(lunch&&walk>0&&start<12&&start+walk>12) tL=12-start;
+  if(lunch&&lunch.on&&walk>0&&start<12&&start+walk>12) tL=12-start;
   const PAUSE=.5, clock=t=>start+t+(tL!=null&&t>tL?PAUSE:0);
   const snackM=has("cemilan"), stops=[];
   for(let t=1;t<walk-0.25;t++){ if(tL!=null&&Math.abs(t-tL)<0.5) continue; stops.push(t); }
@@ -712,12 +763,12 @@ function dayPlan(R,d){
   const sar=has("sarapan"); if(sar) meal(sar,start-.5,e0,d.i===0?L("di basecamp","at basecamp"):L("di camp","at camp"));
   if(lunch&&walk>0&&start>=12) meal(lunch,Math.max(11.5,start-1),e0,L("sebelum jalan","before hiking"));
   ev.push({kind:"start",time:start,e:e0,label:d.i===0?L("Mulai dari basecamp","Leave basecamp"):L("Mulai jalan dari camp","Leave camp")});
-  stops.forEach((t,ix)=>{const bn=bins[ix]; ev.push({kind:"snack",t,time:clock(t),e:elev(t),label:bn.k?`${L("Ngemil","Snack")} ±${fmt(bn.k)} ${L("kkal","kcal")}`:L("Minum dan istirahat sebentar","Drink and take a short break"),what:bn.k?listTxt(bn.it):""})});
+  stops.forEach((t,ix)=>{const bn=bins[ix]; ev.push({kind:"snack",t,time:clock(t),e:elev(t),label:bn.k?`${L("Ngemil","Snack")} ±${fmt(bn.k)} ${L("kkal","kcal")}`:L("Istirahat dan minum, camilan sudah habis","Rest and drink; your snacks are used up"),what:bn.k?listTxt(bn.it):L("Tambah camilan di tab Menu kalau masih ingin ngemil di titik ini.","Add snacks in the Menu tab if you'd like something here.")})});
   if(tL!=null) meal(lunch,12,elev(tL),L("di jalur","on the trail")), ev[ev.length-1].t=tL;
   if(summit) ev.push({kind:"peak",t:d.up,time:clock(d.up),e:eTop,label:L("Puncak","Summit")});
   ev.push({kind:"end",time:arrive,e:summit?rd.base:eTop,label:summit?L("Sampai basecamp","Back at basecamp"):L("Sampai camp, perkiraan","Reach camp, estimated")});
-  if(lunch&&walk>0&&tL==null&&start<12) meal(lunch,Math.max(arrive+.25,12),summit?rd.base:eTop,summit?L("di basecamp","at basecamp"):L("di camp","at camp"));
-  const din=has("malam"); if(din) meal(din,Math.max(arrive+1,18),summit?rd.base:eTop,summit?L("setelah turun","after the descent"):L("di camp","at camp"));
+  if(lunch&&lunch.on&&walk>0&&tL==null&&start<12) meal(lunch,Math.max(arrive+.25,12),summit?rd.base:eTop,summit?L("di basecamp","at basecamp"):L("di camp","at camp"));
+  const din=has("malam"); if(din&&!summit) meal(din,Math.max(arrive+1,18),eTop,L("di camp","at camp"));
   ev.sort((a,b)=>a.time-b.time);
   return {start,walk,elev,clock,tL,ev,e0,eTop,summit};
 }
@@ -747,10 +798,41 @@ function scheduleHTML(R,d){
     <details class="tld" open><summary>${L("Lihat jadwal per jam","See hourly schedule")}</summary><div class="tlist">${rows}</div></details></div>`;
 }
 
+const PACK=[
+  {c:"karbo",t:["Nasi, roti, dan karbohidrat","Rice, bread, and carbs"],tips:[
+    ["Takar beras per sekali masak dan simpan di ziplock terpisah, supaya mudah dan tidak tumpah.","Measure rice per cooking and keep each portion in its own zip bag."],
+    ["Nasi matang sebaiknya dimakan dalam ±4–6 jam. Nasi bungkus hanya untuk makan siang hari pertama.","Cooked rice is best eaten within about 4–6 hours. Packed rice meals are for day-one lunch only."],
+    ["Roti cepat berjamur di udara lembap. Simpan di wadah kering dan habiskan dalam 2 hari.","Bread moulds quickly in damp air. Keep it dry and finish it within 2 days."]]},
+  {c:"protein",t:["Lauk, daging, dan telur","Meat, eggs, and protein"],tips:[
+    ["Lauk matang seperti ayam ungkep, tempe, dan tahu bacem: masak sampai kering, dinginkan dulu, lalu simpan di wadah tertutup. Makan di hari pertama.","Cooked sides like spiced chicken or braised tempeh: cook them dry, let them cool, then seal them. Eat on day one."],
+    ["Bekukan lauk matang semalaman sebelum berangkat. Lauk beku ikut menjadi pendingin alami dan lebih tahan.","Freeze cooked sides overnight before you leave. They act as an ice pack and keep longer."],
+    ["Telur mentah dibawa di kotak telur atau dibungkus kain, taruh di bagian atas carrier.","Carry raw eggs in an egg box or wrapped in cloth, near the top of your pack."],
+    ["Untuk hari ketiga dan seterusnya, pakai lauk awet seperti teri goreng kering, abon, kornet, atau sarden kaleng.","From day three on, use long-life sides like dry anchovies, meat floss, or canned fish and meat."],
+    ["Kalau lauk berbau asam, berlendir, atau rasanya berubah, jangan dimakan.","If a side smells sour, feels slimy, or tastes off, don't eat it."]]},
+  {c:"sayur",t:["Sayur dan buah","Vegetables and fruit"],tips:[
+    ["Pilih sayur yang tahan lama: wortel, kol, buncis, dan kentang. Sayur daun seperti sawi sebaiknya untuk hari pertama.","Choose hardy veg: carrots, cabbage, beans, and potatoes. Leafy greens are best on day one."],
+    ["Cuci dan keringkan sayur di rumah, lalu bungkus koran atau kertas. Plastik kedap membuat sayur cepat busuk.","Wash and dry veg at home, then wrap it in paper. Airtight plastic makes it rot faster."],
+    ["Pisang mudah memar, taruh di bagian paling atas. Jeruk dan apel lebih tahan banting.","Bananas bruise easily, so put them on top. Oranges and apples travel better."]]},
+  {c:"bumbu",t:["Bumbu, minyak, dan olesan","Seasoning, oil, and spreads"],tips:[
+    ["Bawa minyak di botol kecil yang rapat, lalu bungkus dua lapis plastik supaya tidak tumpah ke pakaian.","Carry oil in a small sealed bottle inside two plastic bags so it can't leak onto clothes."],
+    ["Bawang dan cabai utuh lebih tahan daripada yang sudah diiris. Sambal sachet lebih praktis daripada botol.","Whole shallots and chillies keep longer than sliced. Sachet chilli sauce is easier than a jar."]]},
+  {c:"camilan",t:["Camilan","Snacks"],tips:[
+    ["Bagi camilan per hari dalam ziplock, taruh di hip belt atau saku depan supaya mudah diambil sambil jalan.","Split snacks by day in zip bags and keep them in your hip belt or front pocket."],
+    ["Cokelat bisa meleleh di kendaraan yang panas. Simpan di tengah carrier selama perjalanan.","Chocolate can melt in a hot vehicle. Keep it in the middle of your pack while travelling."]]},
+  {c:"minum",t:["Minuman","Drinks"],tips:[
+    ["Kumpulkan kopi, teh, jahe, dan susu sachet dalam satu wadah supaya mudah dicari saat di camp.","Keep coffee, tea, ginger, and milk sachets together so they're easy to find at camp."]]},
+  {c:null,t:["Menata carrier","Packing your backpack"],tips:[
+    ["Makanan berat seperti beras dan kaleng taruh di tengah, dekat punggung. Yang mudah hancur di bagian atas.","Put heavy food like rice and cans in the middle, close to your back. Fragile items go on top."],
+    ["Kelompokkan makanan per hari atau per waktu makan, jadi tidak perlu membongkar semua isi carrier.","Group food by day or by meal so you don't have to unpack everything."],
+    ["Siapkan satu kantong sampah. Kurangi kemasan di rumah supaya sampah yang dibawa turun lebih sedikit.","Bring a trash bag and cut down packaging at home so there's less to carry back down."]]}
+];
 function vResult(){
   const R=calc(); if(!R) return vRoute();
   const tab=S.tab||"sum";
-  const chips=list=>list.length?`<div class="items">${list.map(([id,q])=>`<span>${esc(fname(id))}, ${esc(qty(id,q))}</span>`).join("")}</div>`:`<p class="note">${L("Belum ada makanan. Ketuk Ubah untuk menambahkan.","No food yet. Tap Edit to add some.")}</p>`;
+  const chips=(list,day,slot)=>list.length?`<div class="items">${list.map(([id,q])=>{const f=food(id); const late=day!=null&&f&&f.keep!=null&&f.keep<day+(slot==="malam"?0.75:slot==="siang"?0.5:0.25); return `<span class="${late?"late":""}">${esc(fname(id))}, ${esc(qty(id,q))}${late?` <em>${L("cepat basi","spoils fast")}</em>`:""}</span>`}).join("")}</div>`:`<p class="note">${L("Belum ada makanan. Ketuk Ubah untuk menambahkan.","No food yet. Tap Edit to add some.")}</p>`;
+  const balance=(list,slot)=>{ if(slot==="cemilan") return ""; const N=nut(list);
+    const tag=(ok,txt)=>`<span class="bal ${ok?"ok":"no"}">${ok?"✓":"–"} ${txt}</span>`;
+    return `<div class="balrow">${tag(N.g.karbo,L("Karbo","Carbs"))}${tag(N.g.protein||N.pr>=10,L("Protein","Protein"))}${tag(N.g.sayur,L("Sayur/buah","Veg/fruit"))}<span class="bal">${L("Protein","Protein")} ±${fmt(N.pr)} g, ${L("serat","fibre")} ±${fmt(N.fb)} g</span></div>`; };
   const editBtn=key=>`<button class="edit" data-act="edit" data-key="${key}">${L("Ubah","Edit")}</button>`;
   const dayHead=d=>`<div class="row-h"><h3>${L("Hari","Day")} ${d.i+1}</h3></div><p class="dmeta">${esc(dayDate(d.i))}${d.trekH?`, ±${dec(d.trekH)} ${L("jam jalan","h walking")}`:""}</p>`;
   const tabs=`<div class="tabs"><div class="seg" style="--n:4" role="tablist">${[["sum","Ringkasan","Summary"],["menu","Menu","Menu"],["sched","Jadwal","Schedule"],["shop","Belanja","Shopping"]].map(([v,a,b])=>`<button role="tab" data-act="tab" data-v="${v}" aria-selected="${tab===v}" aria-pressed="${tab===v}">${L(a,b)}</button>`).join("")}</div></div>`;
@@ -772,10 +854,10 @@ function vResult(){
       <div class="card"><h2>${L("3 hal terpenting","3 things that matter most")}</h2><ol class="key">
         <li><span><b>${L("Ngemil tiap jam jalan","Snack every hour of walking")}</b>${L(`Sekitar ${fmt(R.snackPerHour)} kkal, misalnya 2 kurma dan setengah batang cokelat. Makan sebelum terasa lapar atau lemas.`,`About ${fmt(R.snackPerHour)} kcal, such as 2 dates and half a chocolate bar. Eat before you feel hungry or weak.`)}</span></li>
         <li><span><b>${L("Air tidak perlu dibawa sekaligus","You don't carry all the water at once")}</b>${L(`Kebutuhanmu ±${dec(maxWater)} L per hari. Isi ulang di ${term("sumberair","sumber air")}. Kalau jalurnya tidak punya sumber air, bawa semuanya dari bawah.`,`You need about ${dec(maxWater)} L a day. Refill at ${term("sumberair","water sources")}. If the trail has none, carry it all from the bottom.`)}</span></li>
-        <li><span><b>${S.reserve!=="none"?L("Jangan sentuh makanan cadangan","Leave the emergency food alone"):L("Bawa sedikit makanan cadangan","Pack a little emergency food")}</b>${S.reserve!=="none"?L("Simpan terpisah. Itu jaminanmu kalau cuaca memburuk atau tertahan di jalur.","Keep it separate. It's your backup if the weather turns or you're delayed."):L("Minimal sebungkus biskuit dan cokelat, untuk berjaga kalau tertahan di jalur.","At least a pack of biscuits and some chocolate, in case you're delayed.")}</span></li></ol></div>
+        <li><span><b>${S.reserve!=="none"?L("Sisihkan makanan cadangan","Set aside your spare food"):L("Bawa sedikit makanan cadangan","Pack a little spare food")}</b>${S.reserve!=="none"?L("Taruh di kantong terpisah supaya tidak ikut termakan. Kalau masih utuh saat sampai basecamp, artinya rencanamu sudah pas.","Keep it in a separate bag so it doesn't get eaten by accident. If it's still there at basecamp, your plan was spot on."):L("Minimal sebungkus biskuit dan cokelat, untuk berjaga kalau tertahan di jalur.","At least a pack of biscuits and some chocolate, in case you're delayed.")}</span></li></ol></div>
       <div class="disc" role="note"><b>${L("Ini hanya saran","This is only a suggestion")}</b>${L("Sesuaikan dengan pola makan, alergi, dan toleransimu terhadap makanan. Jika kamu sedang hamil atau menyusui, menjalani diet khusus, atau punya kondisi seperti diabetes, gangguan jantung, ginjal, atau riwayat gangguan makan, diskusikan dulu dengan tenaga kesehatan.","Adjust it to your diet, allergies, and food tolerances. If you are pregnant or breastfeeding, on a special diet, or have a condition such as diabetes, heart or kidney disease, or a history of eating disorders, check with a health professional first.")}</div>
       <div class="card"><h2>${L("Langkah berikutnya","Next steps")}</h2><div class="jump">
-        <button class="opt" data-act="tab" data-v="shop"><span><b>${L("Belanja bekal","Buy your food")}</b><small>${L("Daftar belanja, harga, dan tombol salin","Shopping list, prices, and copy button")}</small></span>›</button>
+        <button class="opt" data-act="tab" data-v="shop"><span><b>${L("Belanja bekal","Buy your food")}</b><small>${L("Daftar belanja, harga, dan tips packing","Shopping list, prices, and packing tips")}</small></span>›</button>
         <button class="opt" data-act="tab" data-v="menu"><span><b>${L("Cek menu per hari","Check each day's menu")}</b><small>${L("Ubah makanan sesuai seleramu","Change foods to your taste")}</small></span>›</button>
         <button class="opt" data-act="tab" data-v="sched"><span><b>${L("Lihat jadwal makan dan ngemil","See meal and snack times")}</b><small>${L("Lengkap dengan perkiraan ketinggian","With estimated heights")}</small></span>›</button>
         <a class="opt" href="https://mirai-organization-team.github.io/" style="text-decoration:none;color:inherit"><span><b>${L("Siapkan perlengkapan di Siap Nanjak","Pack your gear with Siap Nanjak")}</b><small>${L("Daftar barang wajib sesuai gunung tujuan","Required gear list for your mountain")}</small></span>›</a></div></div>
@@ -784,27 +866,32 @@ function vResult(){
         <p>${L("Kebutuhan dasar memakai rumus BMR Mifflin-St Jeor. Energi mendaki memakai nilai MET berjalan dengan beban yang disesuaikan dengan tanjakan; faktor penyesuaian ini masih asumsi. Data jalur, kalori makanan, dan harga adalah perkiraan, jadi cek info basecamp, label produk, dan harga di tempatmu.","Base needs use the Mifflin-St Jeor BMR formula. Hiking energy uses MET values for walking with a load, adjusted for climb; these adjustments are assumptions. Trail data, food calories, and prices are estimates, so check with the basecamp, product labels, and local prices.")}</p></details>`;
   } else if(tab==="menu"){
     const explain=d=>`<div class="needbox"><div><small>${L("Kebutuhan seharian","Whole-day need")}</small><b>${fmt(d.need)} ${L("kkal","kcal")}</b></div><div><small>${L("Dibawa","Packed")}</small><b>${fmt(d.packed)} ${L("kkal","kcal")}</b></div></div>
-      <details class="why2"><summary>${L("Kenapa yang dibawa lebih sedikit?","Why is less packed?")}</summary><p>${L(`Kebutuhan dihitung untuk 24 jam penuh: naik, turun, dan waktu tidak berjalan. ${d.home?`Sekitar ${fmt(d.home)} kkal ditutup dari makan di rumah atau basecamp, seperti sarapan sebelum berangkat dan makan malam setelah turun. `:""}${d.gap>200?`Sisanya, sekitar ${fmt(d.gap)} kkal, tidak perlu dikejar: saat berjalan tubuh hanya bisa mencerna sekitar 200–300 kkal per jam. Kekurangan sesaat seperti ini wajar di hari pendakian berat, asal kamu makan cukup sebelum dan sesudahnya.`:""}`,`Needs cover a full 24 hours: going up, coming down, and resting. ${d.home?`About ${fmt(d.home)} kcal comes from meals at home or basecamp, such as breakfast before you set off and dinner after the descent. `:""}${d.gap>200?`The remaining ${fmt(d.gap)} kcal or so doesn't need to be chased: while walking your body can only digest about 200–300 kcal an hour. A short-term shortfall like this is normal on a hard hiking day, as long as you eat well before and after.`:""}`)}</p></details>`;
+      ${d.packed>d.need*1.05?`<p class="note" style="margin:6px 0 4px">${L("Bekal hari ini sedikit lebih banyak dari kebutuhan karena porsi makanan dibulatkan. Sisanya bisa jadi camilan tambahan.","Today's food is a little more than you need because portions are rounded up. The extra can be an additional snack.")}</p>`:d.need-d.packed<200?"":`<details class="why2"><summary>${L("Kenapa yang dibawa lebih sedikit?","Why is less packed?")}</summary><p>${L(`Kebutuhan dihitung untuk 24 jam penuh: naik, turun, dan waktu tidak berjalan. ${d.home?`Sekitar ${fmt(d.home)} kkal ditutup dari makan di rumah atau basecamp, seperti sarapan sebelum berangkat dan makan malam setelah turun. `:""}${d.gap>200?`Sisanya, sekitar ${fmt(d.gap)} kkal, tidak perlu dikejar: saat berjalan tubuh hanya bisa mencerna sekitar 200–300 kkal per jam. Kekurangan sesaat seperti ini wajar di hari pendakian berat, asal kamu makan cukup sebelum dan sesudahnya.`:""}`,`Needs cover a full 24 hours: going up, coming down, and resting. ${d.home?`About ${fmt(d.home)} kcal comes from meals at home or basecamp, such as breakfast before you set off and dinner after the descent. `:""}${d.gap>200?`The remaining ${fmt(d.gap)} kcal or so doesn't need to be chased: while walking your body can only digest about 200–300 kcal an hour. A short-term shortfall like this is normal on a hard hiking day, as long as you eat well before and after.`:""}`)}</p></details>`}`;
     body=`<p class="alert">${L("Porsi di bawah adalah target untuk 1 orang, tidak harus habis sekaligus. Sisa sarapan bisa dimakan sebagai camilan. Kalau naik berkelompok, beras dan lauk bisa dimasak bersama, tapi tiap orang tetap butuh porsinya sendiri.","Portions below are targets for 1 person and don't have to be eaten in one go. Leftover breakfast can become a snack. In a group you can cook rice and sides together, but everyone still needs their own share.")}</p>
       ${R.D.map(d=>`<div class="card day">${dayHead(d)}${explain(d)}
         ${d.meals.map(x=>`<div class="meal${x.on?"":" off"}"><div class="meal-h"><b>${L(...SLOTS[x.slot].n)}${x.custom?`<span class="badge">${L("diubah","edited")}</span>`:""}</b>
           ${x.on?`<span class="r"><span class="kcal-tag">${fmt(kOf(x.items))} ${L("kkal","kcal")}</span>${editBtn(x.key)}</span>`:""}</div>
-          ${x.on?chips(x.items):`<p class="note">${x.slot==="malam"&&d.i===R.n-1?L("Setelah turun, makan di rumah atau warung basecamp.","After the descent, eat at home or a basecamp stall."):L("Tidak dibawa, makan di rumah atau basecamp.","Not packed, eat at home or basecamp.")}</p>`}</div>`).join("")}</div>`).join("")}
+          ${x.on?chips(x.items,d.i,x.slot)+balance(x.items,x.slot):`<p class="note">${x.slot==="malam"&&d.i===R.n-1?L("Setelah turun, makan di rumah atau warung basecamp.","After the descent, eat at home or a basecamp stall."):L("Tidak dibawa, makan di rumah atau basecamp.","Not packed, eat at home or basecamp.")}</p>`}</div>`).join("")}</div>`).join("")}
       ${S.reserve!=="none"?`<div class="card"><div class="meal-h"><h3>${L("Makanan cadangan","Emergency food")}${R.reserve.custom?`<span class="badge">${L("diubah","edited")}</span>`:""}</h3><span class="r"><span class="kcal-tag">${fmt(kOf(R.reserve.items))} ${L("kkal","kcal")}</span>${editBtn("reserve")}</span></div>
         <p class="dmeta" style="margin-bottom:10px">${L("Simpan di kantong terpisah, buka hanya saat darurat.","Keep it in a separate bag and open it only in an emergency.")}</p>${chips(R.reserve.items)}</div>`:""}`;
   } else if(tab==="sched"){
     body=R.D.map(d=>`<div class="card day">${dayHead(d)}${scheduleHTML(R,d)}
       <p class="note" style="margin:6px 0 0">${L(`Air hari ini ±${dec(d.water)} L. Tidak perlu dibawa sekaligus, isi ulang di ${term("sumberair","sumber air")}.`,`Water today: about ${dec(d.water)} L. No need to carry it all, refill at ${term("sumberair","water sources")}.`)}</p></div>`).join("");
   } else {
-    const rows=Object.entries(R.shop).sort((a,b)=>fprice(b[0])*b[1]-fprice(a[0])*a[1]).map(([id,q])=>`<div class="sr"><b>${esc(fname(id))}</b>
+    const row=([id,q])=>`<div class="sr"><b>${esc(fname(id))}</b>
       <span class="p">${S.editPrice?`<input type="number" inputmode="numeric" data-price="${id}" value="${fprice(id)}" aria-label="${L("Harga per","Price per")} ${esc(funit(id))}">`:rp(fprice(id)*q)}</span>
-      <em>${esc(qty(id,q))}${S.editPrice?`, ${L("harga per","price per")} ${esc(funit(id))}`:` × ${rp(fprice(id))}`}</em><span></span></div>`).join("");
+      <em>${esc(qty(id,q))}${S.editPrice?`, ${L("harga per","price per")} ${esc(funit(id))}`:` × ${rp(fprice(id))}`}${food(id).keep!=null&&food(id).keep<=3?`, ${L(`tahan ±${food(id).keep<1?"½":fmt(food(id).keep)} hari`,`keeps ±${food(id).keep<1?"½":fmt(food(id).keep)} day${food(id).keep>1?"s":""}`)}`:""}</em><span></span></div>`;
+    const groups=Object.keys(CATS).map(c=>{const it=Object.entries(R.shop).filter(([id])=>food(id).c===c); if(!it.length) return "";
+      return `<div class="sgh">${esc(L(...CATS[c]))}<span>${rp(it.reduce((a,[id,q])=>a+fprice(id)*q,0))}</span></div>${it.map(row).join("")}`}).join("");
+    const rows=groups;
     body=`<div class="card"><div class="row-h"><h2>${L("Daftar belanja","Shopping list")}</h2><button class="linkbtn" data-act="editPrice">${S.editPrice?L("Selesai","Done"):L("Ubah harga","Edit prices")}</button></div>
       <p class="hint">${L("Untuk 1 orang. Harga perkiraan di minimarket, bisa berbeda per daerah. Ubah sesuai harga di tempatmu.","For 1 person. Estimated convenience-store prices in Indonesia; they vary by area. Adjust them to your local prices.")}</p>
       <div class="shop">${rows||`<div class="sr"><b>${L("Belum ada makanan yang dibawa","No food packed yet")}</b></div>`}<div class="tot"><span>${L("Estimasi total","Estimated total")}</span><span>${rp(R.P)}</span></div></div>
       <button class="btn" style="margin-top:14px" data-act="copy">${L("Salin daftar belanja","Copy shopping list")}</button>
       <p class="toast" id="toast" role="status"></p><textarea id="copybox" readonly hidden aria-label="${L("Daftar belanja","Shopping list")}"></textarea></div>
-      <p class="note">${L(`Total ${fmt(R.K)} kkal, berat ±${kg(R.G)}. Pindahkan ke plastik ziplock di rumah supaya lebih ringan.`,`Total ${fmt(R.K)} kcal, about ${kg(R.G)}. Repack into zip bags at home to save weight.`)}</p>`;
+      <p class="note">${L(`Total ${fmt(R.K)} kkal, berat ±${kg(R.G)}.`,`Total ${fmt(R.K)} kcal, about ${kg(R.G)}.`)}</p>
+      <div class="card"><h2>${L("Tips packing","Packing tips")}</h2><p class="hint">${L("Supaya makanan tidak basi, tidak hancur, dan carrier tetap rapi. Ketuk kelompok untuk membuka.","Keep food fresh, intact, and your pack tidy. Tap a group to open it.")}</p>
+        ${PACK.filter(g=>!g.c||Object.keys(R.shop).some(id=>food(id).c===g.c)).map(g=>`<details class="pk"><summary>${esc(L(...g.t))}</summary><ul class="tips">${g.tips.map(t=>`<li><span>${esc(L(...t))}</span></li>`).join("")}</ul></details>`).join("")}</div>`;
   }
   return header(planName(),L("Rencana bekal","Food plan"),`${durLabel(R.n)}, ${L("mulai","from")} ${esc(dayDate(0))}`)+`<main class="wrap">${tabs}${body}
     <footer><p>${L("Bekal Nanjak, pendamping Siap Nanjak. Dikembangkan oleh PT Mirai Internasional Indonesia.","Bekal Nanjak, a companion to Siap Nanjak. Developed by PT Mirai Internasional Indonesia.")} <a href="privacy.html">${L("Kebijakan privasi","Privacy policy")}</a></p></footer>
@@ -824,7 +911,7 @@ function tips(R){
   } else t.push(L("Untuk tektok, pilih makanan yang bisa dimakan tanpa dimasak supaya tidak perlu membawa kompor.","For a day hike, choose food you can eat without cooking so you can leave the stove at home."));
   t.push(L("Pindahkan makanan ke plastik ziplock dan buang kemasan berlebih di rumah. Carrier lebih ringan dan sampah lebih sedikit.","Repack food into zip bags and remove extra packaging at home. Your pack gets lighter and there's less trash."));
   t.push(L("Pisahkan camilan per hari dan taruh di kantong yang mudah dijangkau, misalnya hip belt atau saku depan.","Split snacks by day and keep them in easy-to-reach pockets, like the hip belt or a front pocket."));
-  t.push(S.reserve!=="none"?L("Jangan makan makanan cadangan sebagai camilan biasa. Itu jaminanmu kalau cuaca memburuk atau tertahan di jalur.","Don't eat your emergency food as regular snacks. It's your backup if the weather turns or you're delayed."):L("Kamu tidak membawa makanan cadangan. Pertimbangkan minimal sebungkus biskuit dan cokelat untuk keadaan darurat.","You're not packing emergency food. Consider at least a pack of biscuits and some chocolate."));
+  t.push(S.reserve!=="none"?L("Makanan cadangan sebaiknya disisihkan, bukan untuk camilan sehari-hari. Gunanya untuk berjaga kalau perjalanan lebih lama dari rencana.","Keep the spare food aside rather than snacking on it. It's there in case the trip takes longer than planned."):L("Kamu tidak membawa makanan cadangan. Pertimbangkan minimal sebungkus biskuit dan cokelat untuk keadaan darurat.","You're not packing emergency food. Consider at least a pack of biscuits and some chocolate."));
   if(S.exp==="first"){
     t.unshift(L("Untuk pendakian pertama, pilih jalur yang ramai, naik bersama orang yang sudah berpengalaman, dan rencanakan sudah selesai jalan sebelum gelap.","For your first hike, choose a busy trail, go with someone experienced, and plan to finish walking before dark."));
     t.push(L(`Kedinginan dan kurang makan bisa memicu ${term("hipotermia","hipotermia")}. Ganti baju basah, makan, dan minum minuman hangat saat sampai di camp.`,`Cold and too little food can lead to ${term("hipotermia","hypothermia")}. Change out of wet clothes, eat, and have a warm drink when you reach camp.`));
@@ -875,12 +962,12 @@ function vSheet(){
     <h2 id="edTitle">${esc(E.title)}</h2>
     <p class="hint" style="margin:4px 0 0">${L("Terisi","Packed")} <b>${fmt(cur)}</b> ${L("dari saran","of the suggested")} ${fmt(E.target)} ${L("kkal","kcal")}</p>
     <div class="meter"><i class="${over?"over":""}" style="width:${pct}%"></i></div>
-    ${E.items.map(([id,q])=>`<div class="ed-row"><div class="nm"><b>${esc(fname(id))}</b><small>${esc(funit(id))}, ${fmt(food(id).k)} ${L("kkal","kcal")}, ${rp(fprice(id))}</small></div>
+    ${E.items.map(([id,q])=>`<div class="ed-row"><div class="nm"><b>${esc(fname(id))}</b><small>${esc(funit(id))}, ${fmt(food(id).k)} ${L("kkal","kcal")}, ${rp(fprice(id))}${food(id).pr?`, ${L("protein","protein")} ${fmt(food(id).pr)} g`:""}${food(id).keep!=null&&food(id).keep<=3?`, ${L(`tahan ±${food(id).keep<1?"½":fmt(food(id).keep)} hari`,`keeps ±${food(id).keep<1?"½":fmt(food(id).keep)} day${food(id).keep>1?"s":""}`)}`:""}</small></div>
       <div class="step"><button data-act="qty" data-id="${id}" data-v="-1" aria-label="${L("Kurangi","Less")}">−</button><span>${q}</span><button data-act="qty" data-id="${id}" data-v="1" aria-label="${L("Tambah","More")}">+</button></div>
       <button class="rm" data-act="qty" data-id="${id}" data-v="-999" aria-label="${L("Hapus","Remove")} ${esc(fname(id))}">×</button></div>`).join("")||`<p class="note" style="margin-top:12px">${L("Belum ada makanan.","No food yet.")}</p>`}
     <details class="own" open><summary style="font-weight:600;cursor:pointer">${L("Ide menu racikan","Meal ideas")}</summary>
       <p class="hint" style="margin:8px 0 0">${L("Ketuk Tambah untuk memasukkan semua bahannya. Kalori dan harga dihitung otomatis.","Tap Add to put in all the ingredients. Calories and price are calculated automatically.")}</p>
-      ${PRESETS.filter(pr=>pr.for.includes(E.slot)).concat(PRESETS.filter(pr=>!pr.for.includes(E.slot))).slice(0,8).map(pr=>`<div class="preset"><span><b>${esc(L(...pr.n))}</b><small>${esc(pr.items.map(([id,q])=>`${fname(id)} ${qty(id,q)}`).join(", "))}</small><small>±${fmt(kOf(pr.items))} ${L("kkal","kcal")}, ${rp(pr.items.reduce((a,[id,q])=>a+fprice(id)*q,0))}</small></span><button class="edit" data-act="addPreset" data-id="${pr.id}">${L("Tambah","Add")}</button></div>`).join("")}
+      ${PRESETS.filter(pr=>pr.for.includes(E.slot)).concat(PRESETS.filter(pr=>!pr.for.includes(E.slot))).slice(0,8).map(pr=>`<div class="preset"><span><b>${esc(L(...pr.n))}</b><small>${esc(pr.items.map(([id,q])=>`${fname(id)} ${qty(id,q)}`).join(", "))}</small><small>±${fmt(kOf(pr.items))} ${L("kkal","kcal")}, ${L("protein","protein")} ±${fmt(nut(pr.items).pr)} g, ${rp(pr.items.reduce((a,[id,q])=>a+fprice(id)*q,0))}</small>${pr.tip?`<small>${esc(L(...pr.tip))}</small>`:""}</span><button class="edit" data-act="addPreset" data-id="${pr.id}">${L("Tambah","Add")}</button></div>`).join("")}
     </details>
     <div class="addrow"><select id="addSel" aria-label="${L("Pilih makanan","Choose food")}">${groups}</select><button class="btn sm" data-act="addFood">${L("Tambah","Add")}</button></div>
     <details class="own"><summary style="font-weight:600;cursor:pointer">${L("Makanan lain yang tidak ada di daftar","Food not on the list")}</summary>
@@ -982,7 +1069,7 @@ document.addEventListener("click",e=>{
     case "addOwn": {
       const n=$("#ownN").value.trim(), g=+$("#ownG").value||0, u0=$("#ownU").value.trim()||L("porsi","serving"), u=g?`${u0} ${g} g`:u0, k=+$("#ownK").value, p=+$("#ownP").value||0;
       if(!n||!(k>0)){ $("#ownErr").textContent=L("Isi nama makanan dan kalorinya.","Enter the food name and calories."); return; }
-      const id="own_"+Date.now().toString(36); S.ownFoods[id]={n,u,k,g,p,c:"own"};
+      const id="own_"+Date.now().toString(36); S.ownFoods[id]={n,u,k,g,p,c:"own",pr:0,fb:0,keep:999};
       const E=editorData(S.edit); setItems(S.edit,E.items.concat([[id,1]])); save(); return renderSheet();
     }
   }
