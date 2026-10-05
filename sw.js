@@ -1,5 +1,5 @@
 // Naikkan nomor versi setiap kali file aplikasi diperbarui.
-const CACHE = "bekal-nanjak-v4";
+const CACHE = "bekal-nanjak-v7";
 const FILES = [
   "./",
   "./index.html",

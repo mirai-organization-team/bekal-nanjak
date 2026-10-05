@@ -7,49 +7,101 @@
 <meta name="theme-color" content="#1F4D3A">
 <link rel="icon" href="icons/icon-192.png" type="image/png">
 <style>
-:root{--bg:#F3F5F1;--surface:#FFFFFF;--ink:#15201A;--muted:#56655C;--line:#E2E8E1;--pine:#1F4D3A;--pine2:#2F7356;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root{--bg:#111814;--surface:#1B2520;--ink:#EAF0EB;--muted:#9FB0A5;--line:#2E3C34;--pine:#1B4533;--pine2:#6FD39B}}
-*,*::before,*::after{box-sizing:inherit}
+:root{--bg:#F3F5F1;--surface:#FFFFFF;--ink:#15201A;--muted:#56655C;--line:#E2E8E1;--pine:#1F4D3A;--link:#257A4B;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root{--bg:#111814;--surface:#1B2520;--ink:#EAF0EB;--muted:#9FB0A5;--line:#2E3C34;--pine:#1B4533;--link:#6FD39B}}
+*,*::before,*::after{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Barlow,"Segoe UI",Roboto,sans-serif;line-height:1.6}
 header{background:var(--pine);color:#fff;padding:24px 16px}
 header div,main{max-width:720px;margin:0 auto}
 h1{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-size:2.2rem;line-height:1.05;margin:0}
 h2{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-size:1.5rem;margin:28px 0 6px}
 main{padding:8px 16px 48px}
-a{color:var(--pine2)}
+a{color:var(--link)}
 p,li{max-width:68ch}
+nav{display:flex;gap:10px;margin-top:14px}
+nav a{color:#fff;background:rgba(255,255,255,.14);padding:6px 12px;border-radius:8px;text-decoration:none;font-weight:600}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0 0}
 </style>
 </head>
 <body>
-<header><div><p style="margin:0 0 4px;opacity:.85">Bekal Nanjak</p><h1>Kebijakan privasi</h1></div></header>
+<header><div><p style="margin:0 0 4px;opacity:.85">Bekal Nanjak</p><h1>Kebijakan privasi</h1>
+<nav><a href="#id">Bahasa Indonesia</a><a href="#en">English</a></nav></div></header>
 <main>
-<p>Berlaku sejak 5 Oktober 2026, diperbarui 5 Oktober 2026. Bekal Nanjak dikembangkan oleh PT Mirai Internasional Indonesia sebagai pendamping aplikasi Siap Nanjak.</p>
+<section id="id" lang="id">
+<p>Berlaku sejak 5 Oktober 2026. Bekal Nanjak dikembangkan oleh PT Mirai Internasional Indonesia sebagai pendamping aplikasi Siap Nanjak.</p>
 
 <h2>Data yang kamu masukkan</h2>
-<p>Bekal Nanjak meminta jenis kelamin, usia, tinggi badan, berat badan, berat carrier, dan rencana pendakian untuk menghitung estimasi kebutuhan kalori dan bekal. Perhitungan dilakukan sepenuhnya di HP kamu. Data ini tidak dikirim ke server kami dan tidak dibagikan ke pihak lain.</p>
+<p>Bekal Nanjak meminta jenis kelamin, usia, tinggi badan, berat badan, berat carrier, dan rencana pendakian untuk menghitung estimasi kebutuhan kalori dan bekal. Perhitungan dilakukan di HP kamu. Data ini tidak dikirim ke server kami dan tidak kami jual atau bagikan.</p>
 
 <h2>Penyimpanan di HP</h2>
-<p>Isian terakhirmu, riwayat rencana, menu yang kamu ubah, makanan buatanmu, harga yang kamu sesuaikan, dan pilihan bahasa disimpan di penyimpanan lokal HP, supaya tidak perlu mengisi ulang. Data ini tidak dikirim ke mana pun. Riwayat bisa dihapus satu per satu di menu Riwayat, atau seluruhnya dengan menghapus data aplikasi atau data situs di pengaturan HP.</p>
+<p>Isian terakhir, riwayat rencana, menu yang kamu ubah, makanan buatanmu, harga yang kamu sesuaikan, dan pilihan bahasa disimpan di penyimpanan lokal HP. Riwayat bisa dihapus satu per satu di menu Riwayat, atau seluruhnya dengan menghapus data aplikasi atau data situs di pengaturan HP.</p>
+
+<h2>Iklan</h2>
+<p>Bekal Nanjak dapat menampilkan iklan dari mitra iklan pihak ketiga, misalnya Google. Untuk menampilkan dan mengukur iklan, mitra iklan dapat memakai cookie, ID iklan perangkat, alamat IP, serta informasi perangkat dan browser. Iklan bisa dipersonalisasi berdasarkan aktivitasmu di situs dan aplikasi lain, sesuai kebijakan mitra tersebut.</p>
+<p>Data tubuh dan rencana pendakianmu tidak kami kirimkan ke mitra iklan. Kamu dapat mengatur atau menonaktifkan iklan yang dipersonalisasi di <a href="https://adssettings.google.com" rel="noopener">Setelan Iklan Google</a> dan di pengaturan Google pada HP Android. Cara Google memakai data dijelaskan di <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">halaman ini</a>. Jika diwajibkan oleh hukum di wilayahmu, kami akan meminta persetujuanmu sebelum iklan yang dipersonalisasi ditampilkan.</p>
+
+<h2>Layanan pihak ketiga lainnya</h2>
+<p>Tampilan huruf dimuat dari Google Fonts, sehingga Google dapat menerima informasi teknis seperti alamat IP. Aplikasi di-hosting di GitHub Pages, yang dapat mencatat log akses teknis.</p>
 
 <h2>Yang tidak kami lakukan</h2>
 <ul>
 <li>Tidak meminta akun atau login.</li>
 <li>Tidak mengakses lokasi, kamera, kontak, atau berkas di HP.</li>
-<li>Tidak memasang iklan atau pelacak analitik.</li>
+<li>Tidak mengirim data kesehatan atau data tubuhmu ke server kami atau ke mitra iklan.</li>
 </ul>
 
-<h2>Layanan pihak ketiga</h2>
-<p>Tampilan huruf dimuat dari Google Fonts saat pertama kali aplikasi dibuka dengan internet. Saat itu Google dapat menerima informasi teknis seperti alamat IP, sesuai kebijakan privasi Google. Aplikasi di-hosting di GitHub Pages.</p>
+<h2>Anak-anak</h2>
+<p>Bekal Nanjak ditujukan untuk pengguna berusia 18 tahun ke atas dan tidak dirancang untuk anak-anak.</p>
 
-<h2>Salin daftar belanja</h2>
-<p>Tombol salin hanya menyalin daftar belanja ke clipboard HP kamu. Kamu sendiri yang memilih mau menempelkannya ke mana.</p>
+<h2>Bukan saran medis</h2>
+<p>Hasil di aplikasi adalah estimasi dan saran umum. Sesuaikan dengan pola makan, alergi, dan toleransimu terhadap makanan. Jika kamu sedang hamil atau menyusui, menjalani diet khusus, atau punya kondisi kesehatan tertentu, diskusikan rencana makan dengan tenaga kesehatan.</p>
 
-<h2>Tentang perhitungan</h2>
-<p>Hasil di aplikasi adalah estimasi, bukan saran medis. Jika kamu punya kondisi kesehatan tertentu, diskusikan rencana makan dengan tenaga kesehatan.</p>
+<h2>Hakmu dan perubahan kebijakan</h2>
+<p>Karena data tersimpan di HP-mu, kamu bisa melihat, mengubah, dan menghapusnya kapan saja. Jika kebijakan ini berubah, tanggal berlaku di atas akan diperbarui.</p>
 
 <h2>Kontak</h2>
 <p>Pertanyaan tentang kebijakan ini dapat dikirim ke <a href="mailto:contact@mirai.co.id">contact@mirai.co.id</a>.</p>
-<p><a href="./">Kembali ke Bekal Nanjak</a></p>
+</section>
+
+<hr>
+
+<section id="en" lang="en">
+<h2 style="font-size:2rem;margin-top:24px">Privacy policy</h2>
+<p>Effective 5 October 2026. Bekal Nanjak is developed by PT Mirai Internasional Indonesia as a companion to the Siap Nanjak app.</p>
+
+<h2>Information you enter</h2>
+<p>Bekal Nanjak asks for your sex, age, height, weight, pack weight, and hiking plan to estimate your calorie and food needs. Calculations run on your phone. This data is not sent to our servers, and we do not sell or share it.</p>
+
+<h2>Storage on your phone</h2>
+<p>Your latest inputs, plan history, edited menus, custom foods, adjusted prices, and language choice are stored in your phone's local storage. You can delete plans one by one in History, or delete everything by clearing the app or site data in your phone settings.</p>
+
+<h2>Advertising</h2>
+<p>Bekal Nanjak may show ads from third-party ad partners, such as Google. To show and measure ads, ad partners may use cookies, device advertising IDs, IP addresses, and device and browser information. Ads may be personalised based on your activity on other sites and apps, under those partners' policies.</p>
+<p>We do not send your body data or hiking plans to ad partners. You can manage or turn off personalised ads in <a href="https://adssettings.google.com" rel="noopener">Google Ad Settings</a> and in the Google settings on your Android phone. How Google uses data is explained <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">on this page</a>. Where the law in your region requires it, we will ask for your consent before showing personalised ads.</p>
+
+<h2>Other third-party services</h2>
+<p>Fonts are loaded from Google Fonts, so Google may receive technical information such as your IP address. The app is hosted on GitHub Pages, which may keep technical access logs.</p>
+
+<h2>What we don't do</h2>
+<ul>
+<li>We don't require an account or login.</li>
+<li>We don't access your location, camera, contacts, or files.</li>
+<li>We don't send your health or body data to our servers or to ad partners.</li>
+</ul>
+
+<h2>Children</h2>
+<p>Bekal Nanjak is intended for users aged 18 and over and is not designed for children.</p>
+
+<h2>Not medical advice</h2>
+<p>Results are estimates and general suggestions. Adjust them to your diet, allergies, and food tolerances. If you are pregnant or breastfeeding, on a special diet, or have a health condition, discuss your meal plan with a health professional.</p>
+
+<h2>Your rights and changes</h2>
+<p>Because your data stays on your phone, you can view, change, and delete it at any time. If this policy changes, the effective date above will be updated.</p>
+
+<h2>Contact</h2>
+<p>Questions about this policy can be sent to <a href="mailto:contact@mirai.co.id">contact@mirai.co.id</a>.</p>
+</section>
+<p style="margin-top:32px"><a href="./">Kembali ke Bekal Nanjak / Back to Bekal Nanjak</a></p>
 </main>
 </body>
 </html>

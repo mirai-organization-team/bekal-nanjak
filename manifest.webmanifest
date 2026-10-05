@@ -8,7 +8,7 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#F3F5F1",
+  "background_color": "#FFF4E8",
   "theme_color": "#1F4D3A",
   "categories": ["health", "sports", "travel"],
   "icons": [
