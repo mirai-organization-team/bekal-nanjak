@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bekal Nanjak</title>
+<meta name="description" content="Hitung kebutuhan kalori pendakian, daftar belanja bekal, jadwal ngemil, dan kebutuhan air.">
+<meta name="theme-color" content="#1F4D3A">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F5F1; --surface:#FFFFFF; --ink:#15201A; --muted:#56655C; --line:#E2E8E1;
+  --pine:#1F4D3A; --pine2:#2F7356; --greenbg:#E3F3E9; --green:#257A4B;
+  --blaze:#E2642A; --blaze-ink:#B4501E; --amber:#A86F07; --amberbg:#FCF1D8; --red:#B8352A; --redbg:#FBE8E5;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#111814; --surface:#1B2520; --ink:#EAF0EB; --muted:#9FB0A5; --line:#2E3C34;
+    --pine:#1B4533; --pine2:#2C6A50; --greenbg:#16301F; --green:#6FD39B;
+    --blaze:#F07A42; --blaze-ink:#F07A42; --amber:#F0C35A; --amberbg:#352A12; --red:#F08A7E; --redbg:#3A1E1B;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111814; --surface:#1B2520; --ink:#EAF0EB; --muted:#9FB0A5; --line:#2E3C34;
+  --pine:#1B4533; --pine2:#2C6A50; --greenbg:#16301F; --green:#6FD39B;
+  --blaze:#F07A42; --blaze-ink:#F07A42; --amber:#F0C35A; --amberbg:#352A12; --red:#F08A7E; --redbg:#3A1E1B;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Barlow,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:700;line-height:1.05;margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding-left:16px;padding-right:16px}
+
+/* header topo, sama dengan Siap Nanjak */
+.top{position:relative;background:var(--pine);color:#fff;overflow:hidden}
+.topo{position:absolute;inset:0;width:100%;height:100%;opacity:.22;pointer-events:none}
+.top .wrap{position:relative;padding-top:22px;padding-bottom:26px}
+.hdr-sub{font-size:.95rem;opacity:.85;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+.top h1{font-size:2.4rem;letter-spacing:.01em}
+.hdr-meta{margin:8px 0 0;opacity:.9;max-width:56ch}
+
+main.wrap{padding-top:20px;padding-bottom:40px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:16px;align-items:start}
+@media (max-width:880px){.grid{grid-template-columns:1fr}}
+.stack{display:grid;gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.card h2{font-size:1.5rem;margin-bottom:14px}
+
+.toggle{display:grid;grid-template-columns:1fr 1fr;background:var(--bg);border-radius:12px;padding:4px;margin-bottom:20px}
+.toggle label{position:relative}
+.toggle input{position:absolute;opacity:0}
+.toggle span{display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:10px;font-weight:600;color:var(--muted);cursor:pointer}
+.toggle input:checked+span{background:var(--pine);color:#fff}
+.toggle input:focus-visible+span{outline:2px solid var(--blaze);outline-offset:1px}
+
+.slider{margin-bottom:18px}
+.slider:last-child{margin-bottom:0}
+.slider .top-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.slider .name{color:var(--muted)}
+.slider output{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.4rem;line-height:1;font-variant-numeric:tabular-nums}
+.slider output small{font-family:Barlow,sans-serif;font-weight:500;color:var(--muted);font-size:.85rem;margin-left:3px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:99px;background:var(--line);outline:none;margin:0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--surface);border:3px solid var(--pine2);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--surface);border:3px solid var(--pine2);cursor:pointer}
+input[type=range]:focus-visible::-webkit-slider-thumb{outline:3px solid var(--blaze)}
+
+.chips{display:flex;gap:8px;overflow-x:auto;margin:0 -18px 14px;padding:0 18px 4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font:inherit;font-weight:600;min-height:40px;padding:0 15px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;white-space:nowrap}
+.chip[aria-pressed=true]{background:var(--pine);color:#fff;border-color:var(--pine)}
+.chip:focus-visible,.pill:focus-visible,.btn:focus-visible,summary:focus-visible{outline:2px solid var(--blaze);outline-offset:2px}
+.route{font-size:.92rem;color:var(--muted);margin:0 0 14px}
+.inputs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.inputs label{font-size:.85rem;color:var(--muted)}
+.inputs input{display:block;width:100%;margin-top:5px;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.3rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.inputs input:focus{outline:none;border-color:var(--pine2)}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{font:inherit;font-size:.92rem;font-weight:600;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.pill[aria-pressed=true]{background:var(--greenbg);color:var(--green);border-color:transparent}
+
+.result{position:sticky;top:calc(16px + env(safe-area-inset-top,0px))}
+@media (max-width:880px){.result{position:static}}
+.hero{position:relative;overflow:hidden;background:var(--pine);color:#fff;border-radius:12px;padding:16px 18px;margin-bottom:10px}
+.hero .topo{opacity:.18}
+.big{position:relative;display:flex;align-items:baseline;gap:8px}
+.big b{font-family:"Barlow Condensed",sans-serif;font-size:3.6rem;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.big span{opacity:.9;font-weight:500}
+.sub{position:relative;opacity:.9;font-size:.92rem;margin:4px 0 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}
+.stat{border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.stat small{display:block;color:var(--muted);font-size:.8rem}
+.stat b{font-family:"Barlow Condensed",sans-serif;font-size:1.35rem;font-weight:700;font-variant-numeric:tabular-nums}
+#sWeight{color:var(--blaze-ink)}#sWater{color:var(--pine2)}
+.chart{margin:0 -4px 6px}
+.chart svg{width:100%;height:auto;display:block}
+.snack{display:flex;gap:10px;align-items:flex-start;font-size:.95rem;color:var(--muted);margin:0 0 18px}
+.snack i{flex:none;width:10px;height:10px;border-radius:50%;background:var(--blaze);margin-top:7px}
+.snack b{color:var(--ink);font-weight:600}
+.alert{font-size:.92rem;background:var(--amberbg);color:var(--ink);border-radius:10px;padding:10px 12px;margin:0 0 12px}
+.list h3{font-size:1.25rem;margin:18px 0 8px}
+.list h3:first-child{margin-top:0}
+.group{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 12px;border-bottom:1px solid var(--line);font-weight:600}
+.item:last-child{border-bottom:0}
+.item .q{font-weight:600;font-size:.9rem;background:var(--bg);border-radius:8px;padding:3px 10px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.btn{width:100%;margin-top:16px;border:0;border-radius:14px;min-height:52px;font-family:"Barlow Condensed",sans-serif;font-size:1.4rem;font-weight:700;background:var(--pine);color:#fff;cursor:pointer}
+.btn:active{background:var(--pine2)}
+.toast{text-align:center;font-size:.9rem;color:var(--green);min-height:1.3em;margin:8px 0 0}
+textarea{width:100%;min-height:150px;margin-top:8px;font:inherit;font-size:.88rem;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+details{margin-top:24px;color:var(--muted);font-size:.92rem;max-width:68ch}
+summary{cursor:pointer;font-weight:600;color:var(--ink)}
+details p{margin:10px 0 0}
+footer{margin-top:20px;font-size:.85rem;color:var(--muted)}
+footer a{color:var(--pine2)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="topo" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">
+    <g fill="none" stroke="#fff" stroke-width="1.4">
+      <path d="M-20 230C60 180 110 200 170 150S290 60 420 90"/>
+      <path d="M-20 250C70 205 120 222 180 175S300 90 420 115"/>
+      <path d="M-20 205C50 160 100 175 160 128S280 35 420 62"/>
+      <path d="M-20 180C45 140 95 150 150 105S270 10 420 35"/>
+      <path d="M250 70c20-18 55-22 70-6s-8 40-35 44-52-20-35-38z"/>
+      <path d="M262 72c14-10 36-12 45-2s-6 24-22 26-32-12-23-24z"/>
+      <path d="M-20 270C80 230 130 245 190 200S310 120 420 140"/>
+    </g>
+  </symbol>
+</svg>
+<header class="top">
+  <svg class="topo" aria-hidden="true"><use href="#topo"/></svg>
+  <div class="wrap">
+    <p class="hdr-sub">Bekal Nanjak</p>
+    <h1>Bekal yang pas untuk pendakianmu</h1>
+    <p class="hdr-meta">Atur data tubuh dan jalur. Kebutuhan kalori, daftar belanja, dan jadwal ngemil langsung menyesuaikan.</p>
+  </div>
+</header>
+<main class="wrap">
+  <div class="grid">
+    <div class="stack">
+      <section class="card">
+        <h2>Tentang kamu</h2>
+        <div class="toggle" role="radiogroup" aria-label="Jenis kelamin">
+          <label><input type="radio" name="sex" value="m" checked><span>Laki-laki</span></label>
+          <label><input type="radio" name="sex" value="f"><span>Perempuan</span></label>
+        </div>
+        <div class="slider"><div class="top-row"><span class="name">Usia</span><output id="o-age"></output></div>
+          <input type="range" id="age" min="14" max="70" value="25" aria-label="Usia"></div>
+        <div class="slider"><div class="top-row"><span class="name">Tinggi badan</span><output id="o-height"></output></div>
+          <input type="range" id="height" min="140" max="200" value="168" aria-label="Tinggi badan"></div>
+        <div class="slider"><div class="top-row"><span class="name">Berat badan</span><output id="o-weight"></output></div>
+          <input type="range" id="weight" min="35" max="130" value="62" aria-label="Berat badan"></div>
+        <div class="slider"><div class="top-row"><span class="name">Berat carrier</span><output id="o-load"></output></div>
+          <input type="range" id="load" min="0" max="30" value="12" aria-label="Berat carrier"></div>
+      </section>
+
+      <section class="card">
+        <h2>Pendakian</h2>
+        <div class="chips" id="chips" role="group" aria-label="Pilih gunung"></div>
+        <p class="route" id="route"></p>
+        <div class="inputs">
+          <label>Hari<input type="number" id="days" min="1" max="7" inputmode="numeric"></label>
+          <label>Jam jalan<input type="number" id="hours" min="2" max="60" inputmode="decimal"></label>
+          <label>Naik (m)<input type="number" id="gain" min="100" max="4000" step="10" inputmode="numeric"></label>
+        </div>
+        <div class="pills">
+          <button type="button" class="pill" id="cold" aria-pressed="true">Malam dingin</button>
+          <button type="button" class="pill" id="light" aria-pressed="false">Carrier ringan</button>
+          <button type="button" class="pill" id="veg" aria-pressed="false">Vegetarian</button>
+        </div>
+      </section>
+    </div>
+
+    <aside class="result card" aria-live="polite">
+      <div class="hero">
+        <svg class="topo" aria-hidden="true"><use href="#topo"/></svg>
+        <div class="big"><b id="perDay">–</b><span>kkal/hari</span></div>
+        <p class="sub" id="sub"></p>
+      </div>
+      <div class="stats">
+        <div class="stat"><small>Total</small><b id="sTotal"></b></div>
+        <div class="stat"><small>Berat bekal</small><b id="sWeight"></b></div>
+        <div class="stat"><small>Air</small><b id="sWater"></b></div>
+      </div>
+      <div id="alerts"></div>
+      <div class="chart">
+        <svg id="chart" viewBox="0 0 400 120" role="img" aria-label="Profil jalur skematis dengan titik waktu ngemil">
+          <defs><linearGradient id="fade" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--pine2)" stop-opacity=".2"/><stop offset="1" stop-color="var(--pine2)" stop-opacity="0"/></linearGradient></defs>
+          <path id="area" fill="url(#fade)"></path>
+          <path id="line" fill="none" stroke="var(--pine2)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"></path>
+          <g id="marks"></g><g id="labels" font-size="10" fill="var(--muted)" font-family="inherit"></g>
+        </svg>
+      </div>
+      <p class="snack"><i></i><span id="snack"></span></p>
+      <div class="list" id="list"></div>
+      <button type="button" class="btn" id="copy">Salin daftar belanja</button>
+      <p class="toast" id="toast" role="status"></p>
+      <textarea id="copybox" readonly hidden aria-label="Daftar belanja"></textarea>
+    </aside>
+  </div>
+
+  <details>
+    <summary>Tentang perhitungan</summary>
+    <p>Kebutuhan dasar memakai rumus BMR Mifflin-St Jeor. Energi mendaki memakai nilai MET berjalan dengan beban yang disesuaikan dengan tanjakan; faktor penyesuaian ini masih asumsi dan belum divalidasi. Kalori makanan adalah rata-rata kemasan di pasaran dan data jalur adalah perkiraan, jadi cek label produk dan info basecamp.</p>
+    <p>Semua angka adalah estimasi. Jika punya kondisi medis seperti diabetes atau gangguan jantung, diskusikan rencana makan dengan tenaga kesehatan.</p>
+  </details>
+  <footer>
+    <p>Bekal Nanjak, pendamping Siap Nanjak. Dikembangkan oleh PT Mirai Internasional Indonesia. <a href="privacy.html">Kebijakan privasi</a></p>
+  </footer>
+</main>
+<script>
+const MOUNTAINS = {
+  merbabu:{name:"Merbabu",  via:"Selo",        base:1800,peak:3145,days:2,hours:11,gain:1350},
+  gede:{name:"Gede",        via:"Cibodas",     base:1300,peak:2958,days:2,hours:13,gain:1650},
+  pangrango:{name:"Pangrango",via:"Cibodas",   base:1300,peak:3019,days:2,hours:15,gain:1720},
+  prau:{name:"Prau",        via:"Patak Banteng",base:2100,peak:2565,days:2,hours:5,gain:470},
+  sindoro:{name:"Sindoro",  via:"Kledung",     base:1450,peak:3153,days:2,hours:13,gain:1700},
+  lawu:{name:"Lawu",        via:"Cemoro Sewu", base:1820,peak:3265,days:2,hours:11,gain:1450},
+  semeru:{name:"Semeru",    via:"Ranu Pane",   base:2100,peak:3676,days:4,hours:26,gain:1900},
+  rinjani:{name:"Rinjani",  via:"Sembalun",    base:1150,peak:3726,days:3,hours:26,gain:2600},
+  custom:{name:"Lainnya",   via:null,          base:null,peak:null,days:2,hours:10,gain:1200}
+};
+const FOODS = {
+  beras:{n:"Beras",u:"100 g",k:360,g:100}, mie:{n:"Mie instan",u:"bks",k:390,g:85},
+  abon:{n:"Abon sapi",u:"30 g",k:150,g:30}, telur:{n:"Telur rebus",u:"btr",k:75,g:60},
+  tempe:{n:"Kering tempe",u:"50 g",k:250,g:50}, oat:{n:"Oatmeal instan",u:"sachet",k:150,g:40},
+  roti:{n:"Roti tawar",u:"2 lbr",k:160,g:60}, kurma:{n:"Kurma",u:"5 btr",k:140,g:50},
+  coklat:{n:"Cokelat batang",u:"50 g",k:260,g:50}, kacang:{n:"Kacang campur",u:"50 g",k:290,g:50},
+  rotisi:{n:"Roti isi",u:"bks",k:230,g:70}, wafer:{n:"Wafer / biskuit",u:"bks",k:240,g:50},
+  aren:{n:"Gula aren",u:"30 g",k:110,g:30}, energen:{n:"Sereal instan",u:"sachet",k:130,g:30},
+  teh:{n:"Teh / kopi manis",u:"sachet",k:100,g:25}
+};
+function plan(light,veg){
+  return [
+    {t:"Makan di camp",share:light?.48:.55,items:light
+      ?[["mie",.30],["beras",.15],["oat",.25],[veg?"tempe":"abon",.20],["roti",.10]]
+      :[["beras",.40],["mie",.22],[veg?"tempe":"abon",.16],["oat",.12],[veg?"kacang":"telur",.10]]},
+    {t:"Camilan di jalur",share:light?.42:.35,trail:true,items:light
+      ?[["kacang",.30],["coklat",.25],["kurma",.20],["wafer",.15],["aren",.10]]
+      :[["kurma",.20],["coklat",.18],["kacang",.17],["rotisi",.17],["wafer",.16],["aren",.12]]},
+    {t:"Minuman hangat",share:.10,items:[["energen",.5],["teh",.5]]}
+  ];
+}
+const $=s=>document.querySelector(s);
+const fmt=n=>Math.round(n).toLocaleString("id-ID");
+const kg=g=>(g/1000).toLocaleString("id-ID",{maximumFractionDigits:1})+" kg";
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const val=(id,d,a,b)=>{const v=parseFloat($("#"+id).value);return isFinite(v)?clamp(v,a,b):d};
+let current="merbabu", lastText="";
+
+// sliders
+const units={age:"th",height:"cm",weight:"kg",load:"kg"};
+function paint(el){
+  const p=(el.value-el.min)/(el.max-el.min)*100;
+  el.style.background=`linear-gradient(to right,var(--pine2) ${p}%,var(--line) ${p}%)`;
+  $("#o-"+el.id).innerHTML=`${el.value}<small>${units[el.id]}</small>`;
+}
+document.querySelectorAll("input[type=range]").forEach(el=>{paint(el);el.addEventListener("input",()=>{paint(el);calc()})});
+document.querySelectorAll("input[name=sex]").forEach(el=>el.addEventListener("change",()=>calc()));
+document.querySelectorAll(".inputs input").forEach(el=>el.addEventListener("input",()=>calc()));
+document.querySelectorAll(".pill").forEach(el=>el.addEventListener("click",()=>{el.setAttribute("aria-pressed",el.getAttribute("aria-pressed")!=="true");calc()}));
+const on=id=>$("#"+id).getAttribute("aria-pressed")==="true";
+
+// chips
+for(const [id,m] of Object.entries(MOUNTAINS)){
+  const b=document.createElement("button");b.type="button";b.className="chip";b.textContent=m.name;b.dataset.id=id;
+  b.addEventListener("click",()=>selectMountain(id));$("#chips").appendChild(b);
+}
+function selectMountain(id){
+  current=id;const m=MOUNTAINS[id];
+  document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.id===id));
+  $("#days").value=m.days;$("#hours").value=m.hours;$("#gain").value=m.gain;
+  $("#route").textContent=m.base?`Via ${m.via}, dari ${fmt(m.base)} ke ${fmt(m.peak)} mdpl. Angka perkiraan, ubah jika rencanamu berbeda.`:"Isi lama, jam jalan, dan total tanjakan sesuai info basecamp.";
+  calc();
+}
+
+function calc(){
+  const sex=$("input[name=sex]:checked").value;
+  const age=+$("#age").value,h=+$("#height").value,w=+$("#weight").value,load=+$("#load").value;
+  const days=Math.round(val("days",2,1,7)),hours=val("hours",10,2,Math.min(60,days*14)),gain=val("gain",1200,100,4000);
+  const cold=on("cold"),light=on("light"),veg=on("veg");
+
+  const bmr=10*w+6.25*h-5*age+(sex==="m"?5:-161);
+  const ascH=hours*.6,descH=hours*.4;
+  const metUp=clamp(5.5+(gain/ascH)/120,5.5,9.5);
+  const trekK=(metUp*ascH+5*descH)*(w+load);
+  const restK=bmr/24*(days*24-hours)*(cold?1.3:1.2);
+  const total=trekK+restK,perDay=total/days;
+  const toBring=Math.max(total-0.6*bmr,perDay*.6);
+
+  let html="",sumK=0,sumG=0,trailK=0;
+  const m=MOUNTAINS[current];
+  const txt=[`Bekal ${m.base?m.name+" via "+m.via:"pendakian"}, ${days} hari`];
+  for(const gr of plan(light,veg)){
+    html+=`<h3>${gr.t}</h3><div class="group">`;txt.push(`\n${gr.t}`);
+    for(const [id,s] of gr.items){
+      const f=FOODS[id],q=Math.max(1,Math.round(toBring*gr.share*s/f.k));
+      sumK+=q*f.k;sumG+=q*f.g;if(gr.trail)trailK+=q*f.k;
+      html+=`<div class="item"><span>${f.n}</span><span class="q">${q} × ${f.u}</span></div>`;
+      txt.push(`- ${f.n}: ${q} × ${f.u}`);
+    }
+    html+=`</div>`;
+  }
+  $("#list").innerHTML=html;
+
+  const water=Math.round((hours*.6+days*1.5+(days-1)*.5)*2)/2;
+  const perHour=Math.round(trailK/hours/10)*10;
+  $("#perDay").textContent=fmt(perDay);
+  $("#sub").textContent=`Sekitar ${(perDay/2000).toLocaleString("id-ID",{maximumFractionDigits:1})}× kebutuhan harian biasa.`;
+  $("#sTotal").textContent=fmt(total)+" kkal";
+  $("#sWeight").textContent=kg(sumG);
+  $("#sWater").textContent=water.toLocaleString("id-ID")+" L";
+  $("#snack").innerHTML=`<b>Ngemil ±${fmt(perHour)} kkal tiap jam jalan</b>, misalnya 2 kurma dan setengah batang cokelat. Jangan tunggu lapar.`;
+
+  const al=[];
+  if(perDay>4200)al.push("Kebutuhanmu tinggi dan nafsu makan sering turun di ketinggian. Makan sedikit tapi sering.");
+  if(load>w*.3)al.push("Carrier lebih dari 30% berat badan. Coba mode carrier ringan atau bagi logistik dengan tim.");
+  $("#alerts").innerHTML=al.map(a=>`<p class="alert">${a}</p>`).join("");
+
+  lastText=txt.join("\n")+`\n\nTotal ±${fmt(sumK)} kkal, ${kg(sumG)}\nAir ±${water} L\nNgemil ±${perHour} kkal tiap jam jalan`;
+  draw(hours,gain,m);
+}
+
+function draw(hours,gain,m){
+  const W=400,H=120,L=4,R=4,T=14,B=18,ascH=hours*.6;
+  const x=t=>L+t/hours*(W-L-R), y=e=>T+(1-e/(gain*1.05))*(H-T-B);
+  const el=t=>{if(t<=ascH){const p=t/ascH;return gain*(Math.pow(p,1.15)+.1*Math.sin(p*15)*p*(1-p))}
+    const p=(t-ascH)/(hours-ascH);return gain*(1-(1-Math.pow(1-p,1.4)))};
+  let d="";for(let i=0;i<=80;i++){const t=hours*i/80;d+=(i?"L":"M")+x(t).toFixed(1)+" "+y(el(t)).toFixed(1)}
+  $("#line").setAttribute("d",d);
+  $("#area").setAttribute("d",d+`L${x(hours)} ${H-B}L${x(0)} ${H-B}Z`);
+  let mk="";for(let t=1;t<hours-.3;t++)mk+=`<circle cx="${x(t).toFixed(1)}" cy="${y(el(t)).toFixed(1)}" r="3.4" fill="var(--blaze)" stroke="var(--surface)" stroke-width="1.5"><title>Jam ke-${t}</title></circle>`;
+  $("#marks").innerHTML=mk;
+  $("#labels").innerHTML=`<text x="${x(ascH)}" y="${T-4}" text-anchor="middle" fill="var(--ink)" font-weight="700">${m.peak?fmt(m.peak)+" mdpl":"+"+fmt(gain)+" m"}</text>`+
+    `<text x="${L}" y="${H-4}">Mulai</text><text x="${W-R}" y="${H-4}" text-anchor="end">${fmt(hours)} jam</text>`;
+}
+
+$("#copy").addEventListener("click",async()=>{
+  const box=$("#copybox");
+  try{await navigator.clipboard.writeText(lastText);box.hidden=true;$("#toast").textContent="Daftar belanja disalin."}
+  catch{box.value=lastText;box.hidden=false;box.select();$("#toast").textContent="Pilih teks di bawah lalu salin."}
+});
+// ---------- simpan pilihan terakhir di HP ----------
+const KEY="bekal-nanjak:input";
+function save(){
+  try{
+    localStorage.setItem(KEY,JSON.stringify({
+      sex:$("input[name=sex]:checked").value, age:$("#age").value, height:$("#height").value,
+      weight:$("#weight").value, load:$("#load").value, mountain:current,
+      days:$("#days").value, hours:$("#hours").value, gain:$("#gain").value,
+      cold:on("cold"), light:on("light"), veg:on("veg")
+    }));
+  }catch(e){}
+}
+function restore(){
+  let d=null;
+  try{d=JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){}
+  if(!d||!MOUNTAINS[d.mountain]){selectMountain("merbabu");return}
+  const r=document.querySelector(`input[name=sex][value="${d.sex==="f"?"f":"m"}"]`); if(r) r.checked=true;
+  for(const id of ["age","height","weight","load"]){ if(d[id]!=null){$("#"+id).value=d[id]; paint($("#"+id));} }
+  for(const id of ["cold","light","veg"]) $("#"+id).setAttribute("aria-pressed", !!d[id]);
+  selectMountain(d.mountain);
+  for(const id of ["days","hours","gain"]) if(d[id]) $("#"+id).value=d[id];
+  calc();
+}
+const _calc=calc; calc=function(){_calc(); save();};
+restore();
+
+// ---------- offline ----------
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})});
+}
+</script>
+</body>
+</html>
