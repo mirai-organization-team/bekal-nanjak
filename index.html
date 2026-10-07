@@ -186,7 +186,7 @@ footer a{color:var(--green)}
 .lm{width:9px;height:9px;background:var(--pine2);transform:rotate(45deg);display:inline-block}
 .tld>summary{cursor:pointer;font-weight:600;color:var(--green);min-height:40px;display:flex;align-items:center}
 .tlist{display:grid;margin:2px 0 6px}
-.tl{display:grid;grid-template-columns:48px 14px minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--line);font-size:.92rem}
+.tl{display:grid;grid-template-columns:48px 26px minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--line);font-size:.92rem}
 .tl:first-child{border-top:0}
 .tl .tm{font-variant-numeric:tabular-nums;font-weight:600}
 .tl .mk{width:10px;height:10px;border-radius:50%;background:var(--line);justify-self:center}
@@ -297,6 +297,40 @@ footer a{color:var(--green)}
 .intro-acts .btn{flex:1;width:auto}
 .intro-acts .btn.ghost{flex:0 0 auto;padding:0 20px;border-color:rgba(255,255,255,.4)}
 @media (prefers-reduced-motion:reduce){.dots button{transition:none}}
+.avoid{border-top:1px solid var(--line);padding:12px 0}
+.avoid b{display:block}.avoid small{display:block;color:var(--muted);font-size:.86rem;margin-bottom:8px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{font:inherit;font-size:.9rem;font-weight:600;min-height:40px;padding:0 14px;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.pill[aria-pressed=true]{background:var(--greenbg);color:var(--green);border-color:transparent}
+.preset.bad{opacity:.7}
+.preset .warn{display:block;color:var(--blaze-ink);font-weight:600;font-size:.82rem}
+.trailbtn{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;border:0;border-radius:14px;background:var(--blaze);color:#fff;padding:14px 16px;margin-bottom:12px;cursor:pointer;font-size:1.4rem}
+.trailbtn b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:1.4rem}
+.trailbtn small{display:block;font-size:.88rem;opacity:.92}
+.nextc{background:var(--pine);color:#fff;border-radius:16px;padding:18px;margin-bottom:14px}
+.nextc.late{background:var(--blaze)}
+.nextc small{opacity:.85}
+.nextc b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:2rem;line-height:1.1;margin:4px 0}
+.nextc p{margin:0 0 12px;opacity:.95}
+.row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.row3 .btn{width:100%;font-size:1.05rem;padding:0 6px}
+.row3 .btn.ghost{color:var(--ink);border-color:var(--line)}
+.tl.got .ac b{text-decoration:line-through;color:var(--muted)}
+.tl .ck{margin:0;justify-self:center}
+.remind{position:fixed;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--blaze);color:#fff;border-radius:12px;padding:12px 14px;font-weight:600;z-index:6}
+.hbtn.sos{background:rgba(226,100,42,.9)}
+.sos-btn{background:#B8352A!important;color:#fff!important}
+.sosn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.sosn a{display:block;text-decoration:none;color:var(--ink);background:var(--bg);border-radius:12px;padding:10px;text-align:center}
+.sosn b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:1.8rem;color:var(--red)}
+.sosn small{color:var(--muted);font-size:.8rem}
+.sosc ol{margin:0 0 8px;padding-left:20px}
+.sub2.red{color:var(--red)}
+.notep{display:block;width:100%;text-align:left;border:0;border-radius:14px;background:rgba(255,255,255,.14);color:#fff;padding:12px 14px;margin-bottom:10px;cursor:pointer}
+.notep b{display:block}.notep small{opacity:.85}
+small.green{color:var(--green)!important}
+.hist{flex-wrap:wrap}
+.hist .info{flex:1 1 170px}
 /* history */
 .hist{display:flex;gap:10px;align-items:center;border-top:1px solid var(--line);padding:12px 0}
 .hist:first-of-type{border-top:0}
@@ -726,7 +760,7 @@ function defaults(){const st=addDays(todayStr(),7);return{
   prov:"", mountain:"", route:"", base:"", peakManual:"", upManual:"", downManual:"",
   type:"multi", start:st, end:addDays(st,1), startTime:"08:00", pace:"slow",
   sex:"m", age:25, height:168, weight:62, load:12, cold:true, light:false, veg:false,
-  meals:{}, custom:{}, ownFoods:{}, prices:{}, people:1, got:{}, shareMode:"list", members:[], assign:{}, recipeOf:{}, taskM:0, sent:{}, reserve:"meal", tipsOpen:false, editPrice:false, edit:null, term:null, exp:"first", tab:"sum"
+  meals:{}, custom:{}, ownFoods:{}, prices:{}, people:1, got:{}, shareMode:"list", members:[], assign:{}, recipeOf:{}, taskM:0, sent:{}, avoid:{}, trail:{done:{},water:{}}, trailDay:null, bcPhone:"", adjFood:1, adjWater:1, noteFor:null, reserve:"meal", tipsOpen:false, editPrice:false, edit:null, term:null, exp:"first", tab:"sum"
 }}
 S=defaults();
 try{const s=JSON.parse(localStorage.getItem(KEY)||"null"); if(s&&typeof s==="object") S={...defaults(),...s,view:"welcome",edit:null,term:null,confirm:null};}catch(e){}
@@ -819,8 +853,32 @@ function template(slot,i){
   return [];
 }
 function mealRecipes(key,slot,i){ if(S.custom[key]) return (S.recipeOf&&S.recipeOf[key])||[]; const r=templateRecipe(slot,i); return r?[r]:[]; }
+const TAGS={
+  nuts:["kacang","selaikacang"],
+  seafood:["sarden","teri","tuna","saustiram"],
+  dairy:["keju","susububuk","skm","coklatpanas","energen"],
+  egg:["telur","telurmentah"],
+  sugar:["aren","gula","madu","permen","jelly","skm","selaicoklat","teh","jahe","coklatpanas","energen"],
+  meat:["abon","sosis","sarden","kornet","rendang","dendeng","ayamungkep","teri","tuna","nugget","saustiram"]
+};
+const AVOID_LBL={nuts:["Tanpa kacang","No nuts"],seafood:["Tanpa seafood","No seafood"],dairy:["Tanpa susu","No dairy"],egg:["Tanpa telur","No eggs"],sugar:["Kurangi gula","Less sugar"]};
+const ALT={protein:["tempe","tempegoreng","tahubacem","abon","ayamungkep","telurmentah","sosis","kornet"],camilan:["kurma","kismis","biskuit","energybar","pisang","coklat","wafer","keripik"],minum:["kopi","elektrolit"],karbo:["beras","oat","roti"]};
+function avoidTags(){ const t=Object.keys(S.avoid||{}).filter(k=>S.avoid[k]); if(S.veg) t.push("meat"); return t; }
+function avoidedBy(id){ return avoidTags().filter(t=>TAGS[t].includes(id)); }
+const isAvoided=id=>avoidedBy(id).length>0;
+function filterAvoid(t){
+  const present=new Set(t.map(x=>x[0])); let out=[];
+  t.forEach(([id,q,f])=>{
+    if(!isAvoided(id)){ out.push([id,q,f]); return; }
+    const alt=(ALT[FOODS[id].c]||[]).find(a=>!isAvoided(a)&&!present.has(a));
+    if(alt){ present.add(alt); out.push([alt,q,f]); } else if(f) out.push(["beras",1,1]);
+  });
+  if(out.length&&!out.some(x=>x[2])) out[0][2]=1;
+  return out;
+}
+const avoidNote=id=>{const t=avoidedBy(id); return t.length?t.map(k=>k==="meat"?L("daging","meat"):L(...AVOID_LBL[k]).replace(/^(Tanpa |Kurangi |No |Less )/,"").toLowerCase()).join(", "):"";};
 function suggest(slot,i,target){
-  const t=template(slot,i); let fixed=0,flexK=0;
+  const t=filterAvoid(template(slot,i)); let fixed=0,flexK=0;
   t.forEach(([id,q,f])=>{if(f) flexK+=FOODS[id].k*q; else fixed+=FOODS[id].k*q});
   const remain=Math.max(0,target-fixed);
   return t.map(([id,q,f])=>f?[id,Math.max(1,Math.round(remain*(FOODS[id].k*q/flexK)/FOODS[id].k))]:[id,q]);
@@ -829,7 +887,7 @@ function itemsFor(key,slot,i,target,stops){
   if(S.custom[key]) return S.custom[key].filter(([id,q])=>food(id)&&q>0);
   const it=suggest(slot,i,target);
   if(slot==="cemilan"&&stops){
-    let units=it.reduce((a,[,q])=>a+q,0); const fill=["kurma","aren","permen"]; let f=0;
+    let units=it.reduce((a,[,q])=>a+q,0); const fill=["kurma","aren","permen","kismis","biskuit"].filter(x=>!isAvoided(x)); let f=0; if(!fill.length) fill.push("kurma");
     while(units<stops){ const id=fill[f++%fill.length]; const x=it.find(y=>y[0]===id); if(x) x[1]++; else it.push([id,1]); units++; }
   }
   return it;
@@ -844,10 +902,11 @@ function calc(){
     const trekH=h.up+h.down;
     const trekK=(metUp*h.up+4.5*h.down)/pf*(S.weight+S.load), restK=bmr/24*Math.max(0,24-trekH)*(S.cold?1.3:1.2);
     const need=trekK+restK;
-    const water=Math.round((trekH*0.6+(n>1?1.5:0.5))*2)/2;
+    const water=Math.round((trekH*0.6+(n>1?1.5:0.5))*(S.adjWater||1)*2)/2;
     const meals=slotsOfDay(i,n).map(slot=>{
       const key=`d${i}-${slot}`, on=mealOn(i,slot), raw=need*SLOTS[slot].share;
-      const target=slot==="cemilan"?Math.min(raw,Math.max(300,trekH*SNACK_PER_H)):Math.min(raw,CAP[slot]);
+      const adj=S.adjFood||1;
+      const target=(slot==="cemilan"?Math.min(raw,Math.max(300,trekH*SNACK_PER_H)):Math.min(raw,CAP[slot]))*adj;
       return {key,slot,on,target,custom:!!S.custom[key],items:on?itemsFor(key,slot,i,target,slot==="cemilan"?Math.max(0,Math.ceil(trekH-1.25)):0):[]};
     });
     const packed=meals.reduce((a,m)=>a+kOf(m.items),0);
@@ -945,6 +1004,8 @@ function vWelcome(){
       <li><b>4</b><span>${L("Atur waktu makan, lalu dapatkan menu, daftar belanja, biaya, dan tips.","Plan your meals, then get menus, a shopping list, costs, and tips.")}</span></li>
     </ol>
     <p class="disc">${L("Hasil aplikasi ini adalah saran umum, bukan saran medis. Sesuaikan dengan pola makan, alergi, dan kondisi kesehatanmu.","Results are general suggestions, not medical advice. Adjust them to your diet, allergies, and health.")}</p>
+    ${(()=>{const past=HIST.find(h=>!h.note&&h.data&&((h.data.type==="oneday"?h.data.start:h.data.end)||"9999")<todayStr()); return past?`<button class="notep" data-act="note" data-pid="${past.pid}"><b>${L(`Bagaimana pendakian ${esc(past.name)}?`,`How was ${esc(past.name)}?`)}</b><small>${L("Isi catatan singkat supaya rencana berikutnya lebih pas.","Add quick notes so your next plan fits better.")}</small></button>`:""})()}
+    ${(()=>{const last=S.pid&&HIST.find(h=>h.pid===S.pid); if(!last) return ""; const st=S.start, en=S.type==="oneday"?S.start:S.end, t=todayStr(); return (t>=addDays(st,-1)&&t<=en)?`<button class="btn light" data-act="trail">${L("Buka Mode Pendakian","Open hiking mode")}</button>`:"";})()}
     <button class="btn light" data-act="new">${L("Buat rencana baru","Start a new plan")}</button>
     ${hasLast?`<button class="btn ghost" data-act="open" data-pid="${S.pid}">${L("Lanjutkan rencana terakhir","Continue last plan")}</button>`:""}
     ${HIST.length?`<button class="btn ghost" data-act="history">${L("Riwayat rencana","Plan history")} (${HIST.length})</button>`:""}
@@ -1022,6 +1083,8 @@ function vBody(){
     <div class="card"><h2>${L("Preferensi","Preferences")}</h2>
       ${sw("cold",L("Malam di bawah 10°C","Nights below 10°C"),L("Tubuh butuh lebih banyak energi untuk tetap hangat.","Your body needs more energy to stay warm."),true)}
       ${sw("light",L("Utamakan carrier ringan","Keep the pack light"),L("Lebih banyak makanan padat kalori, tanpa nasi bungkus.","More calorie-dense food, no packed rice meals."))}
+      <div class="avoid"><b>${L("Alergi dan pantangan","Allergies and avoids")}</b><small>${L("Menu saran otomatis menghindari bahan ini.","Suggested menus will avoid these.")}</small>
+        <div class="pills">${Object.keys(AVOID_LBL).map(k=>`<button class="pill" data-act="avoid" data-v="${k}" aria-pressed="${!!(S.avoid&&S.avoid[k])}">${L(...AVOID_LBL[k])}</button>`).join("")}</div></div>
       ${sw("veg",L("Vegetarian","Vegetarian"),L("Tanpa daging, lauk diganti kering tempe.","No meat; sides are swapped for crispy tempeh."))}</div>
   </main>`+bar(L("Lanjut","Next"));
 }
@@ -1076,17 +1139,18 @@ function dayPlan(R,d){
   const listTxt=it=>Object.entries(it).map(([id,q])=>`${fname(id)} ${qty(id,q)}`).join(", ");
   const mealTxt=m=>m&&m.on?listTxt(Object.fromEntries(m.items)):"";
   const ev=[], arrive=clock(walk);
-  const meal=(m,time,e,where)=>ev.push({kind:"meal",time,e,label:L(...SLOTS[m.slot].n),on:m.on,where,what:mealTxt(m)});
+  const meal=(m,time,e,where)=>ev.push({kind:"meal",slot:m.slot,time,e,label:L(...SLOTS[m.slot].n),on:m.on,where,what:mealTxt(m),k:m.on?kOf(m.items):0});
   const sar=has("sarapan"); if(sar) meal(sar,start-.5,e0,d.i===0?L("di basecamp","at basecamp"):L("di camp","at camp"));
   if(lunch&&walk>0&&start>=12) meal(lunch,Math.max(11.5,start-1),e0,L("sebelum jalan","before hiking"));
   ev.push({kind:"start",time:start,e:e0,label:d.i===0?L("Mulai dari basecamp","Leave basecamp"):L("Mulai jalan dari camp","Leave camp")});
-  stops.forEach((t,ix)=>{const bn=bins[ix]; ev.push({kind:"snack",t,time:clock(t),e:elev(t),label:bn.k?`${L("Ngemil","Snack")} ±${fmt(bn.k)} ${L("kkal","kcal")}`:L("Istirahat dan minum, camilan sudah habis","Rest and drink; your snacks are used up"),what:bn.k?listTxt(bn.it):L("Tambah camilan di tab Menu kalau masih ingin ngemil di titik ini.","Add snacks in the Menu tab if you'd like something here.")})});
+  stops.forEach((t,ix)=>{const bn=bins[ix]; ev.push({kind:"snack",k:bn.k,t,time:clock(t),e:elev(t),label:bn.k?`${L("Ngemil","Snack")} ±${fmt(bn.k)} ${L("kkal","kcal")}`:L("Istirahat dan minum, camilan sudah habis","Rest and drink; your snacks are used up"),what:bn.k?listTxt(bn.it):L("Tambah camilan di tab Menu kalau masih ingin ngemil di titik ini.","Add snacks in the Menu tab if you'd like something here.")})});
   if(tL!=null) meal(lunch,12,elev(tL),L("di jalur","on the trail")), ev[ev.length-1].t=tL;
   if(summit) ev.push({kind:"peak",t:d.up,time:clock(d.up),e:eTop,label:L("Puncak","Summit")});
   ev.push({kind:"end",time:arrive,e:summit?rd.base:eTop,label:summit?L("Sampai basecamp","Back at basecamp"):L("Sampai camp, perkiraan","Reach camp, estimated")});
   if(lunch&&lunch.on&&walk>0&&tL==null&&start<12) meal(lunch,Math.max(arrive+.25,12),summit?rd.base:eTop,summit?L("di basecamp","at basecamp"):L("di camp","at camp"));
   const din=has("malam"); if(din&&!summit) meal(din,Math.max(arrive+1,18),eTop,L("di camp","at camp"));
   ev.sort((a,b)=>a.time-b.time);
+  ev.forEach((x,ix)=>x.id=`d${d.i}-${x.kind}-${x.slot||ix}-${Math.round(x.time*60)}`);
   return {start,walk,elev,clock,tL,ev,e0,eTop,summit};
 }
 function profileSVG(P){
@@ -1172,10 +1236,39 @@ function memberText(R,ml){
   Ls.push(`${L("Perkiraan berat","Estimated weight")}: ±${kg(ml.g)}, ${L("biaya","cost")}: ±${rp(ml.p)}`,"",L("Terima kasih! Dibuat dengan Bekal Nanjak","Thanks! Made with Bekal Nanjak"));
   return Ls.join("\n");
 }
+const COOK_MIN={beras:20,mie:5,spaghetti:12,makaroni:12,bihun:5,bubur:3,oat:3,kentang:20,telurmentah:5,tempementah:8,tahu:8,nugget:8,sayurmix:5,sawi:3,tepungbumbu:10,energen:2,teh:2,jahe:2,kopi:2,coklatpanas:2,susububuk:2};
+const COOK_WATER={beras:.15,mie:.4,spaghetti:.6,makaroni:.6,bihun:.3,bubur:.15,oat:.15,kentang:.5,energen:.2,teh:.2,jahe:.2,kopi:.2,coklatpanas:.2,susububuk:.2,sayurmix:.3,sop:.25,supkrim:.25};
+const FRY=["minyak"];
+function cookPlan(R){
+  const P=S.people||1; let mins=0, water=0, fry=false, meals=0;
+  R.D.forEach(d=>d.meals.forEach(m=>{ if(!m.on) return;
+    const ids=m.items.map(([id])=>id); const recs=mealRecipes(m.key,m.slot,d.i).map(r=>PRESETS.find(p=>p.id===r)).filter(Boolean).filter(pr=>pr.tool[0]!=="Tanpa masak"&&pr.tool[0]!=="Dibuat di rumah");
+    let mm=recs.length?recs.reduce((a,pr)=>a+pr.mins,0):ids.reduce((a,id)=>a+(COOK_MIN[id]||0),0);
+    m.items.forEach(([id,q])=>{ if(COOK_WATER[id]) water+=COOK_WATER[id]*q; if(FRY.includes(id)) fry=true; });
+    mm=Math.min(mm,40); if(mm>0){ mins+=mm*(1+0.25*(P-1)); meals++; }
+  }));
+  const canisters=mins>0?Math.max(1,Math.ceil(mins*1.25/100)):0;
+  const sets=Math.max(1,Math.ceil(P/4));
+  const maxWater=Math.max(...R.D.map(d=>d.water));
+  const gear=[];
+  if(mins>0){
+    gear.push([L("Kompor portabel","Portable stove"),`${sets}`]);
+    gear.push([L("Gas kaleng 230 g","230 g gas canister"),`${canisters}`]);
+    gear.push([L("Nesting atau panci","Cook pot set"),`${sets}`]);
+    if(fry) gear.push([L("Wajan kecil","Small frying pan"),`${sets}`]);
+    gear.push([L("Spatula dan sendok sayur","Spatula and ladle"),"1"]);
+    gear.push([L("Pisau lipat dan talenan kecil","Folding knife and small board"),"1"]);
+    gear.push([L("Korek api atau pemantik, plus cadangan","Lighter, plus a spare"),"2"]);
+  }
+  gear.push([L("Piring atau mangkuk dan sendok","Plate or bowl and spoon"),`${P}`]);
+  gear.push([L("Botol air 1,5 L","1.5 L water bottle"),`${clamp(Math.ceil(maxWater/2/1.5),1,3)*P}`]);
+  gear.push([L("Kantong sampah","Trash bag"),`${Math.max(2,Math.ceil(P/2))}`]);
+  return {mins:Math.round(mins),canisters,meals,waterPP:Math.round(water*10)/10,gear,P};
+}
 function vResult(){
   const R=calc(); if(!R) return vRoute();
   const tab=S.tab||"sum";
-  const chips=(list,day,slot)=>list.length?`<div class="items">${list.map(([id,q])=>{const f=food(id); const late=day!=null&&f&&f.keep!=null&&f.keep<day+(slot==="malam"?0.75:slot==="siang"?0.5:0.25); return `<span class="${late?"late":""}">${esc(fname(id))}, ${esc(qty(id,q))}${late?` <em>${L("cepat basi","spoils fast")}</em>`:""}</span>`}).join("")}</div>`:`<p class="note">${L("Belum ada makanan. Ketuk Ubah untuk menambahkan.","No food yet. Tap Edit to add some.")}</p>`;
+  const chips=(list,day,slot)=>list.length?`<div class="items">${list.map(([id,q])=>{const f=food(id); const late=day!=null&&f&&f.keep!=null&&f.keep<day+(slot==="malam"?0.75:slot==="siang"?0.5:0.25); const av=avoidNote(id); return `<span class="${late||av?"late":""}">${esc(fname(id))}, ${esc(qty(id,q))}${late?` <em>${L("cepat basi","spoils fast")}</em>`:""}${av?` <em>${L("mengandung","contains")} ${esc(av)}</em>`:""}</span>`}).join("")}</div>`:`<p class="note">${L("Belum ada makanan. Ketuk Ubah untuk menambahkan.","No food yet. Tap Edit to add some.")}</p>`;
   const balance=(list,slot)=>{ if(slot==="cemilan") return ""; const N=nut(list);
     const tag=(ok,txt)=>`<span class="bal ${ok?"ok":"no"}">${ok?"✓":"–"} ${txt}</span>`;
     return `<div class="balrow">${tag(N.g.karbo,L("Karbo","Carbs"))}${tag(N.g.protein||N.pr>=10,L("Protein","Protein"))}${tag(N.g.sayur,L("Sayur/buah","Veg/fruit"))}<span class="bal">${L("Protein","Protein")} ±${fmt(N.pr)} g, ${L("serat","fibre")} ±${fmt(N.fb)} g</span></div>`; };
@@ -1193,7 +1286,9 @@ function vResult(){
     if(R.n===1&&R.D[0].trekH>12) alerts.unshift(L(`Tektok di jalur ini diperkirakan butuh ±${dec(R.D[0].trekH)} jam jalan. Itu terlalu berat untuk sehari, apalagi bagi pemula. Sebaiknya pilih menginap.`,`A day hike on this trail takes about ${dec(R.D[0].trekH)} hours of walking. That's too much for one day, especially for beginners. Consider an overnight trip instead.`));
     if(S.load>S.weight*.3) alerts.push(L("Berat carrier lebih dari 30% berat badan. Pertimbangkan mode carrier ringan atau bagi logistik dengan tim.","Your pack is over 30% of your body weight. Consider the light pack option or sharing food with the team."));
     const T=tips(R);
-    body=`<div class="hero">${TOPO}<p style="margin:0">${L("Yang perlu kamu siapkan, untuk 1 orang","What you need to prepare, for 1 person")}</p>
+    body=`${(S.adjFood||1)!==1||(S.adjWater||1)!==1?`<p class="alert">${L(`Rencana ini sudah disesuaikan dari catatan pendakianmu sebelumnya: porsi makan ${S.adjFood>1?"+10%":S.adjFood<1?"−10%":"tetap"}, air ${S.adjWater>1?"+15%":S.adjWater<1?"−10%":"tetap"}.`,`This plan is adjusted from your previous trip notes: food ${S.adjFood>1?"+10%":S.adjFood<1?"−10%":"unchanged"}, water ${S.adjWater>1?"+15%":S.adjWater<1?"−10%":"unchanged"}.`)} <button class="linkbtn" data-act="adjReset">${L("Kembalikan ke normal","Reset to normal")}</button></p>`:""}
+      <button class="trailbtn" data-act="trail"><span><b>${L("Mode Pendakian","Hiking mode")}</b><small>${L("Pengingat ngemil, centang makan, dan pelacak air untuk dipakai di jalur","Snack reminders, meal ticks, and a water tracker for the trail")}</small></span>›</button>
+      <div class="hero">${TOPO}<p style="margin:0">${L("Yang perlu kamu siapkan, untuk 1 orang","What you need to prepare, for 1 person")}</p>
         <div class="big3"><div><small>${L("Bekal","Food")}</small><b>${kg(R.G)}</b></div><div><small>${L("Biaya","Cost")}</small><b>${rp(R.P)}</b></div><div><small>${L("Air per hari","Water per day")}</small><b>±${dec(maxWater)} L</b></div></div></div>
       ${alerts.map(a=>`<p class="alert">${a}</p>`).join("")}
       <div class="card"><h2>${L("Kenapa sebanyak ini?","Why so much?")}</h2>
@@ -1267,6 +1362,11 @@ function vResult(){
         <button class="linkbtn" data-act="autoSplit">${L("Bagi ulang otomatis","Re-split automatically")}</button>
         <p class="toast" id="toast2" role="status"></p></div>`})():`<p class="note">${L("Naik berkelompok? Tambah jumlah orang di atas untuk membagi tugas belanja dan bawaan.","Hiking in a group? Add people above to split shopping and carrying.")}</p>`}
       <p class="note">${L(`Total bekal per orang ${fmt(R.K)} kkal, berat ±${kg(R.G)}.`,`Food per person: ${fmt(R.K)} kcal, about ${kg(R.G)}.`)}</p>
+      ${(()=>{const CP=cookPlan(R); return `<div class="card" id="alat"><h2>${L("Alat masak dan gas","Cooking gear and gas")}</h2>
+        <p class="hint">${CP.mins?L(`Untuk ${CP.P} orang, perkiraan waktu kompor menyala ±${fmt(CP.mins)} menit dari ${CP.meals} kali masak.`,`For ${CP.P} ${CP.P>1?"people":"person"}, the stove runs about ${fmt(CP.mins)} minutes over ${CP.meals} cooking sessions.`):L("Rencana ini tidak perlu kompor.","This plan doesn't need a stove.")}</p>
+        <div class="shop">${CP.gear.map(([n,q])=>`<div class="sr"><b>${esc(n)}</b><span class="p">${esc(q)}</span></div>`).join("")}</div>
+        ${CP.mins?`<p class="note" style="margin:10px 0 0">${L(`Air untuk memasak ±${dec(CP.waterPP)} L per orang selama pendakian, di luar air minum. Jumlah gas sudah ditambah cadangan untuk angin dan suhu dingin.`,`Cooking water: about ${dec(CP.waterPP)} L per person for the trip, on top of drinking water. Gas includes a margin for wind and cold.`)}</p>`:""}
+        <p class="note" style="margin:8px 0 0">${L("Perlengkapan lain seperti tenda dan sleeping bag bisa dicek di Siap Nanjak.","Check other gear like tents and sleeping bags in Siap Nanjak.")}</p></div>`})()}
       <div class="card"><h2>${L("Tips packing","Packing tips")}</h2><p class="hint">${L("Supaya makanan tidak basi, tidak hancur, dan carrier tetap rapi. Ketuk kelompok lain untuk membuka.","Keep food fresh, intact, and your pack tidy. Tap a group to open it.")}</p>
         ${PACK.filter(g=>!g.c||Object.keys(R.shop).some(id=>food(id).c===g.c)).map((g,gi)=>`<details class="pk"${gi===0?" open":""}><summary>${esc(L(...g.t))}${CHEV}</summary><ul class="tips">${g.tips.map(t=>`<li><span>${esc(L(...t))}</span></li>`).join("")}</ul></details>`).join("")}</div>`;
   }
@@ -1274,6 +1374,81 @@ function vResult(){
     <footer><p>${L("Bekal Nanjak, pendamping Siap Nanjak. Dikembangkan oleh PT Mirai Internasional Indonesia.","Bekal Nanjak, a companion to Siap Nanjak. Developed by PT Mirai Internasional Indonesia.")} <a href="privacy.html">${L("Kebijakan privasi","Privacy policy")}</a></p></footer>
   </main><div class="bar"><div class="wrap"><button class="btn ghost" data-act="goto" data-step="1">${L("Ubah rencana","Edit plan")}</button>${(()=>{const order=[["sum"],["menu","Lanjut: Menu","Next: Menu"],["sched","Lanjut: Jadwal","Next: Schedule"],["shop","Lanjut: Belanja","Next: Shopping"]]; const ix=order.findIndex(o=>o[0]===tab); const nx=order[ix+1];
     return nx?`<button class="btn" data-act="tab" data-v="${nx[0]}">${L(nx[1],nx[2])}</button>`:`<button class="btn" data-act="finish">${L("Selesai","Done")}</button>`})()}</div></div>`;
+}
+function todayIdx(n){ const t=new Date(todayStr()+"T00:00:00"), st=new Date(S.start+"T00:00:00"); const k=Math.round((t-st)/864e5); return (k>=0&&k<n)?k:null; }
+function nowH(){ const d=new Date(); return d.getHours()+d.getMinutes()/60; }
+function vTrail(){
+  const R=calc(); if(!R) return vWelcome();
+  S.trail=S.trail||{done:{},water:{}};
+  const ti=todayIdx(R.n); const di=clamp(S.trailDay!=null?S.trailDay:(ti!=null?ti:0),0,R.n-1); const d=R.D[di];
+  const P=dayPlan(R,d), isToday=ti===di, now=nowH();
+  const eat=P.ev.filter(e=>(e.kind==="snack"&&e.k)||(e.kind==="meal"&&e.on));
+  const next=eat.find(e=>!S.trail.done[e.id]&&(!isToday||e.time>=now-0.75))||eat.find(e=>!S.trail.done[e.id]);
+  const eaten=eat.filter(e=>S.trail.done[e.id]).reduce((a,e)=>a+(e.k||0),0), planned=eat.reduce((a,e)=>a+(e.k||0),0);
+  const wml=S.trail.water["d"+di]||0, wTarget=d.water*1000;
+  const late=isToday&&next&&next.time<now-0.1;
+  const tabs=R.n>1?`<div class="seg" style="--n:${Math.min(R.n,5)}">${R.D.map(x=>`<button data-act="trailDay" data-v="${x.i}" aria-pressed="${x.i===di}">${L("Hari","Day")} ${x.i+1}${ti===x.i?" •":""}</button>`).join("")}</div>`:"";
+  return `<header class="top">${TOPO}<div class="wrap">
+    <div class="hdr-row"><button class="hbtn" data-act="trailExit">${BACK} ${L("Rencana","Plan")}</button><div class="hdr-right"><button class="hbtn sos" data-act="sos">${L("Darurat","Emergency")}</button>${langToggle()}</div></div>
+    <p class="hdr-step">${L("Mode Pendakian","Hiking mode")}</p><h1>${esc(planName())}</h1><p class="hdr-meta">${esc(dayDate(di))}${isToday?`, ${L("hari ini","today")}`:""}</p></div></header>
+  <main class="wrap">${tabs}
+    ${next?`<div class="nextc${late?" late":""}"><small>${late?L("Sudah lewat waktunya","It's past time"):L("Berikutnya","Up next")}, ${hhmm(next.time)}</small>
+      <b>${esc(next.label)}</b>${next.what?`<p>${esc(next.what)}</p>`:""}
+      <button class="btn light" data-act="eat" data-id="${next.id}">${L("Sudah dimakan","Done eating")}</button></div>`
+     :`<div class="nextc"><b>${L("Semua makanan hari ini sudah dicentang","All of today's food is ticked off")}</b><p>${L("Mantap, tetap minum dan jaga kehangatan.","Nice work. Keep drinking and stay warm.")}</p></div>`}
+    <div class="card"><div class="row-h"><h2>${L("Air minum","Drinking water")}</h2><span class="kcal-tag">${dec(wml/1000)} / ${dec(wTarget/1000)} L</span></div>
+      <div class="meter"><i style="width:${Math.min(100,wml/wTarget*100)}%"></i></div>
+      <div class="row3"><button class="btn sm ghost" data-act="water" data-v="-250">− 250 ml</button><button class="btn sm" data-act="water" data-v="250">+ 250 ml</button><button class="btn sm" data-act="water" data-v="500">+ 500 ml</button></div>
+      <p class="note" style="margin:8px 0 0">${L("Minum sedikit tapi sering. Isi ulang di sumber air.","Drink little and often. Refill at water sources.")}</p></div>
+    <div class="card"><div class="row-h"><h2>${L("Makan hari ini","Today's food")}</h2><span class="kcal-tag">${fmt(eaten)} / ${fmt(planned)} ${L("kkal","kcal")}</span></div>
+      <div class="meter"><i style="width:${planned?Math.min(100,eaten/planned*100):0}%"></i></div>
+      ${P.ev.map(e=>{const can=(e.kind==="snack"&&e.k)||(e.kind==="meal"&&e.on); const done=!!S.trail.done[e.id];
+        return `<div class="tl ${e.kind}${done?" got":""}"><span class="tm">${hhmm(e.time)}</span>${can?`<button class="ck" data-act="eat" data-id="${e.id}" role="checkbox" aria-checked="${done}" aria-label="${esc(e.label)}"></button>`:`<span class="mk"></span>`}<span class="ac"><b>${esc(e.label)}</b>${e.what&&can?`<small class="what">${esc(e.what)}</small>`:""}</span><span class="el">${fmt(e.e)} m</span></div>`}).join("")}
+    </div>
+    <p class="note">${L("Pengingat muncul selama aplikasi terbuka. Data tersimpan di HP dan bisa dipakai tanpa sinyal.","Reminders show while the app is open. Everything is stored on your phone and works offline.")}</p>
+    <div id="remind" class="remind" role="status" hidden></div>
+  </main><div class="bar"><div class="wrap"><button class="btn sos-btn" data-act="sos">${L("Panduan darurat","Emergency guide")}</button></div></div>`;
+}
+const SOS=[
+  {t:["Hipotermia","Hypothermia"],s:["Menggigil hebat, bicara cadel, bingung, gerakan kikuk, sangat mengantuk.","Strong shivering, slurred speech, confusion, clumsiness, extreme drowsiness."],
+   a:["Pindahkan ke tempat terlindung dari angin dan hujan.","Ganti pakaian basah dengan yang kering, lalu selimuti atau masukkan ke sleeping bag.","Beri minuman hangat manis dan makanan berenergi bila masih sadar dan bisa menelan.","Jangan beri alkohol dan jangan menggosok kulit dengan keras."],
+   ae:["Move them out of wind and rain.","Replace wet clothes with dry ones, then wrap them or put them in a sleeping bag.","Give a warm sweet drink and energy food if they're awake and can swallow.","No alcohol, and don't rub the skin hard."],
+   h:["Berhenti menggigil tapi tetap bingung, tidak sadar, atau napas melemah.","Stops shivering but stays confused, becomes unresponsive, or breathing weakens."]},
+  {t:["Dehidrasi","Dehydration"],s:["Sangat haus, mulut kering, urine sedikit dan gelap, pusing, lemas.","Strong thirst, dry mouth, little dark urine, dizziness, weakness."],
+   a:["Istirahat di tempat teduh.","Minum sedikit-sedikit tapi sering.","Tambahkan oralit atau minuman elektrolit."],
+   ae:["Rest in the shade.","Drink small amounts often.","Add oral rehydration salts or an electrolyte drink."],
+   h:["Tidak bisa minum, muntah terus, bingung, atau pingsan.","Can't keep fluids down, keeps vomiting, is confused, or faints."]},
+  {t:["Kehabisan tenaga (gula darah turun)","Running out of energy (low blood sugar)"],s:["Lemas mendadak, gemetar, keringat dingin, lapar, sulit fokus.","Sudden weakness, trembling, cold sweat, hunger, poor focus."],
+   a:["Berhenti dan duduk.","Makan sumber gula cepat: gula aren, permen, madu, atau jelly.","Setelah 15 menit, lanjut makan camilan yang lebih mengenyangkan."],
+   ae:["Stop and sit down.","Eat fast sugar: palm sugar, candy, honey, or jelly.","After 15 minutes, follow with a more filling snack."],
+   h:["Tidak membaik setelah makan, pingsan, atau memiliki diabetes.","No improvement after eating, fainting, or the person has diabetes."]},
+  {t:["Kram otot","Muscle cramps"],s:["Otot tiba-tiba mengencang dan nyeri, sering di betis atau paha.","Sudden painful tightening, often in the calf or thigh."],
+   a:["Hentikan langkah dan regangkan otot perlahan.","Pijat ringan.","Minum air dengan elektrolit."],
+   ae:["Stop and stretch the muscle slowly.","Massage gently.","Drink water with electrolytes."],
+   h:["Kram tidak hilang, disertai bengkak, atau sangat nyeri.","Cramp won't ease, with swelling, or severe pain."]},
+  {t:["Mabuk ketinggian","Altitude sickness"],s:["Sakit kepala, mual, pusing, sangat lelah, sulit tidur, biasanya di atas ±2.500 mdpl.","Headache, nausea, dizziness, fatigue, poor sleep, usually above about 2,500 m."],
+   a:["Istirahat dan jangan naik lebih tinggi sampai membaik.","Minum cukup.","Kalau memburuk, turun ke tempat yang lebih rendah."],
+   ae:["Rest and don't go higher until it improves.","Drink enough.","If it gets worse, go down."],
+   h:["Sesak napas saat istirahat, bingung, atau jalan sempoyongan: segera turun dan cari bantuan.","Breathless at rest, confused, or staggering: descend now and get help."]},
+  {t:["Keracunan makanan","Food poisoning"],s:["Mual, muntah, sakit perut, atau diare setelah makan.","Nausea, vomiting, stomach pain, or diarrhoea after eating."],
+   a:["Hentikan makanan yang dicurigai.","Minum oralit sedikit-sedikit.","Istirahat."],
+   ae:["Stop eating the suspected food.","Sip oral rehydration salts.","Rest."],
+   h:["Ada darah, demam tinggi, atau tidak bisa minum sama sekali.","Blood, high fever, or unable to drink at all."]}
+];
+function vSos(){
+  const card=(x,i)=>`<details class="card sosc"${i===0?" open":""}><summary><h2>${esc(L(...x.t))}</h2>${CHEV}</summary>
+    <p class="sub2">${L("Tanda-tanda","Signs")}</p><p class="note" style="color:var(--ink)">${esc(L(...x.s))}</p>
+    <p class="sub2">${L("Yang dilakukan","What to do")}</p><ol>${(S.lang==="en"?x.ae:x.a).map(t=>`<li>${esc(t)}</li>`).join("")}</ol>
+    <p class="sub2 red">${L("Segera cari bantuan bila","Get help right away if")}</p><p class="note" style="color:var(--ink)">${esc(L(...x.h))}</p></details>`;
+  return header(L("Panduan darurat","Emergency guide"),L("Bisa dibuka tanpa sinyal","Works offline"))+`<main class="wrap">
+    <div class="card"><h2>${L("Nomor darurat","Emergency numbers")}</h2>
+      <div class="sosn"><a href="tel:112"><b>112</b><small>${L("Darurat umum","General emergency")}</small></a><a href="tel:115"><b>115</b><small>Basarnas (SAR)</small></a><a href="tel:119"><b>119</b><small>${L("Ambulans","Ambulance")}</small></a></div>
+      <label class="field" style="margin-top:12px"><span>${L("Nomor basecamp atau pengelola","Basecamp or park office number")}</span><input data-k="bcPhone" inputmode="tel" value="${esc(S.bcPhone||"")}" placeholder="08…"></label>
+      ${S.bcPhone?`<a class="btn" href="tel:${esc(S.bcPhone.replace(/[^0-9+]/g,""))}" style="text-decoration:none">${L("Telepon basecamp","Call basecamp")}</a>`:""}
+      <p class="note" style="margin:10px 0 0">${L("Sinyal di gunung sering tidak ada. Catat lokasi pos terakhir dan beri tahu rombongan atau pendaki lain.","There's often no signal on mountains. Note the last post you passed and tell your group or other hikers.")}</p></div>
+    ${SOS.map(card).join("")}
+    <p class="note">${L("Panduan pertolongan pertama dasar, bukan pengganti tenaga medis.","Basic first aid only; not a substitute for medical care.")}</p>
+  </main>`;
 }
 function vDone(){
   const R=calc(); if(!R) return vWelcome();
@@ -1285,6 +1460,7 @@ function vDone(){
       <li><span><b>${L("Packing per hari","Pack by day")}</b>${L("Ikuti tips packing di tab Belanja supaya makanan tidak basi.","Follow the packing tips in the Shopping tab so food stays fresh.")}</span></li>
       <li><span><b>${L("Siapkan perlengkapan","Get your gear ready")}</b>${L("Cek daftar barang wajib gunung tujuanmu di Siap Nanjak.","Check the required gear for your mountain in Siap Nanjak.")}</span></li></ol></div>
     <div class="jump">
+      <button class="opt" data-act="trail"><span><b>${L("Mode Pendakian","Hiking mode")}</b><small>${L("Dipakai di jalur: pengingat ngemil dan pelacak air","For the trail: snack reminders and water tracker")}</small></span>›</button>
       <button class="opt" data-act="goto" data-step="5"><span><b>${L("Lihat rencana lagi","View the plan again")}</b><small>${L("Menu, jadwal, dan daftar belanja","Menu, schedule, and shopping list")}</small></span>›</button>
       <a class="opt" href="https://mirai-organization-team.github.io/" style="text-decoration:none;color:inherit"><span><b>${L("Buka Siap Nanjak","Open Siap Nanjak")}</b><small>${L("Daftar perlengkapan pendakian","Hiking gear checklist")}</small></span>›</a></div>
   </main><div class="bar"><div class="wrap"><button class="btn" data-act="home">${L("Kembali ke menu utama","Back to the main menu")}</button></div></div>`;
@@ -1319,8 +1495,9 @@ function vGlossary(){
     <div class="bar"><div class="wrap"><button class="btn" data-act="back">${L("Kembali","Back")}</button></div></div>`;
 }
 function vHistory(){
-  const rows=HIST.slice().sort((a,b)=>b.saved-a.saved).map(h=>`<div class="hist"><div class="info"><b>${esc(h.name)}</b><small>${esc(h.when)}, ${esc(h.dur)}</small><small>${esc(h.sum)}</small></div>
-    <div class="acts"><button class="edit" data-act="open" data-pid="${h.pid}">${L("Buka","Open")}</button><button class="rm" data-act="delHist" data-pid="${h.pid}" aria-label="${L("Hapus","Delete")} ${esc(h.name)}">×</button></div></div>`).join("");
+  const nTxt=n=>!n?"":[n.food&&L({less:"bekal kurang",ok:"bekal pas",more:"bekal sisa"}[n.food],{less:"food short",ok:"food right",more:"food left"}[n.food]),n.water&&L({less:"air kurang",ok:"air pas",more:"air lebih"}[n.water],{less:"water short",ok:"water right",more:"too much water"}[n.water]),n.pack&&L({light:"carrier ringan",ok:"carrier pas",heavy:"carrier berat"}[n.pack],{light:"light pack",ok:"pack fine",heavy:"heavy pack"}[n.pack])].filter(Boolean).join(", ");
+  const rows=HIST.slice().sort((a,b)=>b.saved-a.saved).map(h=>`<div class="hist"><div class="info"><b>${esc(h.name)}</b>${h.note?`<small class="green">✓ ${esc(nTxt(h.note))}</small>`:""}<small>${esc(h.when)}, ${esc(h.dur)}</small><small>${esc(h.sum)}</small></div>
+    <div class="acts"><button class="edit" data-act="note" data-pid="${h.pid}">${h.note?L("Catatan","Notes"):L("Isi catatan","Add notes")}</button><button class="edit" data-act="open" data-pid="${h.pid}">${L("Buka","Open")}</button><button class="rm" data-act="delHist" data-pid="${h.pid}" aria-label="${L("Hapus","Delete")} ${esc(h.name)}">×</button></div></div>`).join("");
   return header(L("Riwayat rencana","Plan history"),"Bekal Nanjak",L("Rencana tersimpan di HP ini. Buka lagi tanpa perlu mengisi ulang.","Plans are saved on this phone. Reopen them without filling everything in again."))+`<main class="wrap">
     <div class="card">${rows||`<p class="empty">${L("Belum ada rencana. Rencana otomatis tersimpan saat kamu membuka hasilnya.","No plans yet. Plans are saved automatically when you open the results.")}</p>`}</div>
   </main><div class="bar"><div class="wrap"><button class="btn" data-act="new">${L("Buat rencana baru","Start a new plan")}</button></div></div>`;
@@ -1333,7 +1510,19 @@ function editorData(key){
   for(const d of R.D) for(const m of d.meals) if(m.key===key) return {slot:m.slot,title:`${L(...SLOTS[m.slot].n)}, ${L("Hari","Day")} ${d.i+1}`,target:m.target,items:m.items};
   return null;
 }
+function vNote(){
+  const h=HIST.find(x=>x.pid===S.noteFor); if(!h) { S.noteFor=null; return ""; }
+  const n=h.note||{}; const q=(k,opts)=>`<div class="seg" style="--n:3">${opts.map(([v,a,b])=>`<button data-act="noteSet" data-k="${k}" data-v="${v}" aria-pressed="${n[k]===v}">${L(a,b)}</button>`).join("")}</div>`;
+  return `<div class="sheet-bg" data-act="noteClose"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="ntT" data-stop="1">
+    <h2 id="ntT">${L("Catatan pendakian","Trip notes")}</h2><p class="hint">${esc(h.name)}, ${esc(h.when)}. ${L("Jawabanmu dipakai untuk menyesuaikan rencana berikutnya.","Your answers adjust your next plan.")}</p>
+    <p class="sub2">${L("Bekal makanan","Food")}</p>${q("food",[["less","Kurang","Not enough"],["ok","Pas","Just right"],["more","Sisa banyak","Lots left"]])}
+    <p class="sub2">${L("Air minum","Water")}</p>${q("water",[["less","Kurang","Not enough"],["ok","Pas","Just right"],["more","Berlebih","Too much"]])}
+    <p class="sub2">${L("Berat carrier","Pack weight")}</p>${q("pack",[["light","Ringan","Light"],["ok","Pas","Fine"],["heavy","Berat","Heavy"]])}
+    <label class="field"><span>${L("Catatan lain","Other notes")}</span><input id="noteTxt" maxlength="200" value="${esc(n.text||"")}" placeholder="${L("Contoh: bawa lebih banyak kopi","e.g. bring more coffee")}"></label>
+    <div class="sheet-acts"><button class="btn ghost" data-act="noteClose">${L("Batal","Cancel")}</button><button class="btn" data-act="noteSave">${L("Simpan catatan","Save notes")}</button></div></div></div>`;
+}
 function vSheet(){
+  if(S.noteFor) return vNote();
   if(S.confirm){ const c=S.confirm;
     return `<div class="sheet-bg" data-act="noConfirm"><div class="sheet confirm" role="alertdialog" aria-modal="true" aria-labelledby="cfT" aria-describedby="cfD" data-stop="1">
       <h2 id="cfT">${esc(c.title)}</h2><p id="cfD">${esc(c.msg)}</p>
@@ -1348,7 +1537,7 @@ function vSheet(){
   const groups=Object.entries(CATS).map(([c,lab])=>{
     const ids=c==="own"?Object.keys(S.ownFoods):Object.keys(FOODS).filter(id=>FOODS[id].c===c);
     if(!ids.length) return "";
-    return `<optgroup label="${esc(L(...lab))}">${ids.map(id=>`<option value="${id}">${esc(fname(id))}, ${esc(funit(id))} (${fmt(food(id).k)} ${L("kkal","kcal")})</option>`).join("")}</optgroup>`;
+    return `<optgroup label="${esc(L(...lab))}">${ids.map(id=>`<option value="${id}">${isAvoided(id)?"⚠ ":""}${esc(fname(id))}, ${esc(funit(id))} (${fmt(food(id).k)} ${L("kkal","kcal")})</option>`).join("")}</optgroup>`;
   }).join("");
   return `<div class="sheet-bg" data-act="closeEdit"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="edTitle" data-stop="1">
     <h2 id="edTitle">${esc(E.title)}</h2>
@@ -1359,9 +1548,9 @@ function vSheet(){
       <button class="rm" data-act="qty" data-id="${id}" data-v="-999" aria-label="${L("Hapus","Remove")} ${esc(fname(id))}">×</button></div>`).join("")||`<p class="note" style="margin-top:12px">${L("Belum ada makanan.","No food yet.")}</p>`}
     <details class="own" open><summary style="font-weight:600;cursor:pointer">${L("Ide menu racikan","Meal ideas")}</summary>
       <p class="hint" style="margin:8px 0 0">${L("Resep untuk 1 porsi. Ketuk Tambah untuk memasukkan semua bahannya. Kalori, harga, dan cara masak sudah tersedia.","Recipes are for 1 serving. Tap Add to put in all the ingredients, with calories, price, and steps.")}</p>
-      ${(PRESETS.filter(pr=>pr.for.includes(E.slot)).length?PRESETS.filter(pr=>pr.for.includes(E.slot)):PRESETS).map(pr=>`<div class="preset"><div class="pr-h"><span><b>${esc(L(...pr.n))}</b><small>±${fmt(kOf(pr.items))} ${L("kkal","kcal")}, ${L("protein","protein")} ±${fmt(nut(pr.items).pr)} g, ${rp(pr.items.reduce((a,[id,q])=>a+fprice(id)*q,0))}, ±${pr.mins} ${L("menit","min")}</small></span><button class="edit" data-act="addPreset" data-id="${pr.id}">${L("Tambah","Add")}</button></div>
+      ${(PRESETS.filter(pr=>pr.for.includes(E.slot)).length?PRESETS.filter(pr=>pr.for.includes(E.slot)):PRESETS).slice().sort((a,b)=>(a.items.some(([id])=>isAvoided(id))?1:0)-(b.items.some(([id])=>isAvoided(id))?1:0)).map(pr=>{const bad=[...new Set(pr.items.map(([id])=>avoidNote(id)).filter(Boolean))].join(", "); return `<div class="preset${bad?" bad":""}"><div class="pr-h"><span><b>${esc(L(...pr.n))}</b>${bad?`<small class="warn">${L("Mengandung","Contains")} ${esc(bad)}</small>`:""}<small>±${fmt(kOf(pr.items))} ${L("kkal","kcal")}, ${L("protein","protein")} ±${fmt(nut(pr.items).pr)} g, ${rp(pr.items.reduce((a,[id,q])=>a+fprice(id)*q,0))}, ±${pr.mins} ${L("menit","min")}</small></span><button class="edit" data-act="addPreset" data-id="${pr.id}">${L("Tambah","Add")}</button></div>
         <small class="ing">${esc(pr.items.map(([id,q])=>`${fname(id)} ${qty(id,q)}`).join(", "))}</small>${pr.tip?`<small class="ing">${esc(L(...pr.tip))}</small>`:""}
-        <details class="steps"><summary>${L("Cara masak","How to cook")}</summary><p class="hint" style="margin:4px 0">${esc(L(...pr.tool))}</p><ol>${pr.steps.map(st=>`<li>${esc(L(...st))}</li>`).join("")}</ol></details></div>`).join("")}
+        <details class="steps"><summary>${L("Cara masak","How to cook")}</summary><p class="hint" style="margin:4px 0">${esc(L(...pr.tool))}</p><ol>${pr.steps.map(st=>`<li>${esc(L(...st))}</li>`).join("")}</ol></details></div>`}).join("")}
     </details>
     <div class="addrow"><select id="addSel" aria-label="${L("Pilih makanan","Choose food")}">${groups}</select><button class="btn sm" data-act="addFood">${L("Tambah","Add")}</button></div>
     <details class="own"><summary style="font-weight:600;cursor:pointer">${L("Makanan lain yang tidak ada di daftar","Food not on the list")}</summary>
@@ -1384,20 +1573,21 @@ function setItems(key,items){
 }
 
 /* ===================== KONTROL ===================== */
-const VIEWS={intro:vIntro,welcome:vWelcome,history:vHistory,glossary:vGlossary,done:vDone,plan:()=>[null,vRoute,vSchedule,vBody,vMeals,vResult][S.step]()};
+const VIEWS={trail:vTrail,sos:vSos,intro:vIntro,welcome:vWelcome,history:vHistory,glossary:vGlossary,done:vDone,plan:()=>[null,vRoute,vSchedule,vBody,vMeals,vResult][S.step]()};
 function render(){
   document.documentElement.lang=S.lang;
   $("#app").innerHTML=VIEWS[S.view]();
   renderSheet();
   paintRanges();
 }
-function renderSheet(){ $("#sheet").innerHTML=vSheet(); document.body.classList.toggle("lock",!!(S.edit||S.term||S.confirm)); }
+function renderSheet(){ $("#sheet").innerHTML=vSheet(); document.body.classList.toggle("lock",!!(S.noteFor||S.edit||S.term||S.confirm)); }
 function paintRanges(){document.querySelectorAll("input[type=range]").forEach(el=>{const p=(el.value-el.min)/(el.max-el.min)*100;el.style.background=`linear-gradient(to right,var(--pine2) ${p}%,var(--line) ${p}%)`})}
-function snapshot(){const s={...S};delete s.confirm;delete s.view;delete s.step;delete s.edit;delete s.term;delete s.editPrice;delete s.tab;return s}
+function snapshot(){const s={...S};delete s.noteFor;delete s.confirm;delete s.view;delete s.step;delete s.edit;delete s.term;delete s.editPrice;delete s.tab;return s}
 function storeHistory(){
   const R=calc(); if(!R) return;
   if(!S.pid) S.pid="p"+Date.now().toString(36);
-  const h={pid:S.pid,saved:Date.now(),name:planName(),when:dayDate(0,false),dur:durLabel(R.n),sum:`${fmt(R.K)} ${L("kkal","kcal")}, ${kg(R.G)}, ${rp(R.P)}`,data:snapshot()};
+  const old=HIST.find(x=>x.pid===S.pid);
+  const h={note:old&&old.note,pid:S.pid,saved:Date.now(),name:planName(),when:dayDate(0,false),dur:durLabel(R.n),sum:`${fmt(R.K)} ${L("kkal","kcal")}, ${kg(R.G)}, ${rp(R.P)}`,data:snapshot()};
   HIST=HIST.filter(x=>x.pid!==S.pid); HIST.unshift(h); HIST=HIST.slice(0,30); saveHist();
 }
 let PREV=null;
@@ -1410,12 +1600,14 @@ function go(view,step){
 function back(){
   if(S.edit||S.term){S.edit=null;S.term=null;return renderSheet()}
   if(S.view==="glossary"&&PREV) {const p=PREV; PREV=null; return go(p.view,p.step);}
+  if(S.view==="sos") return go("trail");
+  if(S.view==="trail") return go("plan",5);
   if(S.view!=="plan") return go("welcome");
   if(S.step<=1) return go("welcome");
   go("plan",S.step-1);
 }
 function newPlan(){
-  const keep={seenIntro:true,lang:S.lang,sex:S.sex,age:S.age,height:S.height,weight:S.weight,load:S.load,veg:S.veg,light:S.light,cold:S.cold,prices:S.prices,ownFoods:S.ownFoods,tipsOpen:S.tipsOpen};
+  const keep={avoid:S.avoid,bcPhone:S.bcPhone,adjFood:S.adjFood,adjWater:S.adjWater,seenIntro:true,lang:S.lang,sex:S.sex,age:S.age,height:S.height,weight:S.weight,load:S.load,veg:S.veg,light:S.light,cold:S.cold,prices:S.prices,ownFoods:S.ownFoods,tipsOpen:S.tipsOpen};
   S={...defaults(),...keep}; go("plan",1);
 }
 
@@ -1427,6 +1619,20 @@ document.addEventListener("click",e=>{
   const a=b.dataset.act, v=b.dataset.v;
   switch(a){
     case "lang": S.lang=v; save(); return render();
+    case "avoid": S.avoid=S.avoid||{}; S.avoid[v]=!S.avoid[v]; save(); return render();
+    case "trail": S.trailDay=null; return go("trail");
+    case "trailExit": return go("plan",5);
+    case "trailDay": S.trailDay=+v; save(); return render();
+    case "eat": { S.trail=S.trail||{done:{},water:{}}; const id=b.dataset.id; S.trail.done[id]=!S.trail.done[id]; save(); storeHistory(); return render(); }
+    case "water": { S.trail=S.trail||{done:{},water:{}}; const R=calc(); const ti=todayIdx(R.n); const di=clamp(S.trailDay!=null?S.trailDay:(ti!=null?ti:0),0,R.n-1); const k="d"+di; S.trail.water[k]=Math.max(0,(S.trail.water[k]||0)+(+v)); save(); storeHistory(); return render(); }
+    case "sos": return go("sos");
+    case "note": S.noteFor=b.dataset.pid; return renderSheet();
+    case "noteClose": S.noteFor=null; return renderSheet();
+    case "noteSet": { const h=HIST.find(x=>x.pid===S.noteFor); if(!h) return; h.note=h.note||{}; const txt=$("#noteTxt"); if(txt) h.note.text=txt.value; h.note[b.dataset.k]=v; return renderSheet(); }
+    case "noteSave": { const h=HIST.find(x=>x.pid===S.noteFor); if(h){ h.note=h.note||{}; const txt=$("#noteTxt"); if(txt) h.note.text=txt.value.trim(); h.note.at=Date.now();
+        S.adjFood={less:1.1,ok:1,more:0.9}[h.note.food]||S.adjFood||1; S.adjWater={less:1.15,ok:1,more:0.9}[h.note.water]||S.adjWater||1; saveHist(); }
+      S.noteFor=null; save(); return render(); }
+    case "adjReset": S.adjFood=1; S.adjWater=1; save(); return render();
     case "introNext": S.introI=Math.min(INTRO.length-1,(S.introI||0)+1); return render();
     case "introPrev": S.introI=Math.max(0,(S.introI||0)-1); return render();
     case "introGo": S.introI=+v; return render();
@@ -1556,6 +1762,14 @@ function copyList(viaShare,txt,toastSel){
   fallbackCopy();
 }
 
+let LAST_REMIND="";
+setInterval(()=>{ if(S.view!=="trail") return; const R=calc(); if(!R) return; const ti=todayIdx(R.n); if(ti==null) return;
+  const di=clamp(S.trailDay!=null?S.trailDay:ti,0,R.n-1); if(di!==ti) return;
+  const P=dayPlan(R,R.D[di]), now=nowH();
+  const due=P.ev.find(e=>((e.kind==="snack"&&e.k)||(e.kind==="meal"&&e.on))&&!(S.trail&&S.trail.done[e.id])&&e.time<=now&&e.time>now-0.25);
+  const el=$("#remind"); if(!el) return;
+  if(due&&LAST_REMIND!==due.id){ LAST_REMIND=due.id; el.hidden=false; el.textContent=L(`Waktunya ${due.label.toLowerCase()}`,`Time for: ${due.label}`)+(due.what?`: ${due.what}`:""); try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){} }
+},30000);
 render();
 if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})})}
 
