@@ -283,6 +283,20 @@ footer a{color:var(--green)}
 .trow select{min-height:38px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);padding:4px 6px;max-width:48%}
 .mchips .chip{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;min-height:42px;padding:0 16px;font-weight:600;cursor:pointer}
 .mchips .chip[aria-pressed=true]{background:var(--pine);border-color:var(--pine);color:#fff}
+.intro .wrap{justify-content:flex-start}
+.intro-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:12px 0}
+.intro-il{width:min(78vw,300px);margin:0 auto 18px}
+.intro-il svg{width:100%;height:auto;display:block}
+.intro-n{opacity:.75;margin:0 0 6px;font-size:.92rem}
+.intro h1{font-size:2.4rem}
+.intro .lead{margin:10px 0 0;max-width:36ch}
+.dots{display:flex;justify-content:center;gap:8px;margin:18px 0}
+.dots button{width:10px;height:10px;border-radius:99px;border:0;background:rgba(255,255,255,.35);padding:0;cursor:pointer;transition:width .2s}
+.dots button.on{width:26px;background:#fff}
+.intro-acts{display:flex;gap:10px}
+.intro-acts .btn{flex:1;width:auto}
+.intro-acts .btn.ghost{flex:0 0 auto;padding:0 20px;border-color:rgba(255,255,255,.4)}
+@media (prefers-reduced-motion:reduce){.dots button{transition:none}}
 /* history */
 .hist{display:flex;gap:10px;align-items:center;border-top:1px solid var(--line);padding:12px 0}
 .hist:first-of-type{border-top:0}
@@ -716,6 +730,7 @@ function defaults(){const st=addDays(todayStr(),7);return{
 }}
 S=defaults();
 try{const s=JSON.parse(localStorage.getItem(KEY)||"null"); if(s&&typeof s==="object") S={...defaults(),...s,view:"welcome",edit:null,term:null,confirm:null};}catch(e){}
+if(!S.seenIntro){S.view="intro";S.introI=0;}
 let HIST=[]; try{HIST=JSON.parse(localStorage.getItem(HKEY)||"[]")||[]}catch(e){HIST=[]}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function saveHist(){try{localStorage.setItem(HKEY,JSON.stringify(HIST))}catch(e){}}
@@ -863,6 +878,58 @@ function header(title,sub,meta){
 const bar=(label,ok=true)=>`<div class="bar"><div class="wrap"><button class="btn ghost" data-act="back">${L("Kembali","Back")}</button><button class="btn" data-act="next" ${ok?"":"disabled"}>${label}</button></div></div>`;
 
 /* ===================== HALAMAN ===================== */
+const IL={
+  plan:`<svg viewBox="0 0 240 200" aria-hidden="true"><circle cx="120" cy="104" r="88" fill="#FFF4E8"/>
+    <path d="M64 150l38-58 18 26 14-18 42 50z" fill="#1F4D3A"/><path d="M102 92l10 15-6-2-5 4-5-4z" fill="#fff"/>
+    <rect x="128" y="96" width="52" height="58" rx="10" fill="#E2642A"/><path d="M180 108a14 14 0 0 1 0 28" fill="none" stroke="#E2642A" stroke-width="7"/>
+    <rect x="128" y="108" width="52" height="5" fill="#FFD6BE"/><path d="M142 86c-4-6 4-10 0-16M156 86c-4-6 4-10 0-16" stroke="#1F4D3A" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <rect x="44" y="40" width="54" height="40" rx="8" fill="#fff" stroke="#E2E8E1" stroke-width="2"/><path d="M53 54l5 5 9-10M53 68h34M72 54h15" stroke="#2F7356" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  menu:`<svg viewBox="0 0 240 200" aria-hidden="true"><circle cx="120" cy="104" r="88" fill="#FFF4E8"/>
+    <ellipse cx="112" cy="132" rx="58" ry="18" fill="#1F4D3A"/><rect x="166" y="124" width="46" height="10" rx="5" fill="#1F4D3A"/>
+    <ellipse cx="112" cy="126" rx="50" ry="13" fill="#2F7356"/><circle cx="96" cy="124" r="13" fill="#fff"/><circle cx="96" cy="124" r="6" fill="#F0B429"/>
+    <circle cx="124" cy="121" r="5" fill="#E2642A"/><circle cx="136" cy="128" r="4" fill="#E2642A"/><path d="M115 130h14" stroke="#9FD3B2" stroke-width="4" stroke-linecap="round"/>
+    <path d="M96 100c-5-8 5-12 0-20M114 98c-5-8 5-12 0-20M132 100c-5-8 5-12 0-20" stroke="#E2642A" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <rect x="150" y="38" width="48" height="60" rx="8" fill="#fff" stroke="#E2E8E1" stroke-width="2"/><path d="M160 54h28M160 66h28M160 78h18" stroke="#56655C" stroke-width="4" stroke-linecap="round"/></svg>`,
+  sched:`<svg viewBox="0 0 240 200" aria-hidden="true"><circle cx="120" cy="104" r="88" fill="#FFF4E8"/>
+    <path d="M40 160 C70 150 90 120 112 104 S150 60 168 52 C182 70 196 110 210 160Z" fill="#E3F3E9"/>
+    <path d="M40 160 C70 150 90 120 112 104 S150 60 168 52 C182 70 196 110 210 160" fill="none" stroke="#2F7356" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="70" cy="148" r="7" fill="#E2642A" stroke="#fff" stroke-width="3"/><circle cx="100" cy="116" r="7" fill="#E2642A" stroke="#fff" stroke-width="3"/>
+    <circle cx="134" cy="84" r="7" fill="#E2642A" stroke="#fff" stroke-width="3"/><circle cx="190" cy="110" r="7" fill="#E2642A" stroke="#fff" stroke-width="3"/>
+    <circle cx="66" cy="62" r="24" fill="#fff" stroke="#1F4D3A" stroke-width="5"/><path d="M66 48v14l9 6" stroke="#1F4D3A" stroke-width="5" fill="none" stroke-linecap="round"/></svg>`,
+  team:`<svg viewBox="0 0 240 200" aria-hidden="true"><circle cx="120" cy="104" r="88" fill="#FFF4E8"/>
+    <path d="M70 92h100l-10 62H80z" fill="#E2642A"/><path d="M90 92c0-22 60-22 60 0" fill="none" stroke="#1F4D3A" stroke-width="7" stroke-linecap="round"/>
+    <path d="M96 116l10 10 20-22" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#1F4D3A"><circle cx="58" cy="52" r="11"/><path d="M40 82c2-16 34-16 36 0z"/><circle cx="182" cy="52" r="11"/><path d="M164 82c2-16 34-16 36 0z"/></g>
+    <circle cx="120" cy="46" r="11" fill="#2F7356"/><path d="M102 76c2-16 34-16 36 0z" fill="#2F7356"/></svg>`,
+  begin:`<svg viewBox="0 0 240 200" aria-hidden="true"><circle cx="120" cy="104" r="88" fill="#FFF4E8"/>
+    <path d="M60 64h56v86H60a10 10 0 0 1-10-10V74a10 10 0 0 1 10-10z" fill="#1F4D3A"/><path d="M116 64h56a10 10 0 0 1 10 10v66a10 10 0 0 1-10 10h-56z" fill="#2F7356"/>
+    <path d="M66 86h36M66 100h36M66 114h24M130 86h36M130 100h28" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="176" cy="54" r="22" fill="#E2642A"/><text x="176" y="63" text-anchor="middle" font-size="26" font-weight="700" fill="#fff" font-family="Barlow,Arial,sans-serif">?</text>
+    <path d="M150 140l18-8 18 8v14c0 10-8 18-18 22-10-4-18-12-18-22z" fill="#fff" stroke="#1F4D3A" stroke-width="4"/><path d="M160 152l6 6 10-11" stroke="#2F7356" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+};
+const INTRO=[
+  {il:"plan",t:["Bekal yang pas untuk pendakianmu","The right food for your hike"],d:["Tahu berapa banyak yang harus dibawa, kapan dimakan, dan berapa biayanya, dalam 4 langkah.","Know how much to bring, when to eat it, and what it costs, in 4 steps."]},
+  {il:"menu",t:["Menu ala pendaki, lengkap dengan resep","Hiker-style meals, with recipes"],d:["Puluhan resep, dari nasi goreng kampung sampai wedang jahe, lengkap dengan bahan, bumbu, dan cara masak.","Dozens of recipes, from village fried rice to ginger tea, with ingredients, seasoning, and steps."]},
+  {il:"sched",t:["Kapan ngemil, di ketinggian berapa","When to snack, and at what height"],d:["Jadwal per jam memberi tahu kapan makan dan apa yang dimakan, supaya tidak lemas di jalur.","An hourly schedule tells you when and what to eat, so you don't run out of energy on the trail."]},
+  {il:"team",t:["Belanja dan bagi tugas rombongan","Shop and split tasks as a group"],d:["Checklist belanja, biaya per orang, dan kirim tugas ke setiap anggota lewat WhatsApp.","A shopping checklist, cost per person, and tasks sent to each member by WhatsApp."]},
+  {il:"begin",t:["Dibuat untuk pemula","Made for beginners"],d:["Istilah dijelaskan, tips disesuaikan, dan data tetap di HP-mu tanpa login.","Terms are explained, tips are tailored, and your data stays on your phone with no login."]}
+];
+function vIntro(){
+  const i=clamp(S.introI||0,0,INTRO.length-1), it=INTRO[i], last=i===INTRO.length-1;
+  return `<section class="ob intro" id="intro">${TOPO}<div class="wrap">
+    <div class="hdr-row"><span style="display:flex;align-items:center;gap:10px;font-weight:600">${LOGO} Bekal Nanjak</span>
+      <span class="hdr-right">${langToggle()}${last?"":`<button class="hbtn" data-act="introSkip">${L("Lewati","Skip")}</button>`}</span></div>
+    <div class="intro-body" aria-live="polite">
+      <div class="intro-il">${IL[it.il]}</div>
+      <p class="intro-n">${i+1} / ${INTRO.length}</p>
+      <h1>${esc(L(...it.t))}</h1>
+      <p class="lead">${esc(L(...it.d))}</p>
+    </div>
+    <div class="dots" role="tablist" aria-label="${L("Layar perkenalan","Intro screens")}">${INTRO.map((_,k)=>`<button role="tab" aria-selected="${k===i}" aria-label="${L("Layar","Screen")} ${k+1}" data-act="introGo" data-v="${k}" class="${k===i?"on":""}"></button>`).join("")}</div>
+    <div class="intro-acts">${i>0?`<button class="btn ghost" data-act="introPrev">${L("Kembali","Back")}</button>`:""}
+      ${last?`<button class="btn light" data-act="introStart">${L("Mulai rencana","Start planning")}</button>`:`<button class="btn light" data-act="introNext">${L("Lanjut","Next")}</button>`}</div>
+  </div></section>`;
+}
 function vWelcome(){
   const hasLast=S.pid&&HIST.some(h=>h.pid===S.pid);
   return `<section class="ob">${TOPO}<div class="wrap">
@@ -882,6 +949,7 @@ function vWelcome(){
     ${hasLast?`<button class="btn ghost" data-act="open" data-pid="${S.pid}">${L("Lanjutkan rencana terakhir","Continue last plan")}</button>`:""}
     ${HIST.length?`<button class="btn ghost" data-act="history">${L("Riwayat rencana","Plan history")} (${HIST.length})</button>`:""}
     <button class="btn ghost" data-act="glossary" style="border-color:rgba(255,255,255,.35)">${L("Kamus istilah pendakian","Hiking glossary")}</button>
+    <button class="linkbtn" data-act="showIntro" style="color:#fff;opacity:.85;margin-top:8px;align-self:center">${L("Lihat perkenalan","View the introduction")}</button>
   </div></section>`;
 }
 
@@ -1316,7 +1384,7 @@ function setItems(key,items){
 }
 
 /* ===================== KONTROL ===================== */
-const VIEWS={welcome:vWelcome,history:vHistory,glossary:vGlossary,done:vDone,plan:()=>[null,vRoute,vSchedule,vBody,vMeals,vResult][S.step]()};
+const VIEWS={intro:vIntro,welcome:vWelcome,history:vHistory,glossary:vGlossary,done:vDone,plan:()=>[null,vRoute,vSchedule,vBody,vMeals,vResult][S.step]()};
 function render(){
   document.documentElement.lang=S.lang;
   $("#app").innerHTML=VIEWS[S.view]();
@@ -1347,7 +1415,7 @@ function back(){
   go("plan",S.step-1);
 }
 function newPlan(){
-  const keep={lang:S.lang,sex:S.sex,age:S.age,height:S.height,weight:S.weight,load:S.load,veg:S.veg,light:S.light,cold:S.cold,prices:S.prices,ownFoods:S.ownFoods,tipsOpen:S.tipsOpen};
+  const keep={seenIntro:true,lang:S.lang,sex:S.sex,age:S.age,height:S.height,weight:S.weight,load:S.load,veg:S.veg,light:S.light,cold:S.cold,prices:S.prices,ownFoods:S.ownFoods,tipsOpen:S.tipsOpen};
   S={...defaults(),...keep}; go("plan",1);
 }
 
@@ -1359,6 +1427,12 @@ document.addEventListener("click",e=>{
   const a=b.dataset.act, v=b.dataset.v;
   switch(a){
     case "lang": S.lang=v; save(); return render();
+    case "introNext": S.introI=Math.min(INTRO.length-1,(S.introI||0)+1); return render();
+    case "introPrev": S.introI=Math.max(0,(S.introI||0)-1); return render();
+    case "introGo": S.introI=+v; return render();
+    case "introSkip": S.seenIntro=true; return go("welcome");
+    case "introStart": S.seenIntro=true; return newPlan();
+    case "showIntro": S.introI=0; return go("intro");
     case "new": if(S.view==="plan"&&S.step>=2){ S.confirm={title:L("Buat rencana baru?","Start a new plan?"),msg:L("Rencana yang sekarang tetap tersimpan di Riwayat. Kamu akan mulai lagi dari memilih gunung.","Your current plan stays in History. You'll start again by choosing a mountain."),yes:L("Buat baru","Start new"),run:{a:"new"}}; return renderSheet(); } return newPlan();
     case "history": return go("history");
     case "goto": return go("plan",+b.dataset.step);
@@ -1414,6 +1488,11 @@ document.addEventListener("click",e=>{
   }
 });
 document.addEventListener("change",e=>{ if(e.target.dataset&&e.target.dataset.member!=null) render(); });
+let TX=null;
+document.addEventListener("touchstart",e=>{ if(S.view==="intro") TX=e.touches[0].clientX; },{passive:true});
+document.addEventListener("touchend",e=>{ if(S.view!=="intro"||TX==null) return; const dx=e.changedTouches[0].clientX-TX; TX=null;
+  if(Math.abs(dx)<50) return; S.introI=clamp((S.introI||0)+(dx<0?1:-1),0,INTRO.length-1); render(); },{passive:true});
+document.addEventListener("keydown",e=>{ if(S.view==="intro"&&(e.key==="ArrowRight"||e.key==="ArrowLeft")){ S.introI=clamp((S.introI||0)+(e.key==="ArrowRight"?1:-1),0,INTRO.length-1); render(); } });
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ if(S.confirm){S.confirm=null;return renderSheet()} if(S.edit||S.term){S.edit=null;S.term=null;renderSheet()} } });
 document.addEventListener("toggle",e=>{ if(e.target.id==="tips"){S.tipsOpen=e.target.open;save()} if(e.target.id==="names"){S.namesOpen=e.target.open;save()} },true);
 function applySelect(k,v){
