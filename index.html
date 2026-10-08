@@ -386,6 +386,35 @@ body.saver .nextc{background:#000;border:1px solid #333}
 .tabs .seg button{flex:1 0 auto;padding:0 12px;white-space:nowrap}
 .trailbtn{background:#E2642A!important;color:#fff!important}
 details.why>summary b{color:var(--ink)}
+.dayband{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:-16px -16px 12px;padding:12px 16px;border-radius:14px 14px 0 0;color:#fff;background:#1F4D3A}
+.dayband.c1{background:#B4501E}
+.dayband b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:1.45rem;line-height:1.1}
+.dayband small{display:block;opacity:.9;font-size:.86rem}
+.dayband .edit{border-color:rgba(255,255,255,.5);color:#fff;background:transparent}
+.dayband .dbw{font-weight:600;font-size:.9rem;white-space:nowrap}
+.kv span small.sub{display:block;color:var(--muted);font-size:.8rem}
+.kv.hl{background:var(--greenbg);border-radius:10px;padding:10px;border-top:0;margin-top:6px}
+.prepc>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.prepc>summary::-webkit-details-marker{display:none}
+.prepc>summary b{font-family:"Barlow Condensed",sans-serif;font-size:1.3rem}
+.prepc[open] .chev{transform:rotate(180deg)}
+.prow{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.prow:first-of-type{border-top:0;margin-top:8px}
+.prow.got span{text-decoration:line-through;color:var(--muted)}
+.prow input[type=date]{border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);padding:4px 6px;font:inherit;font-size:.82rem;max-width:140px}
+.prow small{color:var(--muted)}
+.cdp{margin:6px 0 0;opacity:.9}
+.arow{padding:10px 0;border-top:1px solid var(--line)}
+.arow b{font-weight:600}.arow small{color:var(--muted);margin-left:6px}
+.arow.open b::after{content:" •";color:var(--blaze)}
+.who2{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip.sm.on{background:var(--pine);border-color:var(--pine);color:#fff}
+.mrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.mrow:first-of-type{border-top:0}
+.mrow b{display:block}.mrow small{color:var(--muted)}
+.msgbox{width:100%;min-height:260px;font:inherit;font-size:.9rem;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);padding:10px}
+.field select#ownU,.field select#ownGsel{appearance:auto;-webkit-appearance:menulist;background-image:none;padding-right:8px}
+.sheet-acts .btn{font-size:1.15rem}
 /* history */
 .hist{display:flex;gap:10px;align-items:center;border-top:1px solid var(--line);padding:12px 0}
 .hist:first-of-type{border-top:0}
@@ -464,9 +493,8 @@ const ROUTES={
   ciremai:[{id:"apuy",n:"Apuy",base:1250,up:7,down:5},{id:"palutungan",n:"Palutungan",base:1100,up:8,down:6},{id:"linggarjati",n:"Linggarjati",base:600,up:10,down:7}],
   papandayan:[{id:"campdavid",n:"Camp David",base:2000,up:3,down:2.5}],
   cikuray:[{id:"pemancar",n:"Pemancar",base:1500,up:6,down:4}],
-  slamet:[{id:"bambangan",n:"Bambangan",base:1500,up:9,down:6}],
-  sindoro:[{id:"kledung",n:"Kledung",base:1450,up:7.5,down:5},{id:"alangsewu",n:"Alang-alang Sewu",base:1650,up:6.5,down:4.5},{id:"tambi",n:"Tambi",base:1700,up:7,down:5}],
-  sumbing:[{id:"garung",n:"Garung",base:1500,up:8,down:5.5},{id:"banaran",n:"Banaran",base:1600,up:7,down:5}],
+  sindoro:[{id:"sigedang",n:"Sigedang",base:1900,up:5,down:3.5},{id:"kledung",n:"Kledung",base:1450,up:7.5,down:5},{id:"alangsewu",n:"Alang-alang Sewu",base:1650,up:6.5,down:4.5},{id:"tambi",n:"Tambi",base:1700,up:7,down:5}],
+  sumbing:[{id:"butuh",n:"Butuh, Kaliangkrik",base:1650,up:7,down:5},{id:"garung",n:"Garung",base:1500,up:8,down:5.5},{id:"banaran",n:"Banaran",base:1600,up:7,down:5}],
   merbabu:[{id:"selo",n:"Selo",base:1800,up:6.5,down:4},{id:"suwanting",n:"Suwanting",base:1300,up:8,down:5},{id:"wekas",n:"Wekas",base:1700,up:6,down:4},{id:"thekelan",n:"Thekelan",base:1500,up:8,down:5}],
   prau:[{id:"patak",n:"Patak Banteng",base:2100,up:2.5,down:2},{id:"dwarawati",n:"Dwarawati",base:2100,up:3,down:2},{id:"wates",n:"Wates",base:1900,up:3,down:2.5}],
   andong:[{id:"sawit",n:"Sawit",base:1300,up:1.5,down:1}],
@@ -480,6 +508,42 @@ const ROUTES={
   kerinci:[{id:"kersiktuo",n:"Kersik Tuo",base:1600,up:9,down:6}],
   marapi:[{id:"kotobaru",n:"Koto Baru",base:1400,up:6,down:4}],
   batur:[{id:"toyabungkah",n:"Toya Bungkah",base:1050,up:2,down:1.5}],
+  sibayak:[{id:"jamingi",n:"Jamin Ginting",base:1400,up:3,down:2}],
+  singgalang:[{id:"pandaisikek",n:"Pandai Sikek",base:1300,up:6,down:4}],
+  talang:[{id:"airbatumbuk",n:"Air Batumbuk",base:1300,up:5,down:3.5}],
+  kaba:[{id:"kaba",n:"Jalur umum Kaba",base:1400,up:2.5,down:2}],
+  dempo:[{id:"kampung4",n:"Kampung IV",base:1800,up:6,down:4}],
+  pesagi:[{id:"pesagi",n:"Jalur umum Pesagi",base:1300,up:5,down:3.5}],
+  karang:[{id:"pasirona",n:"Pasir Ona",base:700,up:5,down:3.5}],
+  salak:[{id:"cidahu",n:"Cidahu",base:1000,up:6,down:4}],
+  guntur:[{id:"citiis",n:"Citiis",base:1200,up:4.5,down:3}],
+  burangrang:[{id:"komando",n:"Komando",base:1300,up:3,down:2}],
+  manglayang:[{id:"barubeureum",n:"Barubeureum",base:1100,up:2.5,down:1.5}],
+  malabar:[{id:"malabar",n:"Jalur umum Malabar",base:1500,up:3,down:2}],
+  telomoyo:[{id:"dalangan",n:"Dalangan",base:1200,up:2.5,down:1.5}],
+  muria:[{id:"rahtawu",n:"Rahtawu",base:700,up:3.5,down:2.5}],
+  arjuno:[{id:"tretes",n:"Tretes",base:800,up:10,down:7,days:3},{id:"lawang",n:"Lawang, Kebun Teh Wonosari",base:1200,up:8,down:6}],
+  welirang:[{id:"tretes",n:"Tretes",base:800,up:9,down:6}],
+  butak:[{id:"sirahkencong",n:"Sirah Kencong",base:1000,up:7,down:5}],
+  kawi:[{id:"kawi",n:"Jalur umum Kawi",base:1000,up:6,down:4}],
+  panderman:[{id:"toyomerto",n:"Toyomerto",base:1200,up:2.5,down:1.5}],
+  raung:[{id:"kalibaru",n:"Kalibaru",base:800,up:14,down:9,days:4}],
+  argopuro:[{id:"baderan",n:"Baderan",base:1300,up:16,down:12,days:4}],
+  wilis:[{id:"bajulan",n:"Bajulan",base:1000,up:8,down:5}],
+  agung:[{id:"pasaragung",n:"Pasar Agung, sampai bibir kawah",base:1600,up:4,down:3,peak:2866},{id:"besakih",n:"Besakih",base:1100,up:6,down:4}],
+  abang:[{id:"abang",n:"Jalur umum Abang",base:1400,up:2.5,down:2}],
+  batukaru:[{id:"puraluhur",n:"Pura Luhur Batukaru",base:800,up:5,down:3.5}],
+  tambora:[{id:"pancasila",n:"Pancasila, sampai bibir kawah",base:750,up:10,down:7,days:3}],
+  inerie:[{id:"watumeze",n:"Watumeze",base:1000,up:4,down:3}],
+  mutis:[{id:"fatumnasi",n:"Fatumnasi",base:1500,up:3,down:2}],
+  latimojong:[{id:"karangan",n:"Karangan",base:1500,up:12,down:8,days:3}],
+  bawakaraeng:[{id:"lembanna",n:"Lembanna",base:1400,up:8,down:5}],
+  lompobattang:[{id:"lompobattang",n:"Jalur umum Lompobattang",base:1100,up:9,down:6}],
+  gamalama:[{id:"marikurubu",n:"Marikurubu",base:500,up:4,down:3}],
+  klabat:[{id:"airmadidi",n:"Airmadidi",base:300,up:5,down:3}],
+  lokon:[{id:"kakaskasen",n:"Kakaskasen",base:800,up:3,down:2}],
+  soputan:[{id:"soputan",n:"Jalur umum Soputan",base:900,up:4,down:3}],
+  slamet:[{id:"bambangan",n:"Bambangan",base:1500,up:9,down:6},{id:"guci",n:"Guci",base:1400,up:9,down:6},{id:"baturraden",n:"Baturraden",base:800,up:11,down:7}],
   rinjani:[{id:"sembalun",n:"Sembalun",base:1156,up:13,down:8,days:3},{id:"senaru",n:"Senaru, sampai bibir kawah",base:600,up:8,down:6,peak:2641}]
 };
 const MT={}; PROV.forEach(([p,list])=>list.forEach(([k,n,peak])=>MT[k]={k,n,prov:p,peak}));
@@ -494,7 +558,7 @@ const FOOD_ROWS=[
  ["nasib","Nasi bungkus","Packed rice meal","bks","pack",600,350,15000,"karbo",20,3,.5],
  ["oat","Oatmeal instan","Instant oatmeal","sachet","sachet",150,40,4000,"karbo",5,4,60],
  ["roti","Roti tawar","Bread","2 lbr","2 slices",160,60,2700,"karbo",5,1.5,3],
- ["rotisi","Roti isi","Filled bun","bks","pack",230,70,6000,"karbo",6,1.5,2],
+ ["rotisi","Roti isi","Filled bread roll","bks","pack",230,70,6000,"karbo",6,1.5,2],
  ["spaghetti","Spaghetti kering","Dry spaghetti","100 g","100 g",360,100,6000,"karbo",13,3,60],
  ["makaroni","Makaroni","Macaroni","100 g","100 g",370,100,5000,"karbo",13,3,60],
  ["bihun","Bihun","Rice vermicelli","100 g","100 g",360,100,5000,"karbo",6,1,60],
@@ -526,13 +590,13 @@ const FOOD_ROWS=[
  ["apel","Apel","Apple","buah","piece",95,180,4000,"sayur",.5,4,10],
  ["kurma","Kurma","Dates","5 btr","5 pcs",140,50,5000,"camilan",1,4,60],
  ["kismis","Kismis","Raisins","bks 30 g","30 g pack",90,30,5000,"camilan",1,1.2,60],
- ["kacang","Kacang campur","Mixed nuts","bks 30 g","30 g pack",170,30,5000,"camilan",6,2.4,60],
- ["coklat","Cokelat batang kecil","Small chocolate bar","bks 30 g","30 g pack",160,30,8000,"camilan",2,1.5,60],
+ ["kacang","Trail mix (kacang dan buah kering)","Trail mix (nuts and dried fruit)","bks 30 g","30 g pack",150,30,6000,"camilan",4,2,60],
+ ["coklat","Cokelat","Chocolate","bks 30 g","30 g pack",160,30,8000,"camilan",2,1.5,60],
  ["wafer","Wafer","Wafer","bks 25 g","25 g pack",125,25,3000,"camilan",1,0.3,60],
- ["biskuit","Biskuit padat","Dense biscuits","bks 60 g","60 g pack",290,60,6000,"camilan",4,1.2,90],
+ ["biskuit","Biskuit padat","Filling biscuits","bks 60 g","60 g pack",290,60,6000,"camilan",4,1.2,90],
  ["energybar","Energy bar","Energy bar","bks","bar",170,40,10000,"camilan",4,3,90],
  ["keripik","Keripik kentang","Potato chips","bks 35 g","35 g pack",180,35,7000,"camilan",2,1.5,60],
- ["jelly","Jelly minum","Drinkable jelly","sachet","pouch",150,150,5000,"camilan",0,0,90],
+ ["jelly","Minuman jeli","Jelly drink","sachet","pouch",150,150,5000,"camilan",0,0,90],
  ["permen","Permen","Hard candy","5 btr","5 pcs",100,25,2000,"camilan",0,0,180],
  ["aren","Gula aren","Palm sugar","30 g","30 g",110,30,2000,"camilan",0,0,90],
  ["madu","Madu sachet","Honey sachet","sachet","sachet",60,20,2000,"camilan",0,0,180],
@@ -574,25 +638,29 @@ const EXTRA_ROWS=[
  ["bumbukare","Bumbu kare instan","Instant curry paste","sachet","sachet",30,20,3000,"bumbu",0.5,0.5,180],
 
  ["daunsalam","Daun salam dan serai","Bay leaf and lemongrass","paket","pack",0,10,1000,"bumbu",0,0.5,5],
- ["waferkaramel","Wafer cokelat karamel (contoh: Beng-Beng)","Caramel chocolate wafer","bks 20 g","20 g pack",100,20,2500,"camilan",1,0.3,90],
+ ["waferkaramel","Wafer cokelat karamel","Caramel chocolate wafer","bks 20 g","20 g pack",100,20,2500,"camilan",1,0.3,90],
  ["biskuitkelapa","Biskuit kelapa","Coconut biscuits","bks 30 g","30 g pack",140,30,2500,"camilan",2,0.5,90],
  ["crackers","Crackers","Crackers","bks 25 g","25 g pack",120,25,2500,"camilan",2,0.6,90],
  ["kacangatom","Kacang atom","Coated peanuts","bks 30 g","30 g pack",160,30,3000,"camilan",5,1.5,60],
  ["serealbar","Sereal bar","Cereal bar","bks 22 g","22 g pack",90,22,4000,"camilan",1.5,1,90],
  ["keripikpisang","Keripik pisang","Banana chips","bks 30 g","30 g pack",150,30,4000,"camilan",0.7,2,30],
  ["pisangsale","Pisang sale","Dried banana","bks 50 g","50 g pack",150,50,6000,"camilan",1.5,3,30],
- ["dodol","Dodol","Dodol sweets","3 buah","3 pcs",110,30,3000,"camilan",0.5,0.3,30],
+ ["dodol","Dodol","Dodol (sticky palm-sugar sweet)","3 buah","3 pcs",110,30,3000,"camilan",0.5,0.3,30],
  ["tingting","Kacang ting-ting","Peanut brittle","bks 25 g","25 g pack",120,25,3000,"camilan",3,1,60],
  ["permenjahe","Permen jahe","Ginger candy","5 btr","5 pcs",80,20,2000,"camilan",0,0,180],
  ["kejustik","Keju stik","Cheese sticks","bks 30 g","30 g pack",150,30,5000,"camilan",3,0.3,30],
  ["gummy","Permen kenyal","Gummy candy","bks 25 g","25 g pack",85,25,3000,"camilan",1.5,0,180],
  ["cokelatkoin","Cokelat koin","Chocolate coins","bks 25 g","25 g pack",130,25,3000,"camilan",1.5,1,90],
  ["rotisobekmini","Roti sobek mini","Mini pull-apart bread","bks","pack",200,60,5000,"camilan",5,1,3],
- ["susuuht","Susu UHT kotak","UHT milk carton","kotak 200 ml","200 ml carton",130,210,5000,"minum",6,0,180],
+ ["susuuht","Susu UHT atau steril kotak","UHT or sterilised milk carton","kotak 200 ml","200 ml carton",130,210,5000,"minum",6,0,180],
  ["nasiinstan","Nasi instan seduh","Instant rice","cup","cup",320,90,12000,"karbo",6,1,180],
  ["miecup","Mie cup","Cup noodles","cup","cup",300,75,6000,"karbo",6,1.5,180],
  ["karipouch","Kari ayam siap saji","Ready-made chicken curry","pouch","pouch",280,180,22000,"protein",15,1,180],
  ["semurpouch","Semur daging siap saji","Ready-made beef stew","pouch","pouch",260,180,25000,"protein",16,1,180],
+ ["juskotak","Jus buah kotak","Fruit juice carton","kotak 200 ml","200 ml carton",100,210,4000,"minum",0.5,0.3,180],
+ ["tehkotak","Teh kotak","Boxed iced tea","kotak 200 ml","200 ml carton",90,210,3500,"minum",0,0,180],
+ ["kacanghijau","Sari kacang hijau kotak","Mung bean drink carton","kotak 250 ml","250 ml carton",130,260,5000,"minum",3,1,180],
+ ["kopisusukemasan","Kopi susu kemasan","Bottled milk coffee","botol 200 ml","200 ml bottle",110,220,6000,"minum",2,0,180],
  ["nasibayam","Nasi bungkus ayam goreng","Packed rice, fried chicken","bks","pack",700,380,18000,"karbo",30,3,.5],
  ["nasibtelur","Nasi bungkus telur balado","Packed rice, chilli eggs","bks","pack",600,350,15000,"karbo",18,2,.5],
  ["nasibtempe","Nasi bungkus tempe orek","Packed rice, sweet tempeh","bks","pack",580,350,13000,"karbo",17,4,.5]
@@ -782,7 +850,7 @@ const PRESETS=[
    [["roti",2],["selaicoklat",1],["margarin",1]],10,PAN,[
    ["Oles roti dengan selai cokelat, tutup.","Spread chocolate on the bread and close."],
    ["Panggang di wajan dengan margarin sampai kecokelatan.","Toast in the pan with margarine until golden."]]),
- RC("trailmix",["Trail mix","Trail mix"],["cemilan","cadangan"],[["kacang",1],["kismis",1],["coklat",1]],2,NONE,[
+ RC("trailmix",["Paket trail mix","Trail mix pack"],["cemilan","cadangan"],[["kacang",1],["kismis",1],["coklat",1]],2,NONE,[
    ["Campur semua dalam satu ziplock.","Mix everything in one zip bag."]]),
  RC("energi",["Paket energi cepat","Quick energy pack"],["cemilan","cadangan"],[["energybar",1],["jelly",1],["permen",1]],1,NONE,[
    ["Simpan di kantong yang mudah dijangkau.","Keep it in an easy-to-reach pocket."]]),
@@ -976,9 +1044,9 @@ function mealRecipes(key,slot,i){ if(S.custom[key]) return (S.recipeOf&&S.recipe
 const TAGS={
   nuts:["kacang","selaikacang","kacangatom","tingting"],
   seafood:["sarden","teri","tuna","saustiram"],
-  dairy:["keju","susububuk","skm","coklatpanas","energen","kejustik","susuuht"],
+  dairy:["kopisusukemasan","keju","susububuk","skm","coklatpanas","energen","kejustik","susuuht"],
   egg:["telur","telurmentah","nasibtelur"],
-  sugar:["aren","gula","madu","permen","jelly","skm","selaicoklat","teh","jahe","coklatpanas","energen","gummy","dodol","permenjahe","waferkaramel"],
+  sugar:["juskotak","tehkotak","kacanghijau","kopisusukemasan","aren","gula","madu","permen","jelly","skm","selaicoklat","teh","jahe","coklatpanas","energen","gummy","dodol","permenjahe","waferkaramel"],
   meat:["abon","sosis","sarden","kornet","rendang","dendeng","ayamungkep","teri","tuna","nugget","saustiram","karipouch","semurpouch","nasibayam"]
 };
 const AVOID_LBL={nuts:["Tanpa kacang","No nuts"],seafood:["Tanpa seafood","No seafood"],dairy:["Tanpa susu","No dairy"],egg:["Tanpa telur","No eggs"],sugar:["Kurangi gula","Less sugar"]};
@@ -1077,10 +1145,10 @@ const IL={
     <circle cx="134" cy="84" r="7" fill="#E2642A" stroke="#fff" stroke-width="3"/><circle cx="190" cy="110" r="7" fill="#E2642A" stroke="#fff" stroke-width="3"/>
     <circle cx="66" cy="62" r="24" fill="#fff" stroke="#1F4D3A" stroke-width="5"/><path d="M66 48v14l9 6" stroke="#1F4D3A" stroke-width="5" fill="none" stroke-linecap="round"/></svg>`,
   team:`<svg viewBox="0 0 240 200" aria-hidden="true"><circle cx="120" cy="104" r="88" fill="#FFF4E8"/>
-    <path d="M70 92h100l-10 62H80z" fill="#E2642A"/><path d="M90 92c0-22 60-22 60 0" fill="none" stroke="#1F4D3A" stroke-width="7" stroke-linecap="round"/>
-    <path d="M96 116l10 10 20-22" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    <g fill="#1F4D3A"><circle cx="58" cy="52" r="11"/><path d="M40 82c2-16 34-16 36 0z"/><circle cx="182" cy="52" r="11"/><path d="M164 82c2-16 34-16 36 0z"/></g>
-    <circle cx="120" cy="46" r="11" fill="#2F7356"/><path d="M102 76c2-16 34-16 36 0z" fill="#2F7356"/></svg>`,
+    <g fill="#1F4D3A"><circle cx="78" cy="68" r="10"/><path d="M62 96c2-15 30-15 32 0z"/><circle cx="162" cy="68" r="10"/><path d="M146 96c2-15 30-15 32 0z"/></g>
+    <circle cx="120" cy="58" r="11" fill="#2F7356"/><path d="M102 90c2-17 34-17 36 0z" fill="#2F7356"/>
+    <path d="M80 106h80l-9 52H89z" fill="#E2642A"/><path d="M96 106c0-18 48-18 48 0" fill="none" stroke="#1F4D3A" stroke-width="6" stroke-linecap="round"/>
+    <path d="M104 128l9 9 18-20" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   begin:`<svg viewBox="0 0 240 200" aria-hidden="true"><circle cx="120" cy="104" r="88" fill="#FFF4E8"/>
     <path d="M60 64h56v86H60a10 10 0 0 1-10-10V74a10 10 0 0 1 10-10z" fill="#1F4D3A"/><path d="M116 64h56a10 10 0 0 1 10 10v66a10 10 0 0 1-10 10h-56z" fill="#2F7356"/>
     <path d="M66 86h36M66 100h36M66 114h24M130 86h36M130 100h28" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
@@ -1314,20 +1382,27 @@ const PACK=[
 const isPersonal=id=>food(id).c==="camilan";
 function memberName(i){ const n=(S.members&&S.members[i]||"").trim(); return n||L(`Orang ${i+1}`,`Person ${i+1}`); }
 function splitTasks(R){
-  const P=S.people||1, out={}, load=Array(P).fill(0);
-  const shared=Object.entries(R.shop).filter(([id])=>!isPersonal(id));
-  // pembagian manual dulu
-  shared.forEach(([id,q])=>{ const a=S.assign[id]; if(a!=null&&a!=="auto"&&(a==="each"||+a<P)){ out[id]=a; if(a!=="each") load[+a]+=food(id).g*q*P; } });
-  // sisanya dibagi otomatis, barang terberat ke anggota yang bebannya paling ringan
-  shared.filter(([id])=>out[id]==null).sort((a,b)=>food(b[0]).g*b[1]-food(a[0]).g*a[1]).forEach(([id,q])=>{
-    let m=0; for(let k=1;k<P;k++) if(load[k]<load[m]) m=k; out[id]=m; load[m]+=food(id).g*q*P; });
-  Object.keys(R.shop).filter(isPersonal).forEach(id=>{ out[id]= (S.assign[id]!=null&&S.assign[id]!=="auto"&&(S.assign[id]==="each"||+S.assign[id]<P))?S.assign[id]:"each"; });
+  const P=S.people||1, out={};
+  Object.keys(R.shop).forEach(id=>{ if(isPersonal(id)){ out[id]="each"; return; } const a=S.assign[id]; out[id]=(a!=null&&a!=="auto"&&(a==="each"||+a<P))?a:null; });
   return out;
+}
+function autoAssign(R){
+  const P=S.people||1, A=splitTasks(R), load=Array(P).fill(0), CP=cookPlan(R);
+  S.assignGear=S.assignGear||{};
+  Object.entries(R.shop).forEach(([id,q])=>{ const a=A[id]; if(a!=null&&a!=="each") load[+a]+=food(id).g*q*P; });
+  gearTypes(R).forEach(g=>{ const a=S.assignGear[g.k]; if(a!=null&&+a<P) load[+a]+=g.w*g.q*1000; });
+  if(CP.waterPP&&S.assignWater!=null&&+S.assignWater<P) load[+S.assignWater]+=CP.waterPP*P*1000;
+  const units=[];
+  Object.entries(R.shop).filter(([id])=>A[id]==null).forEach(([id,q])=>units.push(["item",id,food(id).g*q*P]));
+  gearTypes(R).filter(g=>S.assignGear[g.k]==null||+S.assignGear[g.k]>=P).forEach(g=>units.push(["gear",g.k,g.w*g.q*1000]));
+  if(CP.waterPP&&(S.assignWater==null||+S.assignWater>=P)) units.push(["water","w",CP.waterPP*P*1000]);
+  units.sort((a,b)=>b[2]-a[2]).forEach(([k,key,w])=>{ let m=0; for(let x=1;x<P;x++) if(load[x]<load[m]) m=x; load[m]+=w;
+    if(k==="item") S.assign[key]=m; else if(k==="gear") S.assignGear[key]=m; else S.assignWater=m; });
 }
 function memberLists(R){
   const P=S.people||1, A=splitTasks(R);
   return Array.from({length:P},(_,m)=>{
-    const items=[]; Object.entries(R.shop).forEach(([id,q])=>{ const a=A[id]; if(a==="each") items.push([id,q,true]); else if(+a===m) items.push([id,q*P,false]); });
+    const items=[]; Object.entries(R.shop).forEach(([id,q])=>{ const a=A[id]; if(a==="each") items.push([id,q,true]); else if(a!=null&&+a===m) items.push([id,q*P,false]); });
     return {m,name:memberName(m),items,g:items.reduce((s,[id,q])=>s+food(id).g*q,0),p:items.reduce((s,[id,q])=>s+fprice(id)*q,0)};
   });
 }
@@ -1464,6 +1539,12 @@ function vNote(){
     <div class="sheet-acts"><button class="btn ghost" data-act="noteClose">${L("Batal","Cancel")}</button><button class="btn" data-act="noteSave">${L("Simpan catatan","Save notes")}</button></div></div></div>`;
 }
 function vSheet(){
+  if(S.msg) return `<div class="sheet-bg" data-act="msgClose"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="msgT" data-stop="1">
+    <h2 id="msgT">${esc(S.msg.t)}</h2><p class="hint">${L("Ubah dulu kalau perlu, lalu kirim.","Edit if needed, then send.")}</p>
+    <textarea id="msgTxt" class="msgbox" aria-label="${L("Isi pesan","Message")}">${esc(S.msg.x)}</textarea>
+    <p class="toast" id="msgToast" role="status"></p>
+    <div class="sheet-acts"><button class="btn ghost" data-act="msgCopy">${L("Salin","Copy")}</button><button class="btn" data-act="msgShare">${L("Kirim","Send")}</button></div>
+    <button class="linkbtn" data-act="msgClose" style="width:100%">${L("Tutup","Close")}</button></div></div>`;
   if(S.noteFor) return vNote();
   if(S.confirm){ const c=S.confirm;
     return `<div class="sheet-bg" data-act="noConfirm"><div class="sheet confirm" role="alertdialog" aria-modal="true" aria-labelledby="cfT" aria-describedby="cfD" data-stop="1">
@@ -1586,11 +1667,14 @@ function vResult(){
     if(TT.carryKg+6>S.weight*0.3) alerts.push(L("Bawaan berisiko terlalu berat. Pertimbangkan carrier ringan atau bagi beban dengan rombongan.","Your load may be too heavy. Consider the light pack option or sharing with the group."));
     if((S.adjFood||1)!==1||(S.adjWater||1)!==1) alerts.push(L(`Disesuaikan dari catatan pendakianmu sebelumnya.`,`Adjusted from your previous trip notes.`)+` <button class="linkbtn" data-act="adjReset">${L("Kembalikan","Reset")}</button>`);
     const plates=Math.round(R.perDay/650);
-    body=`<div class="hero">${TOPO}
+    const done=PREP.filter(([k])=>S.prep&&S.prep[k]).length;
+    body=`<details class="card prepc"${done<4?" open":""}><summary><span><b>${L("Persiapan","Preparation")} ${done}/4</b></span>${CHEV}</summary>
+        ${PREP.map(([k,o,t])=>{const dn=!!(S.prep&&S.prep[k]); return `<div class="prow${dn?" got":""}"><button class="ck" data-act="prep" data-v="${k}" role="checkbox" aria-checked="${dn}" aria-label="${esc(L(...t))}"></button><span>${L(...t)}</span>${o===0?`<small>${new Date(S.start+"T00:00:00").toLocaleDateString(LOC(),{day:"numeric",month:"short"})}</small>`:`<input type="date" data-prepdate="${k}" value="${prepDate(k,o)}" max="${S.start}" aria-label="${L("Tanggal","Date")}">`}</div>`}).join("")}</details>
+      <div class="hero">${TOPO}
         <div class="hrow">${scope(false)}</div>
         <div class="big3"><div><small>${L("Bekal","Food")}</small><b>${kg(R.G)}</b></div><div><small>${L("Biaya bekal","Food cost")}</small><b>${rp(R.P)}</b></div><div><small>${L("Air minum/hari","Water/day")}</small><b>±${dec(Math.max(...R.D.map(d=>d.water)))} L</b></div></div>
         ${grp?`<div class="hrow" style="margin-top:12px">${scope(true,P)}</div>
-        <div class="big3"><div><small>${L("Belanja","Shopping")}</small><b>${rp(R.P*P)}</b></div><div><small>${L("Gas","Gas")}</small><b>${CP.canisters} ${L("kaleng","cans")}</b></div><div><small>${L("Air total","Total water")}</small><b>±${fmt(W.total)} L</b></div></div>`:""}</div>
+        <div class="big3"><div><small>${L("Belanja","Shopping")}</small><b>${rp(R.P*P)}</b></div><div><small>${L("Gas","Gas")}</small><b>${CP.canisters} ${L("kaleng","cans")}</b></div><div><small>${L("Air dibawa/orang","Water carried each")}</small><b>±${dec(W.carry)} L</b></div></div>`:""}</div>
       ${alerts.map(a=>`<p class="alert">${a}</p>`).join("")}
       <details class="card why"><summary><span><b>${L(`±${fmt(R.perDay)} kkal per hari, setara ±${plates} piring nasi lengkap`,`±${fmt(R.perDay)} kcal a day, about ${plates} full plates of rice`)}</b><small>${L("Kenapa sebanyak ini?","Why so much?")}</small></span>${CHEV}</summary>
         <p>${L(`Mendaki naik-turun berjam-jam sambil membawa beban membakar sekitar ${nf(R.perDay/2000,{maximumFractionDigits:1})}× energi hari biasa. Angka ini untuk seharian penuh. Sebagian ditutup dari makan di rumah atau basecamp, dan saat berjalan tubuh hanya bisa mencerna ±200–300 kkal per jam, jadi porsi bekal sengaja dibuat masuk akal.`,`Hiking up and down for hours with a load burns about ${nf(R.perDay/2000,{maximumFractionDigits:1})}× a normal day's energy. This covers the whole day. Some comes from meals at home or basecamp, and while walking you can only digest about 200–300 kcal an hour, so the packed portions are kept realistic.`)}</p></details>
@@ -1612,11 +1696,10 @@ function vResult(){
         <p>${L("Sesuaikan dengan pola makan, alergi, dan kondisi kesehatanmu. Jika hamil atau menyusui, menjalani diet khusus, atau punya kondisi seperti diabetes, gangguan jantung, ginjal, atau riwayat gangguan makan, diskusikan dulu dengan tenaga kesehatan. Angka kalori, harga, dan data jalur adalah perkiraan.","Adjust to your diet, allergies, and health. If pregnant or breastfeeding, on a special diet, or with conditions such as diabetes, heart or kidney disease, or a history of eating disorders, talk to a health professional first. Calories, prices, and trail data are estimates.")}</p></details>`;
   } else if(tab==="menu"){
     body=`<p class="note" style="margin:0 0 10px">${scope(false)} ${L("Porsi tidak harus habis sekaligus.","Portions don't have to be eaten at once.")}</p>
-      ${R.D.map(d=>`<div class="card day"><div class="row-h"><h3>${L("Hari","Day")} ${d.i+1}</h3><button class="edit" data-act="shuffleDay" data-v="${d.i}">${L("Acak variasi","Shuffle")}</button></div>
-        <p class="dmeta">${esc(dayDate(d.i))}${d.trekH?`, ±${dec(d.trekH)} ${L("jam jalan","h walking")}`:""}</p>
+      ${R.D.map(d=>`<div class="card day"><div class="dayband c${d.i%2}"><span><b>${L("Hari","Day")} ${d.i+1}</b><small>${esc(dayDate(d.i))}${d.trekH?`, ±${dec(d.trekH)} ${L("jam jalan","h walking")}`:""}</small></span><button class="edit" data-act="shuffleDay" data-v="${d.i}">${L("Acak variasi","Shuffle")}</button></div>
         <details class="why2"><summary>${L(`Energi seharian ${fmt(d.need)} kkal, dari bekal ${fmt(d.packed)} kkal`,`Day's energy ${fmt(d.need)} kcal, from packed food ${fmt(d.packed)} kcal`)}</summary><p>${L("Sisanya dari makan di rumah atau basecamp. Saat berjalan tubuh hanya bisa mencerna ±200–300 kkal per jam, jadi kekurangan sesaat itu wajar.","The rest comes from meals at home or basecamp. While walking you can only digest about 200–300 kcal an hour, so a short shortfall is normal.")}</p></details>
         ${d.meals.map(x=>{ if(!x.on) return `<div class="meal off"><div class="meal-h"><b>${L(...SLOTS[x.slot].n)}</b><button class="edit" data-act="meal" data-key="${x.key}">${L("Bawa","Pack it")}</button></div><p class="note">${whyOff(d.i,x.slot,R.n)}</p></div>`;
-          const alts=altsFor(x.slot,x.key,d.i), hasNB=x.items.some(([id])=>/^nasib/.test(id));
+          const alts=altsFor(x.slot,x.key,d.i).filter(a=>!x.items.some(([j])=>j===a.items[0][0])), hasNB=x.items.some(([id])=>/^nasib/.test(id));
           return `<div class="meal"><div class="meal-h"><b>${L(...SLOTS[x.slot].n)}${x.custom?`<span class="badge">${L("diubah","edited")}</span>`:""}</b><span class="r"><span class="kcal-tag">${fmt(kOf(x.items))} ${L("kkal","kcal")}</span><button class="edit" data-act="edit" data-key="${x.key}">${L("Atur","Edit")}</button></span></div>
             ${chips(x.items,d.i,x.slot)}${balance(x.items,x.slot)}
             ${hasNB?`<p class="note">${L("Pilih lauk kering: ayam goreng, telur balado, atau tempe orek. Sambal dibungkus terpisah. Hindari santan dan sayur berkuah.","Pick dry sides: fried chicken, chilli eggs, or sweet tempeh. Keep the chilli separate. Avoid coconut-milk dishes and soupy vegetables.")}</p>`:""}
@@ -1643,63 +1726,83 @@ function vResult(){
       <div class="card" id="packing"><h2>${L("Tips packing","Packing tips")}</h2>
         ${PACK.filter(g=>!g.c||Object.keys(R.shop).some(id=>food(id).c===g.c)).map((g,gi)=>`<details class="pk"${gi===0?" open":""}><summary>${esc(L(...g.t))}${CHEV}</summary><ul class="tips">${g.tips.map(t=>`<li><span>${esc(L(...t))}</span></li>`).join("")}</ul></details>`).join("")}</div>`;
   } else if(tab==="team"){
-    const ML=teamLists(R), maxG=Math.max(...ML.map(x=>x.g),1), sel=clamp(S.taskM||0,0,P-1), x=ML[sel];
-    const mv=id=>`<select data-assign="${id}" aria-label="${L("Pindahkan","Move")} ${esc(fname(id))}">${ML.map(m=>`<option value="${m.m}" ${m.m===sel?"selected":""}>${m.m===sel?esc(m.name):L("Pindah ke","Move to")+" "+esc(m.name)}</option>`).join("")}<option value="each">${L("Masing-masing","Everyone")}</option></select>`;
-    const sh=x.items.filter(i=>!i[2]), own=x.items.filter(i=>i[2]);
-    body=`<div class="card" id="tugas"><h2>${L("Anggota","Members")}</h2>
-        <div class="mchips">${ML.map(m=>`<button class="chip" data-act="taskM" data-v="${m.m}" aria-pressed="${m.m===sel}">${S.sent&&S.sent[m.m]?"✓ ":""}${esc(m.name)}</button>`).join("")}</div>
-        <details class="mini-d" id="names" ${S.namesOpen?"open":""}><summary>${L("Ubah nama anggota","Edit names")}</summary>
-          <div class="members" style="margin-top:8px">${ML.map(m=>`<label class="field"><span>${m.m+1}</span><input data-member="${m.m}" maxlength="20" value="${esc((S.members||[])[m.m]||"")}" placeholder="${esc(L(`Orang ${m.m+1}`,`Person ${m.m+1}`))}"></label>`).join("")}</div></details></div>
-      <div class="mcard card"><div class="row-h"><h2>${L("Tugas","Tasks for")} ${esc(x.name)}</h2><span class="kcal-tag">${kg(x.g)}, ${rp(x.p)}</span></div>
-        <div class="wbar"><i style="width:${Math.round(x.g/maxG*100)}%"></i></div>
-        ${sh.length?`<p class="sub2">${L("Beli dan bawa untuk rombongan","Buy and carry for the group")}</p>`+sh.map(([id,q])=>`<div class="trow"><span><b>${esc(fname(id))}</b><small>${esc(qty(id,q))}</small></span>${mv(id)}</div>`).join(""):""}
-        ${x.gear.length?`<p class="sub2">${L("Alat bersama","Shared gear")}</p><p class="note" style="margin:0 0 6px">${esc(gearTxt(x.gear))}</p>`:""}
-        ${own.length?`<p class="sub2">${L("Untuk diri sendiri","For themselves")}</p><p class="note" style="margin:0 0 8px">${esc(own.map(([id,q])=>`${fname(id)} ${qty(id,q)}`).join(", "))}</p>`:""}
-        <button class="btn" data-act="shareMember" data-m="${sel}">${L("Kirim tugas ke","Send tasks to")} ${esc(x.name)}</button>
-        <button class="linkbtn" data-act="autoSplit">${L("Bagi ulang otomatis","Re-split automatically")}</button></div>
+    const ML=teamLists(R), A=splitTasks(R), PT=patungan(R), CP=cookPlan(R);
+    const names=ML.map(m=>m.name);
+    const pick=(kind,key,cur)=>`<div class="who2">${names.map((n,m)=>`<button class="chip sm${String(cur)===String(m)?" on":""}" data-act="assign" data-kind="${kind}" data-key="${key}" data-v="${m}" aria-pressed="${String(cur)===String(m)}">${esc(n)}</button>`).join("")}${kind==="item"?`<button class="chip sm${cur==="each"?" on":""}" data-act="assign" data-kind="item" data-key="${key}" data-v="each" aria-pressed="${cur==="each"}">${L("Masing-masing","Each")}</button>`:""}</div>`;
+    const shared=Object.entries(R.shop).filter(([id])=>A[id]!=="each"||!isPersonal(id)).filter(([id])=>!isPersonal(id));
+    const GT=gearTypes(R);
+    const total=shared.length+GT.length+(CP.waterPP?1:0);
+    const doneN=shared.filter(([id])=>A[id]!=null).length+GT.filter(g=>S.assignGear&&S.assignGear[g.k]!=null).length+(CP.waterPP&&S.assignWater!=null?1:0);
+    body=`<div class="card"><div class="row-h"><h2>${L("Anggota","Members")}</h2><button class="linkbtn" data-act="goto" data-step="2">${P} ${L("orang","people")}</button></div>
+        <div class="members">${ML.map(m=>`<label class="field"><span>${m.m+1}</span><input data-member="${m.m}" maxlength="20" value="${esc((S.members||[])[m.m]||"")}" placeholder="${esc(L(`Orang ${m.m+1}`,`Person ${m.m+1}`))}"></label>`).join("")}</div></div>
+      <div class="card"><div class="row-h"><h2>${L("Bagi barang bersama","Split shared items")}</h2><span class="kcal-tag">${doneN}/${total}</span></div>
+        <p class="note" style="margin:0 0 6px">${L("Ketuk nama yang membeli dan membawa.","Tap who buys and carries it.")} <button class="linkbtn" data-act="autoSplit">${L("Bagi otomatis","Auto-split")}</button>${doneN?` <button class="linkbtn" data-act="clearSplit">${L("Kosongkan","Clear")}</button>`:""}</p>
+        ${shared.map(([id,q])=>`<div class="arow${A[id]==null?" open":""}"><span><b>${esc(fname(id))}</b><small>${esc(qty(id,q*P))}</small></span>${pick("item",id,A[id])}</div>`).join("")}
+        ${GT.map(g=>`<div class="arow${S.assignGear&&S.assignGear[g.k]!=null?"":" open"}"><span><b>${esc(g.n)}</b><small>${g.q}</small></span>${pick("gear",g.k,S.assignGear&&S.assignGear[g.k])}</div>`).join("")}
+        ${CP.waterPP?`<div class="arow${S.assignWater!=null?"":" open"}"><span><b>${L("Air untuk masak","Cooking water")}</b><small>±${dec(CP.waterPP*P)} L</small></span>${pick("water","w",S.assignWater)}</div>`:""}
+        <p class="note" style="margin:8px 0 0">${L("Setiap orang membawa sendiri: camilan, makanan cadangan, alat makan, dan botol air.","Everyone brings their own snacks, spare food, cutlery, and water bottle.")}</p></div>
+      <div class="card"><h2>${L("Per anggota","Per member")}</h2>
+        ${ML.map(m=>`<div class="mrow"><span><b>${S.sent&&S.sent[m.m]?"✓ ":""}${esc(m.name)}</b><small>±${kg(m.g)}, ${L("belanja","spends")} ${rp(m.p)}</small></span><button class="edit" data-act="shareMember" data-m="${m.m}">${L("Kirim","Send")}</button></div>`).join("")}</div>
+      <div class="card"><h2>${L("Patungan","Cost split")}</h2>
+        <div class="kv"><span>${L("Belanja bersama","Shared shopping")}</span><b>${rp(PT.shared)}</b></div>
+        <div class="kv"><span>${L("Per orang","Per person")}</span><b>${rp(PT.share)}</b></div>
+        ${PT.open?`<p class="note">${L(`${rp(PT.open)} belum dibagi.`,`${rp(PT.open)} not assigned yet.`)}</p>`:""}
+        ${PT.tr.length?PT.tr.map(([a,b,x])=>`<div class="kv"><span>${esc(memberName(a))} → ${esc(memberName(b))}</span><b>${rp(x)}</b></div>`).join(""):(PT.open?"":`<p class="note">${L("Sudah seimbang.","Already even.")}</p>`)}</div>
       <div class="card"><h2>${L("Kirim ke grup","Send to the group")}</h2>
-        <div class="jump"><button class="opt" data-act="shareGroup"><span><b>${L("Siapa membawa apa","Who brings what")}</b><small>${L("Ringkasan pembagian untuk semua anggota","Everyone's share in one message")}</small></span>›</button>
-        <button class="opt" data-act="sharePrep"><span><b>${L("Jadwal persiapan","Prep schedule")}</b><small>${L("Kapan belanja, packing, dan berangkat","When to shop, pack, and leave")}</small></span>›</button></div>
-        <p class="toast" id="toast2" role="status"></p></div>`;
+        <div class="jump"><button class="opt" data-act="shareGroup"><span><b>${L("Siapa membawa apa","Who brings what")}</b><small>${L("Lihat dan ubah dulu sebelum dikirim","Preview and edit before sending")}</small></span>›</button>
+        <button class="opt" data-act="sharePrep"><span><b>${L("Jadwal persiapan","Prep schedule")}</b><small>${L("Lihat dan ubah dulu sebelum dikirim","Preview and edit before sending")}</small></span>›</button></div></div>`;
   } else {
     const W=waterPlan(R);
     body=`<button class="trailbtn" data-act="trail"><span><b>${L("Mulai Mode Pendakian","Start hiking mode")}</b><small>${L("Pengingat ngemil, minum, dan centang makan","Snack and water reminders, meal ticks")}</small></span>›</button>
       <div class="card" id="air"><h2>${L("Rencana air","Water plan")}</h2>
         <div class="wrow"><span>${scope(false)}</span></div>
-        <div class="kv"><span>${L("Minum saat berjalan","Drinking while walking")}</span><b>±${dec(W.days.reduce((a,x)=>a+x.walk,0))} L</b></div>
+        <div class="kv"><span>${L("Minum saat berjalan","Drinking while walking")}<small class="sub">${L("0,5–0,75 L per jam","0.5–0.75 L per hour")}</small></span><b>±${dec(W.days.reduce((a,x)=>a+x.walk,0))} L</b></div>
         <div class="kv"><span>${L("Minum di camp","Drinking at camp")}</span><b>±${dec(W.days.reduce((a,x)=>a+x.camp,0))} L</b></div>
         <div class="kv"><span>${L("Sanitasi dan BAB","Toilet and hygiene")}</span><b>±${dec(W.sanit)} L</b></div>
         ${W.cookG?`<div class="wrow"><span>${scope(W.P>1,W.P)}</span></div>
         <div class="kv"><span>${L("Memasak","Cooking")}</span><b>±${dec(W.cookG)} L</b></div>
         <div class="kv"><span>${L("Cuci alat makan","Washing up")}</span><b>±${dec(W.washG)} L</b></div>`:""}
-        <div class="kv tot2"><span>${L("Total seluruh perjalanan","Total for the trip")}</span><b>±${fmt(W.total)} L</b></div>
+        <div class="kv tot2"><span>${L("Total dipakai, bukan dibawa","Total used, not carried")}</span><b>±${fmt(W.total)} L</b></div>
+        <div class="kv hl"><span>${L("Dibawa per orang","Carried per person")}</span><b>±${dec(W.carry)} L</b></div>
         <p class="alert" style="margin:10px 0 0">${esc(W.carryTxt)}</p>
         <details class="mini-d"><summary>${L("Tips sanitasi","Hygiene tips")}</summary><ul class="mini">
           <li>${L("BAB di lubang sedalam 15–20 cm, minimal 60 meter dari sumber air, lalu timbun kembali.","Dig a hole 15–20 cm deep, at least 60 m from water, and cover it after.")}</li>
           <li>${L("Tisu dan pembalut dibawa turun di kantong sampah tertutup.","Carry used tissue and pads down in a sealed bag.")}</li>
           <li>${L("Jangan mencuci dengan sabun langsung di sumber air.","Don't wash with soap directly in the water source.")}</li></ul></details></div>
-      ${R.D.map(d=>`<div class="card day"><div class="row-h"><h3>${L("Hari","Day")} ${d.i+1}</h3><span class="kcal-tag">${L("minum","drink")} ±${dec(d.water)} L</span></div>
-        <p class="dmeta">${esc(dayDate(d.i))}${d.trekH?`, ±${dec(d.trekH)} ${L("jam jalan","h walking")}`:""}</p>${scheduleHTML(R,d)}</div>`).join("")}`;
+      ${R.D.map(d=>`<div class="card day"><div class="dayband c${d.i%2}"><span><b>${L("Hari","Day")} ${d.i+1}</b><small>${esc(dayDate(d.i))}${d.trekH?`, ±${dec(d.trekH)} ${L("jam jalan","h walking")}`:""}</small></span><span class="dbw">${L("minum","drink")} ±${dec(d.water)} L</span></div>${scheduleHTML(R,d)}</div>`).join("")}`;
   }
   const ix=TABS.findIndex(t=>t[0]===tab), nx=TABS[ix+1];
-  setTimeout(()=>{ const t=document.querySelector('.tabs [aria-selected="true"]'); if(t&&t.scrollIntoView) t.scrollIntoView({block:"nearest",inline:"center"}); },0);
   return header(planName(),L("Rencana bekal","Food plan"),`${durLabel(R.n)}, ${L("mulai","from")} ${esc(dayDate(0))}${grp?`, ${P} ${L("orang","people")}`:""}`)+`<main class="wrap">${tabsHTML}${body}
     <footer><p>Bekal Nanjak, ${L("pendamping Siap Nanjak.","a companion to Siap Nanjak.")} <a href="privacy.html">${L("Kebijakan privasi","Privacy policy")}</a></p></footer>
   </main><div class="bar"><div class="wrap"><button class="btn ghost" data-act="goto" data-step="1">${L("Ubah rencana","Edit plan")}</button>${nx?`<button class="btn" data-act="tab" data-v="${nx[0]}">${L("Lanjut","Next")}: ${L(nx[1],nx[2])}</button>`:`<button class="btn" data-act="finish">${L("Selesai","Done")}</button>`}</div></div>`;
 }
 
 /* ===================== ROMBONGAN ===================== */
+const GAS_PRICE=30000;
+function gearTypes(R){ const c={}; gearUnits(R).forEach(([k,n,w])=>{ c[k]=c[k]||{k,n,w,q:0}; c[k].q++; }); return Object.values(c); }
 function teamLists(R){
-  const ML=memberLists(R); ML.forEach(m=>m.gear=[]);
-  gearUnits(R).sort((a,b)=>b[2]-a[2]).forEach(u=>{ let m=0; for(let k=1;k<ML.length;k++) if(ML[k].g<ML[m].g) m=k; ML[m].gear.push(u); ML[m].g+=u[2]*1000; });
+  const P=S.people||1, ML=memberLists(R), CP=cookPlan(R);
+  ML.forEach(m=>{m.gear=[]; m.water=0;});
+  gearTypes(R).forEach(g=>{ const a=S.assignGear&&S.assignGear[g.k]; if(a!=null&&+a<P){ ML[+a].gear.push(g); ML[+a].g+=g.w*g.q*1000; if(g.k==="gas") ML[+a].p+=GAS_PRICE*g.q; } });
+  const wa=S.assignWater; if(CP.waterPP&&wa!=null&&+wa<P){ ML[+wa].water=CP.waterPP*P; ML[+wa].g+=CP.waterPP*P*1000; }
   return ML;
 }
-function gearTxt(g){ const c={}; g.forEach(([,n])=>c[n]=(c[n]||0)+1); return Object.entries(c).map(([n,q])=>`${n} ${q}`).join(", "); }
+function gearTxt(g){ return g.map(x=>`${x.n} ${x.q}`).join(", "); }
+function patungan(R){
+  const P=S.people||1, A=splitTasks(R), paid=Array(P).fill(0); let shared=0, open=0;
+  Object.entries(R.shop).forEach(([id,q])=>{ if(A[id]==="each") return; const c=fprice(id)*q*P; shared+=c; if(A[id]==null) open+=c; else paid[+A[id]]+=c; });
+  gearTypes(R).filter(g=>g.k==="gas").forEach(g=>{ const c=GAS_PRICE*g.q; shared+=c; const a=S.assignGear&&S.assignGear.gas; if(a!=null&&+a<P) paid[+a]+=c; else open+=c; });
+  const share=shared/P, bal=paid.map(x=>x-share), deb=[], cre=[];
+  bal.forEach((b,m)=>{ if(b<-500) deb.push([m,-b]); else if(b>500) cre.push([m,b]); });
+  const tr=[]; let i=0,j=0; while(i<deb.length&&j<cre.length){ const x=Math.min(deb[i][1],cre[j][1]); tr.push([deb[i][0],cre[j][0],x]); deb[i][1]-=x; cre[j][1]-=x; if(deb[i][1]<500) i++; if(cre[j][1]<500) j++; }
+  return {shared,share,paid,tr,open};
+}
 function teamText(R,ml){
   const sh=ml.items.filter(x=>!x[2]), own=ml.items.filter(x=>x[2]);
   const Ls=[L(`Hai ${ml.name}, ini bagianmu untuk naik *${planName()}*, mulai ${dayDate(0)}:`,`Hi ${ml.name}, here's your part for *${planName()}*, from ${dayDate(0)}:`),""];
   if(sh.length){ Ls.push(`_${L("Beli dan bawa untuk rombongan","Buy and carry for the group")}_`); sh.forEach(([id,q])=>Ls.push(`☐ ${fname(id)}, ${qty(id,q)}`)); Ls.push(""); }
   if(ml.gear.length){ Ls.push(`_${L("Alat bersama","Shared gear")}_`); Ls.push("☐ "+gearTxt(ml.gear)); Ls.push(""); }
+  if(ml.water){ Ls.push(`☐ ${L("Air untuk masak","Cooking water")} ±${dec(ml.water)} L`,""); }
   if(own.length){ Ls.push(`_${L("Untuk dirimu sendiri","For yourself")}_`); own.forEach(([id,q])=>Ls.push(`☐ ${fname(id)}, ${qty(id,q)}`)); Ls.push(""); }
   Ls.push(`${L("Perkiraan berat","Estimated weight")} ±${kg(ml.g)}, ${L("biaya","cost")} ±${rp(ml.p)}`,"",APP_URL());
   return Ls.join("\n");
@@ -1707,14 +1810,18 @@ function teamText(R,ml){
 function groupText(R){
   const ML=teamLists(R);
   const Ls=[`*${L("Pembagian bawaan","Who brings what")}: ${planName()}*`,`${durLabel(R.n)}, ${L("mulai","from")} ${dayDate(0)}`,""];
-  ML.forEach(m=>{ const sh=m.items.filter(x=>!x[2]).map(([id,q])=>`${fname(id)} ${qty(id,q)}`); if(m.gear.length) sh.push(gearTxt(m.gear)); Ls.push(`*${m.name}* (±${kg(m.g)}): ${sh.join(", ")||"-"}`); });
-  Ls.push("",L("Camilan dan makanan cadangan dibawa masing-masing.","Everyone brings their own snacks and spare food."),APP_URL());
+  ML.forEach(m=>{ const sh=m.items.filter(x=>!x[2]).map(([id,q])=>`${fname(id)} ${qty(id,q)}`); if(m.gear.length) sh.push(gearTxt(m.gear)); if(m.water) sh.push(`${L("air masak","cooking water")} ${dec(m.water)} L`); Ls.push(`*${m.name}* (±${kg(m.g)}): ${sh.join(", ")||"-"}`); });
+  const A=splitTasks(R), un=Object.keys(R.shop).filter(id=>A[id]==null);
+  if(un.length) Ls.push("",`_${L("Belum dibagi","Not assigned yet")}_: ${un.map(fname).join(", ")}`);
+  const PT=patungan(R); Ls.push("",`*${L("Patungan","Cost split")}*: ${rp(PT.share)} ${L("per orang","per person")}`); PT.tr.forEach(([a,b,x])=>Ls.push(`• ${memberName(a)} → ${memberName(b)}: ${rp(x)}`));
+  Ls.push("",L("Setiap orang membawa sendiri: camilan, makanan cadangan, alat makan, dan botol air.","Everyone brings their own snacks, spare food, cutlery, and water bottle."),APP_URL());
   return Ls.join("\n");
 }
+const prepDate=(k,o)=>(S.prepDate&&S.prepDate[k])||addDays(S.start,o);
 const PREP=[["h7",-7,["Cek info basecamp dan sumber air","Check basecamp info and water"]],["h3",-3,["Belanja bekal","Buy the food"]],["h1",-1,["Masak dan bekukan lauk, lalu packing","Cook and freeze sides, then pack"]],["h0",0,["Sarapan, lalu mulai Mode Pendakian","Breakfast, then start hiking mode"]]];
 function prepText(){
   const Ls=[`*${L("Jadwal persiapan","Prep schedule")}: ${planName()}*`];
-  PREP.forEach(([k,o,t])=>{ const d=new Date(addDays(S.start,o)+"T00:00:00"); Ls.push(`• ${d.toLocaleDateString(LOC(),{weekday:"short",day:"numeric",month:"short"})}: ${L(...t)}${o===0?` (${L("mulai jalan","start")} ${S.startTime})`:""}`); });
+  PREP.forEach(([k,o,t])=>{ const d=new Date(prepDate(k,o)+"T00:00:00"); Ls.push(`• ${d.toLocaleDateString(LOC(),{weekday:"short",day:"numeric",month:"short"})}: ${L(...t)}${o===0?` (${L("mulai jalan","start")} ${S.startTime})`:""}`); });
   Ls.push("",APP_URL()); return Ls.join("\n");
 }
 
@@ -1758,8 +1865,8 @@ function gcalLink(title,dayStr,hour,details){
 function reminders(){
   const st=parseInt(S.startTime,10)||8, base=APP_URL(), p=S.pid;
   return [
-    [L("Belanja bekal","Buy the food")+": "+planName(),addDays(S.start,-3),19,base+"?buka=belanja&p="+p],
-    [L("Packing dan siapkan lauk","Pack and prepare sides")+": "+planName(),addDays(S.start,-1),19,base+"?buka=packing&p="+p],
+    [L("Belanja bekal","Buy the food")+": "+planName(),prepDate("h3",-3),19,base+"?buka=belanja&p="+p],
+    [L("Packing dan siapkan lauk","Pack and prepare sides")+": "+planName(),prepDate("h1",-1),19,base+"?buka=packing&p="+p],
     [L("Buka Mode Pendakian","Open hiking mode")+": "+planName(),S.start,Math.max(0,st-1),base+"?buka=pendakian&p="+p]];
 }
 function icsFile(){
@@ -1806,7 +1913,7 @@ function vHelp(){
   const seg=`<div class="seg" style="--n:4">${[["how","Cara pakai","How to"],["feat","Fitur","Features"],["terms","Istilah","Terms"],["faq","Tanya jawab","FAQ"]].map(([v,a,b])=>`<button data-act="helpTab" data-v="${v}" aria-pressed="${t===v}">${L(a,b)}</button>`).join("")}</div>`;
   let body="";
   if(t==="how") body=`<ol class="key">${[["Pilih gunung dan jalur","Pick mountain and trail"],["Atur tanggal dan siapa yang ikut","Set dates and who's coming"],["Isi data tubuh dan preferensi","Enter body data and preferences"],["Cek waktu makan","Check the meals"],["Lihat hasil: menu, belanja, rombongan, di jalur","See results: menu, shopping, group, trail"],["Saat mendaki, buka Mode Pendakian","On the hike, open hiking mode"],["Setelah pulang, isi catatan","After the hike, add notes"]].map(([a,b])=>`<li><span><b>${L(a,b)}</b></span></li>`).join("")}</ol>`;
-  else if(t==="feat") body=`<div class="jump">${[["menu","Menu dan resep","Menus and recipes","Ganti menu sekali ketuk, cara masak lengkap","One-tap swaps, full recipes"],["shop","Belanja","Shopping","Checklist, alat masak, packing","Checklist, gear, packing"],["team","Rombongan","Group","Bagi tugas dan kirim ke anggota","Split tasks and send"],["road","Di Jalur","On the trail","Jadwal makan, minum, dan rencana air","Meal, water, and schedule"],["trail","Mode Pendakian","Hiking mode","Pengingat dan centang di jalur","Reminders and ticks on the trail"],["sos","Panduan darurat","Emergency guide","Bisa dibuka tanpa sinyal","Works offline"],["history","Riwayat dan catatan","History and notes","Rencana tersimpan dan catatan pulang","Saved plans and trip notes"]].map(([k,a,b,c,d])=>`<button class="opt" data-act="helpGo" data-v="${k}"><span><b>${L(a,b)}</b><small>${L(c,d)}</small></span>›</button>`).join("")}</div>`;
+  else if(t==="feat") body=`${S.helpMsg?`<p class="alert">${L("Buat rencana dulu supaya fitur ini bisa dibuka.","Create a plan first to open this.")} <button class="linkbtn" data-act="new">${L("Buat rencana","Create a plan")}</button></p>`:""}<div class="jump">${[["menu","Menu dan resep","Menus and recipes","Ganti menu sekali ketuk, cara masak lengkap","One-tap swaps, full recipes"],["shop","Belanja","Shopping","Checklist, alat masak, packing","Checklist, gear, packing"],["team","Rombongan","Group","Bagi tugas dan kirim ke anggota","Split tasks and send"],["road","Di Jalur","On the trail","Jadwal makan, minum, dan rencana air","Meal, water, and schedule"],["trail","Mode Pendakian","Hiking mode","Pengingat dan centang di jalur","Reminders and ticks on the trail"],["sos","Panduan darurat","Emergency guide","Bisa dibuka tanpa sinyal","Works offline"],["history","Riwayat dan catatan","History and notes","Rencana tersimpan dan catatan pulang","Saved plans and trip notes"]].map(([k,a,b,c,d])=>`<button class="opt" data-act="helpGo" data-v="${k}"><span><b>${L(a,b)}</b><small>${L(c,d)}</small></span>›</button>`).join("")}</div>`;
   else if(t==="terms") body=`<div class="card">${Object.keys(GLOSS).map(k=>`<div class="gl"><b>${esc(L(...GLOSS[k][0]))}</b><p>${esc(L(...GLOSS[k][1]))}</p></div>`).join("")}</div>`;
   else body=[["Kenapa bekalnya lebih kecil dari kebutuhan?","Why is the food less than I need?","Sebagian energi ditutup dari makan di rumah atau basecamp, dan saat berjalan tubuh hanya bisa mencerna ±200–300 kkal per jam.","Some energy comes from meals at home or basecamp, and while walking you can only digest about 200–300 kcal an hour."],["Data saya disimpan di mana?","Where is my data stored?","Hanya di HP ini, tanpa login. Simpan file cadangan dari halaman Selesai.","Only on this phone, no login. Save a backup file from the Done page."],["Bisa dipakai tanpa sinyal?","Does it work offline?","Bisa, setelah dibuka sekali dengan internet.","Yes, after opening it once online."],["Kalori di aplikasi beda dengan label?","Calories differ from the label?","Ubah di tab Belanja lewat Ubah harga & kalori.","Change them in Shopping with Edit prices & kcal."],["Pengingat tidak muncul saat aplikasi ditutup?","No reminders when the app is closed?","Pakai tombol Ingatkan saya di halaman Selesai untuk menambah pengingat ke kalender.","Use Remind me on the Done page to add calendar reminders."]].map(([a,b,c,d])=>`<details class="card"><summary><b>${L(a,b)}</b>${CHEV}</summary><p class="note" style="margin:8px 0 0;color:var(--ink)">${L(c,d)}</p></details>`).join("");
   return header(L("Panduan","Guide"),"Bekal Nanjak")+`<main class="wrap">${seg}${body}
@@ -1822,8 +1929,9 @@ function vWelcome(){
   let cd="";
   if(act){ const left=Math.round((new Date(S.start+"T00:00:00")-new Date(todayStr()+"T00:00:00"))/864e5);
     const when=left>1?L(`${left} hari lagi`,`in ${left} days`):left===1?L("besok","tomorrow"):L("hari ini","today");
+    const done=PREP.filter(([k])=>S.prep&&S.prep[k]).length, nx=PREP.find(([k])=>!(S.prep&&S.prep[k]));
     cd=`<div class="cd"><div class="row-h"><b>${esc(planName())}</b><span>${when}</span></div>
-      ${PREP.map(([k,o,t])=>{const due=addDays(S.start,o)<=todayStr(); const done=!!(S.prep&&S.prep[k]); return `<button class="cdi${done?" got":""}" data-act="prep" data-v="${k}"><span class="ck" role="checkbox" aria-checked="${done}"></span><span>${L(...t)}<small>${o===0?L("Hari H","Hike day"):L(`H${o}`,`D${o}`)}${due&&!done?" •":""}</small></span></button>`}).join("")}
+      <p class="cdp">${L("Persiapan","Prep")} ${done}/4${nx?`, ${L("berikutnya","next")}: ${L(...nx[2])}, ${new Date(prepDate(nx[0],nx[1])+"T00:00:00").toLocaleDateString(LOC(),{weekday:"short",day:"numeric",month:"short"})}`:""}</p>
       <div class="row2" style="margin:10px 0 0">${left<=0?`<button class="btn light" data-act="trail">${L("Mode Pendakian","Hiking mode")}</button>`:`<button class="btn light" data-act="open" data-pid="${S.pid}">${L("Buka rencana","Open plan")}</button>`}<button class="btn ghost" data-act="new">${L("Rencana baru","New plan")}</button></div></div>`; }
   const past=HIST.find(h=>!h.note&&h.data&&((h.data.type==="oneday"?h.data.start:h.data.end)||"9999")<todayStr());
   return `<section class="ob">${TOPO}<div class="wrap">
@@ -1850,7 +1958,7 @@ function editorHTML(){
   const chip=id=>`<button class="fchip${isAvoided(id)?" warn":""}" data-act="addFood" data-id="${id}" data-name="${esc((fname(id)+" "+id).toLowerCase().replace(/cokelat/g,"coklat"))}">${esc(fname(id))}<small>${esc(funit(id))}, ${fmt(food(id).k)}</small></button>`;
   const ids=c=>c==="own"?Object.keys(S.ownFoods||{}):Object.keys(FOODS).filter(id=>FOODS[id].c===c&&!/^nasib$/.test(id));
   const others=Object.keys(CATS).filter(c=>!pref.includes(c));
-  const alts=altsFor(E.slot,S.edit,dayN?dayN-1:0);
+  const alts=altsFor(E.slot,S.edit,dayN?dayN-1:0).filter(a=>!E.items.some(([j])=>j===a.items[0][0]));
   return `<div class="sheet-bg" data-act="closeEdit"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="edTitle" data-stop="1">
     <h2 id="edTitle">${L("Ubah","Edit")} ${esc(E.title.toLowerCase())}</h2>
     <p class="saveinfo">${dayN?L(`Tersimpan otomatis ke Menu Hari ${dayN}, daftar belanja, dan jadwal Di Jalur.`,`Saves automatically to Day ${dayN} menu, shopping list, and trail schedule.`):L("Tersimpan otomatis ke menu dan daftar belanja.","Saves automatically to the menu and shopping list.")} <span id="edToast" class="green"></span></p>
@@ -1870,8 +1978,10 @@ function editorHTML(){
     <button class="linkbtn" data-act="moreAlt" data-key="${S.edit}">${L("Pilihan lain","More options")}</button>`:""}
     <details class="own"><summary style="font-weight:600;cursor:pointer">${L("Makanan lain yang tidak ada di daftar","Food not on the list")}</summary>
       <label class="field" style="margin-top:10px"><span>${L("Nama makanan","Food name")}</span><input id="ownN" maxlength="40"></label>
-      <div class="row2"><label class="field"><span>${L("Disebut per","Counted as")}</span><input id="ownU" maxlength="16" placeholder="${L("bungkus","pack")}"></label><label class="field"><span>${L("Kalori","Calories")}</span><input id="ownK" type="number" inputmode="numeric" placeholder="kkal"></label></div>
-      <div class="row2"><label class="field"><span>${L("Berat (g)","Weight (g)")}</span><input id="ownG" type="number" inputmode="numeric"></label><label class="field"><span>${L("Harga (Rp)","Price (Rp)")}</span><input id="ownP" type="number" inputmode="numeric"></label></div>
+      <div class="row2"><label class="field"><span>${L("Disebut per","Counted as")}</span><select id="ownU">${[["bungkus","pack"],["buah","piece"],["potong","slice"],["sachet","sachet"],["porsi","serving"],["kotak","carton"],["botol","bottle"],["kaleng","can"],["cup","cup"],["lembar","sheet"],["sdm","tbsp"]].map(([a,b])=>`<option value="${L(a,b)}">${L(a,b)}</option>`).join("")}</select></label>
+        <label class="field"><span>${L("Berat","Weight")}</span><select id="ownGsel">${[10,20,25,30,40,50,60,75,100,150,200,250].map(g=>`<option value="${g}" ${g===50?"selected":""}>${g} g</option>`).join("")}<option value="custom">${L("Isi sendiri","Other")}</option></select></label></div>
+      <label class="field" id="ownGwrap" hidden><span>${L("Berat (gram)","Weight (grams)")}</span><input id="ownG" type="number" inputmode="numeric"></label>
+      <div class="row2"><label class="field"><span>${L("Kalori","Calories")}</span><input id="ownK" type="number" inputmode="numeric" placeholder="kkal"></label><label class="field"><span>${L("Harga (Rp)","Price (Rp)")}</span><input id="ownP" type="number" inputmode="numeric"></label></div>
       <button class="btn sm ghost" style="color:var(--ink);border-color:var(--line);width:100%" data-act="addOwn">${L("Simpan dan tambahkan","Save and add")}</button><p class="err" id="ownErr"></p></details>
     <div class="sheet-acts"><button class="btn ghost" data-act="resetEdit">${L("Kembalikan ke saran","Reset")}</button><button class="btn" data-act="closeEdit">${L("Simpan dan tutup","Save and close")}</button></div>
   </div></div>`;
@@ -1884,13 +1994,16 @@ function render(){
   if(S.view==="trail"&&S.saver){ document.documentElement.dataset.theme="dark"; document.body.classList.add("saver"); } else { delete document.documentElement.dataset.theme; document.body.classList.remove("saver"); }
   if(S.view==="print") setTimeout(()=>{ try{window.print()}catch(e){} },500);
   document.documentElement.lang=S.lang;
+  const keepY=window.scrollY;
   $("#app").innerHTML=VIEWS[S.view]();
+  window.scrollTo(0,keepY);
+  const sg=document.querySelector(".tabs .seg"), at=sg&&sg.querySelector('[aria-selected="true"]'); if(sg&&at) sg.scrollLeft=at.offsetLeft-sg.clientWidth/2+at.clientWidth/2;
   renderSheet();
   paintRanges();
 }
-function renderSheet(){ $("#sheet").innerHTML=vSheet(); document.body.classList.toggle("lock",!!(S.noteFor||S.edit||S.term||S.confirm)); }
+function renderSheet(){ $("#sheet").innerHTML=vSheet(); document.body.classList.toggle("lock",!!(S.msg||S.noteFor||S.edit||S.term||S.confirm)); }
 function paintRanges(){document.querySelectorAll("input[type=range]").forEach(el=>{const p=(el.value-el.min)/(el.max-el.min)*100;el.style.background=`linear-gradient(to right,var(--pine2) ${p}%,var(--line) ${p}%)`})}
-function snapshot(){const s={...S};delete s.noteFor;delete s.confirm;delete s.view;delete s.step;delete s.edit;delete s.term;delete s.editPrice;delete s.tab;return s}
+function snapshot(){const s={...S};delete s.msg;delete s.noteFor;delete s.confirm;delete s.view;delete s.step;delete s.edit;delete s.term;delete s.editPrice;delete s.tab;return s}
 function storeHistory(){
   const R=calc(); if(!R) return;
   if(!S.pid) S.pid="p"+Date.now().toString(36);
@@ -1964,6 +2077,7 @@ document.addEventListener("click",e=>{
       if(r.a==="delHist"){HIST=HIST.filter(x=>x.pid!==r.pid); if(S.pid===r.pid) S.pid=null; saveHist(); save(); return render();}
       if(r.a==="resetEdit"){delete S.custom[S.edit]; if(S.recipeOf) delete S.recipeOf[S.edit]; save(); return renderSheet();}
       if(r.a==="new"){return newPlan();}
+      if(r.a==="clearSplit"){ S.assign={}; S.assignGear={}; S.assignWater=null; S.sent={}; save(); storeHistory(); return render(); }
       if(r.a==="trailGo"){ S.trailDay=null; return go("trail"); }
       if(r.a==="select"){ applySelect(r.k,r.v); return render(); }
       if(r.a==="removeItem"){ const E=editorData(S.edit); setItems(S.edit,E.items.filter(([id])=>id!==r.id)); save(); return renderSheet(); }
@@ -1974,15 +2088,16 @@ document.addEventListener("click",e=>{
     case "tab": S.tab=v; save(); render(); window.scrollTo(0,0); return;
     case "glossary": S.helpTab="terms"; return go("help");
     case "help": S.helpTab=S.helpTab||"how"; return go("help");
-    case "helpTab": S.helpTab=v; save(); return render();
-    case "helpGo": { if(v==="history") return go("history"); if(!route()||!S.pid) { S.helpTab="how"; return render(); } if(v==="trail") return go("trail"); if(v==="sos") return go("sos"); S.tab=v; return go("plan",5); }
+    case "helpTab": S.helpTab=v; S.helpMsg=false; save(); return render();
+    case "helpGo": { if(v==="history") return go("history");
+      if(!route()||!S.pid){ const h=HIST.slice().sort((x,y)=>y.saved-x.saved)[0]; if(h){ S={...defaults(),...h.data,lang:S.lang,seenIntro:true,helpTab:"feat"}; applyKcal(); } else { S.helpMsg=true; return render(); } } if(v==="trail") return go("trail"); if(v==="sos") return go("sos"); S.tab=v; return go("plan",5); }
     case "shuffleDay": { const R=calc(); const d=R.D[+v]; d.meals.filter(m=>m.on).forEach(m=>{ const al=altsFor(m.slot,m.key,d.i); if(al.length){ applyAlt(m.key,m.slot,d.i,m.target,al[Math.floor(Math.random()*al.length)]); } }); save(); storeHistory(); return render(); }
     case "useAlt": case "moreAlt": { const key=b.dataset.key; const R=calc(); let m=null, di=0; if(key==="reserve"){ m={slot:"cadangan",target:R.reserve.target}; } else { for(const d of R.D) for(const x of d.meals) if(x.key===key){ m=x; di=d.i; } } if(!m) return;
       if(a==="moreAlt"){ S.altShift=S.altShift||{}; S.altShift[key]=(S.altShift[key]||0)+3; save(); return renderSheet(); }
       const al=altsFor(m.slot,key,di).find(x=>x.id===b.dataset.alt); if(!al) return; applyAlt(key,m.slot,di,m.target,al); save();
       if(b.dataset.in==="sheet"){ renderSheet(); return flashSaved(); } storeHistory(); return render(); }
-    case "shareGroup": return copyList(true,groupText(calc()),"#toast2");
-    case "sharePrep": return copyList(true,prepText(),"#toast2");
+    case "shareGroup": S.msg={t:L("Siapa membawa apa","Who brings what"),x:groupText(calc())}; return renderSheet();
+    case "sharePrep": S.msg={t:L("Jadwal persiapan","Prep schedule"),x:prepText()}; return renderSheet();
     case "trailNextDay": { const R=calc(); const ti=todayIdx(R.n); const di=clamp(S.trailDay!=null?S.trailDay:(ti!=null?ti:0),0,R.n-1); S.trailDay=Math.min(R.n-1,di+1); save(); storeHistory(); render(); window.scrollTo(0,0); return; }
     case "trailFinish": { storeHistory(); const pid=S.pid; go("welcome"); S.noteFor=pid; return renderSheet(); }
     case "saver": S.saver=!S.saver; save(); return render();
@@ -2004,8 +2119,15 @@ document.addEventListener("click",e=>{
     case "share": return copyList(true);
     case "people": S.people=clamp((S.people||1)+(+v),1,20); S.sent={}; save(); return render();
     case "taskM": S.taskM=+v; save(); render(); { const t=$("#tugas"); if(t) t.scrollIntoView({block:"start"}); } return;
-    case "autoSplit": S.assign={}; S.sent={}; save(); render(); { const t=$("#tugas"); if(t) t.scrollIntoView({block:"start"}); } return;
-    case "shareMember": { const R=calc(); const m=+b.dataset.m; const ml=teamLists(R)[m]; const txt=teamText(R,ml); S.sent=S.sent||{}; S.sent[m]=true; save(); render(); return copyList(true,txt,"#toast2"); }
+    case "assign": { const k=b.dataset.kind, key=b.dataset.key, val=v==="each"?"each":+v;
+      if(k==="item"){ S.assign[key]=(S.assign[key]===val)?null:val; } else if(k==="gear"){ S.assignGear=S.assignGear||{}; S.assignGear[key]=(S.assignGear[key]===val)?null:val; } else { S.assignWater=(S.assignWater===val)?null:val; }
+      S.sent={}; save(); storeHistory(); return render(); }
+    case "clearSplit": S.confirm={title:L("Kosongkan pembagian?","Clear the split?"),msg:L("Semua barang kembali belum dibagi.","All items go back to unassigned."),yes:L("Kosongkan","Clear"),danger:true,run:{a:"clearSplit"}}; return renderSheet();
+    case "msgShare": return copyList(true,$("#msgTxt").value,"#msgToast");
+    case "msgCopy": return copyList(false,$("#msgTxt").value,"#msgToast");
+    case "msgClose": S.msg=null; return renderSheet();
+    case "autoSplit": autoAssign(calc()); S.sent={}; save(); storeHistory(); render(); { const t=$("#tugas"); if(t) t.scrollIntoView({block:"start"}); } return;
+    case "shareMember": { const R=calc(); const m=+b.dataset.m; const ml=teamLists(R)[m]; S.sent=S.sent||{}; S.sent[m]=true; save(); render(); S.msg={t:L("Tugas","Tasks for")+" "+ml.name,x:teamText(R,ml)}; return renderSheet(); }
     case "got": S.got[b.dataset.id]=!S.got[b.dataset.id]; save(); return render();
     case "clearGot": S.got={}; save(); return render();
     case "finish": storeHistory(); return go("done");
@@ -2019,7 +2141,8 @@ document.addEventListener("click",e=>{
       const items=E.items.map(([id,q])=>[id,id===b.dataset.id?Math.max(1,q+(+v)):q]); setItems(S.edit,items); save(); renderSheet(); return flashSaved(); }
     case "addFood": { const id=b.dataset.id; if(!id) return; const E=editorData(S.edit); const items=E.items.slice(); const f=items.find(x=>x[0]===id); if(f) f[1]++; else items.push([id,1]); setItems(S.edit,items); save(); renderSheet(); return flashSaved(); }
     case "addOwn": {
-      const n=$("#ownN").value.trim(), g=+$("#ownG").value||0, u0=$("#ownU").value.trim()||L("porsi","serving"), u=g?`${u0} ${g} g`:u0, k=+$("#ownK").value, p=+$("#ownP").value||0;
+      const gs=$("#ownGsel")?$("#ownGsel").value:"custom";
+      const n=$("#ownN").value.trim(), g=gs==="custom"?(+$("#ownG").value||0):+gs, u0=$("#ownU").value.trim()||L("porsi","serving"), u=g?`${u0} ${g} g`:u0, k=+$("#ownK").value, p=+$("#ownP").value||0;
       if(!n||!(k>0)){ $("#ownErr").textContent=L("Isi nama makanan dan kalorinya.","Enter the food name and calories."); return; }
       const id="own_"+Date.now().toString(36); S.ownFoods[id]={n,u,k,g,p,c:"own",pr:0,fb:0,keep:999};
       const E=editorData(S.edit); setItems(S.edit,E.items.concat([[id,1]])); save(); return renderSheet();
@@ -2028,6 +2151,7 @@ document.addEventListener("click",e=>{
 });
 document.addEventListener("change",e=>{
   if(e.target.dataset&&(e.target.dataset.member!=null||e.target.dataset.cost||e.target.dataset.kcal)) { storeHistory(); render(); return; }
+  if(e.target.id==="ownGsel"){ const w=$("#ownGwrap"); if(w) w.hidden=e.target.value!=="custom"; return; }
   if(e.target.id==="importFile"&&e.target.files&&e.target.files[0]){ const rd=new FileReader(); rd.onload=()=>{ try{ const j=JSON.parse(rd.result); const plans=(j&&j.plans)||[]; let n=0; plans.forEach(h=>{ if(h&&h.pid&&h.data){ HIST=HIST.filter(x=>x.pid!==h.pid); HIST.unshift(h); n++; } }); saveHist(); alert(L(`${n} rencana dipulihkan.`,`${n} plan(s) restored.`)); render(); }catch(err){ alert(L("File tidak bisa dibaca.","Couldn't read that file.")); } }; rd.readAsText(e.target.files[0]); }
 });
 let TX=null;
@@ -2047,6 +2171,7 @@ function applySelect(k,v){
 document.addEventListener("input",e=>{
   const el=e.target;
   if(el.id==="edSearch"){ const q=el.value.trim().toLowerCase().replace(/cokelat/g,"coklat"); document.querySelectorAll(".sheet .fchip").forEach(c=>{ c.hidden=!!q&&!c.dataset.name.includes(q); }); const od=document.querySelector(".sheet details.mini-d"); if(od&&q) od.open=true; return; }
+  if(el.dataset.prepdate){ if(fullDate(el.value)){ S.prepDate=S.prepDate||{}; S.prepDate[el.dataset.prepdate]=el.value; save(); storeHistory(); } return; }
   if(el.dataset.cost){ S.costs=S.costs||{}; S.costs[el.dataset.cost]=+el.value||0; save(); return; }
   if(el.dataset.kcal){ const v=+el.value; if(v>0){ S.kcalOv=S.kcalOv||{}; S.kcalOv[el.dataset.kcal]=v; FOODS[el.dataset.kcal]&&(FOODS[el.dataset.kcal].k=v); save(); } return; }
   if(el.dataset.member!=null){ S.members=S.members||[]; S.members[+el.dataset.member]=el.value; save(); return; }
@@ -2084,16 +2209,16 @@ function shareText(){
   const A=P>1?splitTasks(R):{};
   Ls.push(`*${L("Daftar belanja","Shopping list")}*`);
   Object.keys(CATS).forEach(c=>{const items=Object.entries(R.shop).filter(([id])=>food(id).c===c); if(!items.length) return;
-    Ls.push(`_${L(...CATS[c])}_`); items.forEach(([id,q])=>Ls.push(`${S.got[id]?"☑":"☐"} ${fname(id)}, ${qty(id,q*P)}${P>1?` (${A[id]==="each"?L("masing-masing","each"):memberName(+A[id])})`:""}`)); });
+    Ls.push(`_${L(...CATS[c])}_`); items.forEach(([id,q])=>Ls.push(`${S.got[id]?"☑":"☐"} ${fname(id)}, ${qty(id,q*P)}${P>1&&A[id]!=null?` (${A[id]==="each"?L("masing-masing","each"):memberName(+A[id])})`:""}`)); });
   Ls.push("",`${L("Perkiraan biaya","Estimated cost")}: ${rp(R.P*P)}${P>1?` (${rp(R.P)} ${L("per orang","per person")})`:""}`,`${L("Air","Water")}: ±${dec(Math.max(...R.D.map(d=>d.water)))} L ${L("per orang per hari, isi ulang di sumber air","per person per day, refill at water sources")}`,"",L("Dibuat dengan Bekal Nanjak","Made with Bekal Nanjak"));
   return Ls.join("\n");
 }
 function copyList(viaShare,txt,toastSel){
   const text=txt||shareText(); if(!text) return;
-  const box=$("#copybox"), toast=$(toastSel||"#toast");
+  const box=$("#copybox")||$("#msgTxt"), toast=$(toastSel||"#toast")||{set textContent(v){}};
   const fallbackCopy=()=>(navigator.clipboard?navigator.clipboard.writeText(text):Promise.reject())
     .then(()=>{toast.textContent=L("Disalin. Tempel ke grup rombonganmu.","Copied. Paste it into your group chat."); box.hidden=true})
-    .catch(()=>{box.value=text; box.hidden=false; box.select(); toast.textContent=L("Pilih teks di bawah lalu salin.","Select the text below and copy it.")});
+    .catch(()=>{if(box){box.value=text; box.hidden=false; box.select();} toast.textContent=L("Pilih teks di bawah lalu salin.","Select the text below and copy it.")});
   if(viaShare){
     if(navigator.share){ navigator.share({title:"Bekal Nanjak",text}).catch(err=>{ if(err&&err.name!=="AbortError") fallbackCopy(); }); return; }
     window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank","noopener"); return;
