@@ -443,6 +443,11 @@ a.edit{display:inline-flex;align-items:center;text-decoration:none;color:var(--i
 .trw.got b{text-decoration:line-through;color:var(--muted)}
 .field.acct{margin:8px 0}
 .hero .topo,.done-hero .topo,.cd .topo{display:none}
+body.ad-on .bar{padding-bottom:40px;border-bottom:1px solid var(--line)}
+body.ad-on .bar::after{content:"";display:block;height:0}
+body.ad-on main.wrap{padding-bottom:150px}
+.hist .info{flex:1 1 100%}
+.hist .acts{flex-wrap:wrap;justify-content:flex-end;width:100%}
 /* history */
 .hist{display:flex;gap:10px;align-items:center;border-top:1px solid var(--line);padding:12px 0}
 .hist:first-of-type{border-top:0}
@@ -2001,7 +2006,14 @@ function icsFile(){
   const ev=reminders().map(([t,ds,h,u],k)=>["BEGIN:VEVENT",`UID:${S.pid}-${k}@bekal-nanjak`,`DTSTAMP:${f(todayStr(),0)}`,`DTSTART:${f(ds,h)}`,`DTEND:${f(ds,h+0.5)}`,`SUMMARY:${t}`,`DESCRIPTION:${u}`,"BEGIN:VALARM","TRIGGER:-PT0M","ACTION:DISPLAY",`DESCRIPTION:${t}`,"END:VALARM","END:VEVENT"].join("\r\n"));
   return ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Bekal Nanjak//ID",...ev,"END:VCALENDAR"].join("\r\n");
 }
+/* ===== Jembatan ke aplikasi Android (WebView + AdMob) =====
+   Shell Android menyuntikkan objek window.BekalAndroid. Semua fungsi opsional. */
+const NB_=()=>window.BekalAndroid||null;
+function adSlot(){ return !S.edit&&!S.msg&&!S.noteFor&&!S.confirm&&!S.term&&(S.view==="history"||(S.view==="plan"&&S.step===5&&S.tab==="shop")); }
+function syncBanner(){ const nb=NB_(); const on=!!(nb&&nb.setBannerVisible)&&adSlot();
+  document.body.classList.toggle("ad-on",on); try{ nb&&nb.setBannerVisible&&nb.setBannerVisible(adSlot()); }catch(e){} }
 function downloadFile(name,mime,text){
+  const nb=NB_(); if(nb&&nb.saveFile){ try{ nb.saveFile(name,mime,text); return; }catch(e){} }
   try{ const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([text],{type:mime})); a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},500); }catch(e){}
 }
 function vDone(){
@@ -2123,8 +2135,9 @@ function flashSaved(){ const t=$("#edToast"); if(t){ t.textContent="✓ "+L("Ter
 const VIEWS={help:vHelp,print:vPrint,trail:vTrail,sos:vSos,intro:vIntro,welcome:vWelcome,history:vHistory,glossary:vGlossary,done:vDone,plan:()=>[null,vRoute,vSchedule,vBody,vMeals,vResult][S.step]()};
 function render(){
   if(S.view==="trail"&&S.saver){ document.documentElement.dataset.theme="dark"; document.body.classList.add("saver"); } else { delete document.documentElement.dataset.theme; document.body.classList.remove("saver"); }
-  if(S.view==="print") setTimeout(()=>{ try{window.print()}catch(e){} },500);
+  if(S.view==="print") setTimeout(()=>{ const nb=NB_(); try{ if(nb&&nb.print) nb.print(); else window.print(); }catch(e){} },500);
   document.documentElement.lang=S.lang;
+  setTimeout(syncBanner,0);
   const keepY=window.scrollY;
   $("#app").innerHTML=VIEWS[S.view]();
   window.scrollTo(0,keepY);
@@ -2132,7 +2145,8 @@ function render(){
   renderSheet();
   paintRanges();
 }
-function renderSheet(){ $("#sheet").innerHTML=vSheet(); document.body.classList.toggle("lock",!!(S.msg||S.noteFor||S.edit||S.term||S.confirm)); }
+function renderSheet(){ $("#sheet").innerHTML=vSheet(); document.body.classList.toggle("lock",!!(S.msg||S.noteFor||S.edit||S.term||S.confirm));  syncBanner(); }
+
 function paintRanges(){document.querySelectorAll("input[type=range]").forEach(el=>{const p=(el.value-el.min)/(el.max-el.min)*100;el.style.background=`linear-gradient(to right,var(--pine2) ${p}%,var(--line) ${p}%)`})}
 function snapshot(){const s={...S};delete s.msg;delete s.noteFor;delete s.confirm;delete s.view;delete s.step;delete s.edit;delete s.term;delete s.editPrice;delete s.tab;return s}
 function storeHistory(){
@@ -2369,6 +2383,7 @@ function copyList(viaShare,txt,toastSel){
   const fallbackCopy=()=>(navigator.clipboard?navigator.clipboard.writeText(text):Promise.reject())
     .then(()=>{toast.textContent=L("Disalin. Tempel ke grup rombonganmu.","Copied. Paste it into your group chat."); box.hidden=true})
     .catch(()=>{if(box){box.value=text; box.hidden=false; box.select();} toast.textContent=L("Pilih teks di bawah lalu salin.","Select the text below and copy it.")});
+  if(viaShare&&NB_()&&NB_().share){ try{ NB_().share(text); return; }catch(e){} }
   if(viaShare){
     if(navigator.share){ navigator.share({title:"Bekal Nanjak",text}).catch(err=>{ if(err&&err.name!=="AbortError") fallbackCopy(); }); return; }
     window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank","noopener"); return;
