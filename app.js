@@ -1113,7 +1113,20 @@ function backupDue(){ if(!HIST.length) return false; const now=Date.now();
    Shell Android menyuntikkan objek window.BekalAndroid. Semua fungsi opsional. */
 const NB_=()=>window.BekalAndroid||null;
 function adSlot(){ return !S.edit&&!S.msg&&!S.noteFor&&!S.confirm&&!S.term&&(S.view==="history"||(S.view==="plan"&&S.step===5&&S.tab==="shop")); }
-function syncBanner(){ const nb=NB_(); const on=!!(nb&&nb.setBannerVisible)&&adSlot();
+/* Tombol back Android: true kalau ditangani di dalam aplikasi, false kalau aplikasi boleh ditutup. */
+function canGoBackInApp(){ return !!(S.msg||S.noteFor||S.confirm||S.edit||S.term||(S.view==="intro"&&(S.introI||0)>0)||(S.view!=="welcome"&&S.view!=="intro")); }
+window.bnBack=function(){
+  if(S.msg){ S.msg=null; renderSheet(); return true; }
+  if(S.noteFor){ S.noteFor=null; renderSheet(); return true; }
+  if(S.confirm){ S.confirm=null; renderSheet(); return true; }
+  if(S.edit||S.term){ back(); return true; }
+  if(S.view==="intro"){ if((S.introI||0)>0){ S.introI--; render(); return true; } return false; }
+  if(S.view==="welcome") return false;
+  if(S.view==="plan"&&S.step===5&&S.tab&&S.tab!=="sum"){ S.tab="sum"; render(); window.scrollTo(0,0); return true; }
+  back(); return true;
+};
+function syncBack(){ const nb=NB_(); try{ nb&&nb.setBackHandled&&nb.setBackHandled(canGoBackInApp()); }catch(e){} }
+function syncBanner(){ syncBack(); const nb=NB_(); const on=!!(nb&&nb.setBannerVisible)&&adSlot();
   document.body.classList.toggle("ad-on",on); try{ nb&&nb.setBannerVisible&&nb.setBannerVisible(adSlot()); }catch(e){} }
 function downloadFile(name,mime,text){
   const nb=NB_(); if(nb&&nb.saveFile){ try{ nb.saveFile(name,mime,text); return; }catch(e){} }
@@ -1166,7 +1179,8 @@ function vHelp(){
     <a class="opt" href="mailto:contact@mirai.co.id" style="text-decoration:none;color:inherit"><span><b>${L("Hubungi kami","Contact us")}</b><small>contact@mirai.co.id</small></span>›</a>
     <a class="opt" href="${feedbackLink()}" style="text-decoration:none;color:inherit"><span><b>${L("Kirim masukan","Send feedback")}</b></span>›</a>
     <a class="opt" href="${feedbackLink("data")}" style="text-decoration:none;color:inherit"><span><b>${L("Laporkan koreksi data jalur atau kalori","Report a trail or calorie correction")}</b></span>›</a>
-    <a class="opt" href="privacy.html" style="text-decoration:none;color:inherit"><span><b>${L("Kebijakan privasi","Privacy policy")}</b></span>›</a></div>
+    <a class="opt" href="privacy.html" style="text-decoration:none;color:inherit"><span><b>${L("Kebijakan privasi","Privacy policy")}</b></span>›</a>
+    ${(()=>{ try{ const nb=NB_(); return nb&&nb.privacyOptionsRequired&&nb.privacyOptionsRequired()?`<button class="opt" data-act="adPrivacy"><span><b>${L("Pengaturan privasi iklan","Ad privacy settings")}</b><small>${L("Ubah persetujuan iklan","Change your ad consent")}</small></span>›</button>`:""; }catch(e){ return ""; } })()}</div>
     <div class="card dz"><h2>${L("Data di HP ini","Data on this phone")}</h2>
       <p class="hint">${L("Semua rencana, riwayat, dan catatan hanya tersimpan di HP ini. Simpan cadangan dulu kalau masih ingin memakainya.","All plans, history, and notes are stored only on this phone. Save a backup first if you want to keep them.")}</p>
       <div class="row2" style="margin:0">${HIST.length?`<button class="btn ghost" style="color:var(--ink);border-color:var(--line)" data-act="exportAll">${L("Simpan cadangan","Save backup")}</button>`:""}<button class="btn danger" data-act="wipeAll">${L("Hapus semua data","Delete all data")}</button></div></div>
@@ -1382,6 +1396,7 @@ document.addEventListener("click",e=>{
     case "print": return go("print");
     case "printBack": return go("done");
     case "exportPlan": { S.lastBackup=Date.now(); save(); storeHistory(); const h=HIST.find(x=>x.pid===S.pid); return downloadFile(`bekal-nanjak-${(planName()||"rencana").toLowerCase().replace(/[^a-z0-9]+/g,"-")}.json`,"application/json",JSON.stringify({app:"bekal-nanjak",v:1,plans:[h]},null,1)); }
+    case "adPrivacy": { const nb=NB_(); try{ nb&&nb.showPrivacyOptions&&nb.showPrivacyOptions(); }catch(e){} return; }
     case "wipeAll": S.confirm={title:L("Hapus semua data?","Delete all data?"),msg:L(`Semua rencana (${HIST.length}), catatan, dan pengaturan akan dihapus dari HP ini dan tidak bisa dikembalikan.`,`All plans (${HIST.length}), notes, and settings will be deleted from this phone and can't be recovered.`),yes:L("Hapus semua","Delete all"),danger:true,run:{a:"wipeAll"}}; return renderSheet();
     case "backupLater": S.backupSnooze=Date.now()+7*864e5; save(); return render();
     case "undo": { const u=UNDO; UNDO=null; const el=document.getElementById("undoBar"); if(el) el.hidden=true; if(u&&u.fn) u.fn(); return; }
