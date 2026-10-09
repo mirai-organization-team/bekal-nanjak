@@ -38,7 +38,7 @@ body.lock{overflow:hidden}
 h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:700;line-height:1.05;margin:0}
 button,select,input{font:inherit;color:inherit}
 .wrap{width:100%;max-width:640px;margin:0 auto;padding-left:16px;padding-right:16px}
-.topo{position:absolute;inset:0;width:100%;height:100%;opacity:.22;pointer-events:none}
+.topo{position:absolute;inset:0;width:100%;height:100%;opacity:.2;pointer-events:none}
 .logo{display:inline-block;width:34px;height:34px;border-radius:9px;flex:none}
 
 /* header */
@@ -435,6 +435,14 @@ details.why>summary b{color:var(--ink)}
 .prevc small{color:var(--muted)}
 a.edit{display:inline-flex;align-items:center;text-decoration:none;color:var(--ink)}
 .topo{-webkit-mask-image:radial-gradient(ellipse 72% 78% at 50% 50%,#000 55%,transparent 100%);mask-image:radial-gradient(ellipse 72% 78% at 50% 50%,#000 55%,transparent 100%)}
+[hidden]{display:none!important}
+.mbr .mtog{flex:0 0 auto;min-width:0}
+.mbr .mtog button{font-size:.82rem;padding:0 10px;min-height:38px}
+.trw{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.trw b{display:block;font-weight:600}.trw small{color:var(--muted)}
+.trw.got b{text-decoration:line-through;color:var(--muted)}
+.field.acct{margin:8px 0}
+.hero .topo,.done-hero .topo,.cd .topo{display:none}
 /* history */
 .hist{display:flex;gap:10px;align-items:center;border-top:1px solid var(--line);padding:12px 0}
 .hist:first-of-type{border-top:0}
@@ -479,48 +487,15 @@ a.edit{display:inline-flex;align-items:center;text-decoration:none;color:var(--i
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="topo" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">
-    <g fill="none" stroke="#fff" stroke-width="1.1" stroke-linejoin="round">
-      <path d="M-40.0 37.3 L-25.6 34.0 L-20.0 31.0 L-16.0 27.2 L-12.9 22.0 L-10.9 16.0 L-9.2 0.0 L-10.9 -16.0 L-12.9 -22.0 L-16.0 -27.3 L-20.0 -31.0 L-25.6 -34.0 L-40.0 -37.3"/>
-      <path d="M158.7 12.0 L167.3 8.0 L174.0 3.0 L180.0 -3.6 L183.7 -10.0 L185.4 -16.0 L184.9 -22.0 L182.0 -26.6 L176.0 -30.3 L170.0 -32.1 L162.0 -33.0 L148.0 -31.8 L139.2 -28.0 L135.2 -24.0 L133.0 -20.0 L131.1 -12.0 L131.3 -4.0 L132.7 2.0 L135.9 8.0 L140.0 11.5 L146.0 13.5 L152.0 13.5 L158.7 12.0Z"/>
-      <path d="M76.1 116.0 L84.0 113.9 L91.4 110.0 L96.0 105.4 L99.6 98.0 L101.0 88.0 L100.0 77.3 L96.6 68.0 L91.8 62.0 L85.5 58.0 L76.0 55.0 L64.0 53.5 L50.0 53.3 L38.0 54.3 L28.0 56.4 L20.4 60.0 L16.2 64.0 L13.7 68.0 L11.5 74.0 L10.2 88.0 L12.4 100.0 L14.2 104.0 L18.0 108.7 L22.0 111.6 L27.2 114.0 L40.0 116.8 L58.0 117.6 L76.1 116.0Z"/>
-      <path d="M-40.0 173.2 L-39.2 166.0 L-40.0 159.9"/>
-      <path d="M440.0 164.7 L432.0 162.8 L420.0 163.1 L408.0 165.7 L396.0 170.6 L387.3 176.0 L379.0 184.0 L374.2 192.0 L372.3 200.0 L373.2 206.0 L376.0 210.7 L382.0 214.9 L390.0 217.4 L402.0 219.0 L418.0 219.1 L430.0 217.8 L440.0 214.8"/>
-      <path d="M333.2 300.0 L335.5 296.0 L337.6 290.0 L339.4 276.0 L338.1 260.0 L336.3 254.0 L334.0 249.4 L328.9 244.0 L320.0 239.7 L308.0 237.3 L290.0 236.3 L274.0 237.1 L262.0 239.4 L254.0 242.8 L248.0 248.3 L243.7 258.0 L241.9 274.0 L243.6 290.0 L245.7 296.0 L248.1 300.0"/>
-      <path d="M-40.0 214.5 L-14.0 158.2 L-6.0 146.9 L2.0 140.6 L8.0 137.9 L16.0 135.6 L34.0 133.0 L54.0 131.9 L92.0 132.0 L102.0 131.4 L110.0 129.2 L114.7 126.0 L119.5 120.0 L122.9 112.0 L125.1 102.0 L128.6 72.0 L130.9 64.0 L135.2 56.0 L140.0 50.4 L145.1 46.0 L172.0 28.1 L186.9 16.0 L201.6 0.0 L224.0 -30.1 L230.0 -35.6 L237.6 -40.0"/>
-      <path d="M362.4 -40.0 L370.0 -33.2 L390.2 -10.0 L401.1 0.0 L418.0 12.2 L440.0 24.3"/>
-      <path d="M68.0 24.1 L56.0 24.7 L46.0 23.1 L38.0 19.8 L31.4 14.0 L27.6 6.0 L27.2 -4.0 L30.1 -12.0 L35.4 -18.0 L40.0 -20.8 L46.0 -23.0 L54.0 -24.3 L62.0 -24.4 L70.0 -23.2 L76.0 -21.2 L81.6 -18.0 L85.7 -14.0 L89.0 -8.0 L90.5 -2.0 L90.5 4.0 L89.0 10.0 L86.0 15.1 L82.0 18.8 L76.0 22.0 L68.0 24.1Z"/>
-      <path d="M-40.0 70.3 L-34.2 74.0 L-30.0 79.0 L-27.1 86.0 L-26.4 92.0 L-27.5 100.0 L-30.0 105.6 L-34.0 110.1 L-40.0 113.6"/>
-      <path d="M440.0 136.8 L395.3 154.0 L376.0 163.5 L366.0 170.0 L358.4 176.0 L332.0 202.1 L322.0 208.0 L310.0 211.6 L300.0 213.0 L290.0 213.3 L280.0 212.6 L270.0 210.8 L256.7 206.0 L235.8 194.0 L228.0 191.3 L220.8 190.0 L206.0 189.5 L180.0 190.3 L170.0 191.6 L164.4 194.0 L161.1 198.0 L160.0 204.0 L161.6 212.0 L165.2 220.0 L169.4 226.0 L174.0 231.0 L194.1 246.0 L200.3 252.0 L205.0 260.0 L207.1 270.0 L206.8 276.0 L205.3 282.0 L202.0 287.9 L198.0 292.0 L192.0 295.6 L186.0 297.8 L178.0 299.3 L168.2 300.0"/>
-      <path d="M418.0 296.5 L408.0 297.7 L396.0 296.6 L388.0 293.7 L380.7 288.0 L376.5 280.0 L375.6 272.0 L378.0 262.5 L383.0 256.0 L388.0 252.6 L394.0 250.3 L400.0 249.1 L408.0 248.7 L416.0 249.5 L422.0 251.2 L427.8 254.0 L432.5 258.0 L436.2 264.0 L437.8 270.0 L437.9 276.0 L436.4 282.0 L434.0 286.6 L430.0 290.9 L425.1 294.0 L418.0 296.5Z"/>
-      <path d="M166.5 300.0 L148.0 298.2 L116.5 290.0 L102.0 287.5 L81.5 286.0 L40.0 285.1 L20.0 285.5 L6.0 287.0 L-6.0 289.7 L-28.0 296.5 L-40.0 298.8"/>
-      <path d="M440.0 113.4 L432.1 122.0 L420.0 130.3 L365.3 156.0 L351.0 164.0 L322.0 182.4 L312.0 187.2 L304.0 189.7 L294.0 190.9 L282.0 189.9 L272.0 187.0 L250.0 177.8 L238.0 175.5 L228.0 175.8 L204.0 179.1 L192.0 180.0 L176.0 179.6 L154.0 177.2 L150.0 177.3 L146.0 178.4 L144.0 180.0 L142.3 184.0 L141.9 192.0 L143.5 204.0 L149.9 236.0 L150.7 244.0 L150.4 250.0 L148.4 256.0 L145.2 260.0 L138.8 264.0 L130.0 267.0 L104.0 271.5 L74.0 273.8 L44.0 273.3 L16.0 270.3 L-8.0 265.3 L-20.6 260.0 L-25.3 256.0 L-27.8 252.0 L-29.0 248.0 L-29.6 242.0 L-28.5 230.0 L-25.5 216.0 L-20.5 200.0 L-14.8 186.0 L-9.6 176.0 L-2.8 166.0 L4.0 158.7 L12.0 152.7 L20.0 148.7 L30.0 145.4 L42.0 143.1 L54.0 142.1 L68.0 142.1 L82.0 143.4 L118.0 151.0 L124.0 150.5 L127.6 148.0 L132.0 140.7 L140.7 118.0 L144.2 106.0 L149.3 78.0 L152.3 70.0 L157.1 62.0 L165.7 52.0 L198.0 21.4 L230.0 -13.1 L242.0 -22.6 L254.0 -28.8 L264.0 -32.0 L274.0 -34.1 L298.0 -35.9 L322.0 -34.1 L332.0 -32.0 L342.0 -28.6 L352.0 -23.6 L364.0 -15.3 L394.5 10.0 L425.6 34.0 L434.4 42.0 L440.0 48.7"/>
-      <path d="M196.0 172.0 L184.0 172.3 L174.0 170.9 L164.0 167.9 L156.0 163.3 L150.8 158.0 L148.0 152.0 L147.1 144.0 L149.0 134.0 L162.0 104.0 L167.0 82.0 L169.5 74.0 L177.3 60.0 L190.4 44.0 L228.0 3.3 L242.0 -9.1 L256.0 -17.6 L266.0 -21.5 L276.0 -24.1 L286.0 -25.6 L298.0 -26.2 L310.0 -25.5 L320.0 -23.9 L330.0 -21.3 L340.0 -17.4 L352.0 -10.9 L364.0 -2.7 L404.7 30.0 L421.4 46.0 L427.5 54.0 L431.0 60.0 L434.6 70.0 L435.9 82.0 L434.6 92.0 L430.9 102.0 L425.7 110.0 L417.6 118.0 L406.0 126.0 L392.0 133.3 L326.0 163.0 L316.0 166.8 L306.0 169.4 L296.0 170.6 L286.0 169.9 L256.0 161.8 L244.0 160.6 L234.0 162.1 L210.0 169.5 L196.0 172.0Z"/>
-      <path d="M86.0 264.2 L72.0 265.6 L56.0 265.8 L42.0 264.7 L28.0 262.5 L16.0 259.3 L6.0 255.3 L-2.4 250.0 L-8.3 244.0 L-12.6 236.0 L-14.5 226.0 L-14.0 214.0 L-11.3 202.0 L-6.7 190.0 L0.0 178.2 L8.0 168.6 L16.0 162.1 L28.0 155.8 L42.0 151.9 L58.0 150.3 L74.0 151.2 L90.0 154.8 L102.6 160.0 L114.0 167.5 L121.8 176.0 L125.2 182.0 L128.5 190.0 L133.5 210.0 L134.6 226.0 L133.6 234.0 L132.0 239.0 L129.4 244.0 L126.2 248.0 L121.6 252.0 L116.0 255.4 L102.0 260.8 L86.0 264.2Z"/>
-      <path d="M198.0 164.2 L188.0 165.1 L180.0 164.2 L172.0 161.7 L166.0 158.0 L162.3 154.0 L159.5 148.0 L159.0 142.0 L160.8 134.0 L165.0 126.0 L178.9 106.0 L181.5 98.0 L183.8 82.0 L186.3 72.0 L190.8 62.0 L197.1 52.0 L212.8 32.0 L232.0 11.1 L246.0 -0.9 L260.0 -9.4 L268.0 -12.7 L278.0 -15.5 L288.0 -17.1 L298.0 -17.6 L308.0 -17.0 L318.0 -15.4 L328.0 -12.7 L338.0 -8.7 L348.0 -3.5 L360.0 4.3 L390.0 28.0 L408.5 46.0 L414.8 54.0 L419.4 62.0 L422.8 72.0 L423.7 82.0 L422.0 92.0 L418.5 100.0 L412.6 108.0 L403.8 116.0 L392.0 123.6 L378.0 130.8 L340.0 146.3 L326.0 150.9 L314.0 153.8 L302.0 155.3 L290.0 155.0 L280.0 153.3 L254.0 147.0 L242.0 146.4 L232.0 149.0 L211.4 160.0 L198.0 164.2Z"/>
-      <path d="M76.0 258.1 L64.0 259.0 L52.0 258.7 L40.0 257.2 L28.0 254.4 L18.0 250.5 L10.2 246.0 L3.5 240.0 L-0.7 234.0 L-3.7 226.0 L-4.7 216.0 L-3.6 206.0 L-0.5 196.0 L4.5 186.0 L10.4 178.0 L18.0 170.8 L26.0 165.6 L38.0 160.7 L50.0 158.2 L64.0 157.7 L78.0 159.7 L90.8 164.0 L102.0 170.4 L110.3 178.0 L117.2 188.0 L122.0 200.0 L124.5 214.0 L123.7 226.0 L119.9 236.0 L113.3 244.0 L104.0 250.2 L92.0 254.9 L76.0 258.1Z"/>
-      <path d="M194.0 156.0 L186.0 156.2 L178.0 153.6 L174.0 150.2 L172.6 148.0 L171.4 142.0 L173.0 136.0 L177.2 130.0 L182.0 125.6 L195.4 116.0 L199.5 110.0 L200.3 104.0 L198.8 80.0 L200.5 70.0 L203.4 62.0 L208.6 52.0 L215.3 42.0 L232.0 22.0 L248.0 7.4 L256.0 2.0 L266.0 -3.2 L274.0 -6.2 L284.0 -8.6 L302.0 -9.7 L320.0 -7.0 L338.0 -0.4 L348.0 5.0 L360.0 12.8 L383.8 32.0 L399.2 48.0 L405.0 56.0 L409.2 64.0 L412.1 74.0 L412.5 82.0 L410.2 92.0 L405.9 100.0 L399.0 108.0 L390.0 115.1 L378.3 122.0 L364.0 128.7 L346.0 135.5 L330.0 140.3 L316.0 143.1 L304.0 144.1 L294.0 143.8 L284.0 142.3 L244.0 132.2 L236.0 131.4 L230.0 131.8 L226.0 133.0 L222.0 135.5 L212.4 146.0 L206.0 151.3 L200.0 154.4 L194.0 156.0Z"/>
-      <path d="M72.0 252.1 L62.0 252.7 L50.0 252.2 L40.0 250.5 L30.0 247.5 L22.5 244.0 L16.0 239.6 L10.5 234.0 L6.9 228.0 L4.4 220.0 L3.9 212.0 L5.1 204.0 L7.8 196.0 L12.1 188.0 L18.0 180.8 L24.0 175.6 L32.0 170.7 L42.0 166.8 L54.0 164.7 L66.0 164.8 L78.0 167.0 L88.0 170.9 L98.0 177.3 L106.0 185.6 L111.1 194.0 L114.6 204.0 L115.8 216.0 L114.0 226.0 L110.0 233.6 L104.0 240.0 L94.4 246.0 L84.0 249.8 L72.0 252.1Z"/>
-      <path d="M318.0 134.2 L302.0 134.9 L286.0 133.1 L268.0 128.3 L245.6 120.0 L233.3 114.0 L225.2 108.0 L218.7 100.0 L213.9 90.0 L211.8 80.0 L212.7 68.0 L216.9 56.0 L225.1 42.0 L236.3 28.0 L250.0 15.1 L262.0 7.0 L276.0 1.0 L292.0 -2.2 L308.0 -2.0 L324.0 1.5 L342.0 9.3 L361.6 22.0 L380.2 38.0 L387.6 46.0 L393.7 54.0 L398.3 62.0 L400.6 68.0 L401.9 74.0 L402.1 80.0 L399.9 90.0 L393.9 100.0 L385.7 108.0 L373.5 116.0 L356.0 124.2 L336.0 130.7 L318.0 134.2Z"/>
-      <path d="M70.0 246.0 L62.0 246.6 L52.0 246.2 L42.0 244.3 L34.8 242.0 L28.0 238.6 L22.0 234.2 L18.0 229.9 L14.5 224.0 L12.6 218.0 L12.0 212.0 L13.0 204.0 L15.1 198.0 L18.3 192.0 L23.0 186.0 L30.0 180.0 L36.0 176.4 L46.0 172.8 L56.0 171.2 L66.0 171.5 L76.0 173.6 L84.0 176.8 L92.1 182.0 L98.3 188.0 L103.6 196.0 L106.5 204.0 L107.6 212.0 L106.8 220.0 L103.4 228.0 L98.0 234.5 L90.1 240.0 L80.0 244.0 L70.0 246.0Z"/>
-      <path d="M322.0 126.0 L308.0 127.0 L294.0 126.1 L280.0 123.2 L264.0 117.8 L250.0 111.1 L239.4 104.0 L231.4 96.0 L225.5 86.0 L223.3 78.0 L223.3 68.0 L225.9 58.0 L231.8 46.0 L240.6 34.0 L250.0 24.3 L260.8 16.0 L272.0 10.0 L286.0 5.7 L302.0 4.5 L316.0 6.3 L332.0 11.5 L350.0 21.4 L366.4 34.0 L379.9 48.0 L385.6 56.0 L388.8 62.0 L391.0 68.0 L392.1 74.0 L391.4 84.0 L386.9 94.0 L380.0 101.9 L369.0 110.0 L354.0 117.4 L338.0 122.8 L322.0 126.0Z"/>
-      <path d="M66.0 240.1 L52.0 239.8 L44.0 238.1 L38.0 235.8 L32.0 232.4 L28.0 229.1 L24.0 224.1 L21.9 220.0 L20.5 214.0 L20.5 208.0 L21.9 202.0 L24.0 197.2 L27.6 192.0 L32.0 187.5 L38.0 183.4 L44.0 180.6 L52.0 178.5 L60.0 177.9 L68.0 178.6 L76.0 180.9 L84.0 185.0 L90.0 190.0 L94.7 196.0 L97.6 202.0 L99.3 210.0 L98.9 216.0 L97.0 222.0 L93.1 228.0 L88.0 232.5 L81.9 236.0 L74.0 238.7 L66.0 240.1Z"/>
-      <path d="M326.0 118.3 L312.0 119.6 L300.0 119.2 L288.0 117.3 L276.0 113.9 L264.0 108.9 L252.3 102.0 L245.1 96.0 L238.5 88.0 L234.7 80.0 L233.3 72.0 L233.8 64.0 L236.8 54.0 L242.3 44.0 L248.4 36.0 L256.4 28.0 L266.0 21.0 L278.0 15.1 L292.0 11.7 L306.0 11.5 L322.0 14.6 L338.0 21.4 L352.0 30.3 L366.0 42.6 L376.5 56.0 L381.1 66.0 L382.6 76.0 L380.5 86.0 L375.6 94.0 L367.2 102.0 L356.0 108.8 L342.0 114.4 L326.0 118.3Z"/>
-      <path d="M70.0 232.4 L60.0 233.5 L48.8 232.0 L39.7 228.0 L33.2 222.0 L29.6 214.0 L29.8 206.0 L33.3 198.0 L39.0 192.0 L44.0 188.9 L50.0 186.5 L56.0 185.4 L64.0 185.5 L70.0 186.8 L76.0 189.2 L82.0 193.4 L86.0 197.9 L88.4 202.0 L90.1 208.0 L90.1 214.0 L88.9 218.0 L86.0 222.9 L82.0 226.8 L76.7 230.0 L70.0 232.4Z"/>
-      <path d="M320.0 112.1 L308.0 112.6 L298.0 111.8 L286.0 109.3 L276.0 105.9 L266.0 100.9 L258.0 95.5 L252.0 89.9 L246.5 82.0 L244.1 76.0 L243.0 68.0 L244.0 60.0 L246.9 52.0 L251.6 44.0 L258.0 36.4 L265.3 30.0 L272.0 25.6 L284.0 20.5 L296.0 18.2 L308.0 18.4 L322.0 21.4 L336.0 27.5 L349.0 36.0 L360.0 46.2 L368.6 58.0 L372.4 68.0 L372.9 76.0 L370.9 84.0 L365.7 92.0 L356.3 100.0 L346.0 105.4 L334.0 109.5 L320.0 112.1Z"/>
-      <path d="M66.0 224.1 L60.0 224.8 L53.4 224.0 L48.0 221.8 L43.5 218.0 L41.2 214.0 L40.7 208.0 L43.2 202.0 L47.4 198.0 L54.0 195.1 L62.0 194.5 L70.0 196.8 L76.2 202.0 L78.9 208.0 L78.9 212.0 L77.6 216.0 L72.0 221.7 L66.0 224.1Z"/>
-      <path d="M326.0 104.0 L318.0 105.1 L308.0 105.4 L298.0 104.5 L290.0 102.7 L281.8 100.0 L273.5 96.0 L266.0 90.9 L260.8 86.0 L256.5 80.0 L253.9 74.0 L252.9 68.0 L253.2 62.0 L254.8 56.0 L257.6 50.0 L261.7 44.0 L267.4 38.0 L276.0 31.8 L286.0 27.5 L296.0 25.3 L308.0 25.3 L320.0 27.8 L332.0 32.8 L343.2 40.0 L352.0 48.1 L358.0 56.0 L362.4 66.0 L363.2 74.0 L361.0 82.0 L356.0 89.3 L348.0 95.7 L338.0 100.6 L326.0 104.0Z"/>
-      <path d="M326.0 96.1 L312.0 97.9 L296.0 96.2 L282.0 91.1 L272.0 84.1 L265.9 76.0 L264.0 71.0 L263.3 66.0 L263.8 60.0 L265.1 56.0 L268.0 50.4 L271.4 46.0 L278.0 40.2 L286.0 35.9 L294.0 33.5 L304.0 32.6 L314.0 33.8 L324.0 37.0 L333.3 42.0 L341.0 48.0 L346.4 54.0 L351.0 62.0 L352.7 70.0 L352.0 76.0 L349.1 82.0 L343.4 88.0 L336.0 92.5 L326.0 96.1Z"/>
-      <path d="M320.0 88.1 L310.0 89.1 L298.0 87.5 L289.0 84.0 L281.0 78.0 L276.9 72.0 L275.3 64.0 L277.4 56.0 L281.8 50.0 L287.0 46.0 L294.0 42.9 L300.0 41.6 L308.0 41.5 L316.0 43.1 L322.0 45.5 L328.0 49.0 L333.8 54.0 L338.0 59.7 L339.8 64.0 L340.5 70.0 L339.6 74.0 L336.0 79.8 L332.0 83.2 L326.7 86.0 L320.0 88.1Z"/>
-      <path d="M310.0 76.1 L306.0 75.9 L300.0 74.0 L296.9 72.0 L294.0 68.4 L293.1 66.0 L293.4 62.0 L296.0 58.1 L298.0 56.6 L304.0 54.6 L310.0 54.8 L317.4 58.0 L321.2 62.0 L322.2 64.0 L322.4 68.0 L320.3 72.0 L316.0 74.8 L310.0 76.1Z"/>
+    <g fill="none" stroke="#fff" stroke-width="1.2" stroke-linejoin="round">
+      <path d="M440.0 99.0 L420.0 117.0 L394.0 132.2 L366.0 142.7 L336.0 148.5 L306.0 149.0 L278.0 144.5 L252.0 135.0 L231.9 122.0 L223.5 114.0 L215.6 104.0 L209.8 94.0 L205.0 82.0 L201.4 60.0 L202.1 48.0 L204.6 36.0 L214.1 14.0 L231.0 -8.0 L242.0 -18.3 L254.0 -27.2 L278.0 -40.0"/>
+      <path d="M393.4 -40.0 L408.0 -33.4 L420.0 -26.1 L430.1 -18.0 L440.0 -7.5"/>
+      <path d="M324.0 120.0 L304.0 118.5 L284.0 113.1 L268.0 104.9 L255.0 94.0 L245.3 80.0 L240.5 66.0 L239.7 50.0 L243.4 34.0 L252.1 18.0 L264.0 4.7 L278.3 -6.0 L296.0 -14.6 L316.0 -20.0 L336.0 -21.7 L356.0 -19.9 L374.0 -15.1 L386.0 -9.7 L398.0 -1.9 L408.0 7.7 L415.3 18.0 L420.4 30.0 L422.6 42.0 L422.2 54.0 L418.9 66.0 L413.9 76.0 L406.0 86.5 L395.7 96.0 L383.9 104.0 L370.0 110.8 L356.0 115.6 L340.0 118.9 L324.0 120.0Z"/>
+      <path d="M328.0 98.0 L314.0 97.1 L301.3 94.0 L290.0 88.8 L280.0 81.0 L273.0 72.0 L269.0 62.0 L267.9 52.0 L270.0 40.0 L274.8 30.0 L283.0 20.0 L293.1 12.0 L304.0 6.3 L316.0 2.4 L330.0 0.3 L344.0 0.7 L358.0 3.7 L368.0 7.9 L376.0 12.8 L382.1 18.0 L388.5 26.0 L392.3 34.0 L394.2 42.0 L394.3 50.0 L392.7 58.0 L389.2 66.0 L384.0 73.5 L369.5 86.0 L350.0 94.7 L328.0 98.0Z"/>
+      <path d="M338.0 76.2 L324.0 76.9 L312.3 74.0 L302.7 68.0 L296.9 60.0 L295.0 52.0 L296.8 42.0 L304.0 32.0 L312.7 26.0 L326.0 21.7 L342.0 22.0 L350.0 24.5 L356.4 28.0 L361.0 32.0 L365.1 38.0 L367.1 44.0 L367.2 50.0 L365.7 56.0 L362.3 62.0 L352.0 70.9 L338.0 76.2Z"/>
     </g>
-    <g fill="#fff" stroke="#1F4D3A" stroke-width="3" paint-order="stroke" font-size="8" font-family="Barlow, Arial, sans-serif" font-weight="600" letter-spacing=".3">
-      <text x="72.0" y="116.6" transform="rotate(-7 72.0 116.6)" text-anchor="middle" dominant-baseline="middle">1150</text>
-      <text x="190.0" y="180.0" transform="rotate(-1 190.0 180.0)" text-anchor="middle" dominant-baseline="middle">1250</text>
-      <text x="246.0" y="146.2" transform="rotate(0 246.0 146.2)" text-anchor="middle" dominant-baseline="middle">1350</text>
-      <text x="304.0" y="135.0" transform="rotate(1 304.0 135.0)" text-anchor="middle" dominant-baseline="middle">1450</text>
-      <text x="72.0" y="187.4" transform="rotate(20 72.0 187.4)" text-anchor="middle" dominant-baseline="middle">1550</text>
-      <text x="268.0" y="92.5" transform="rotate(36 268.0 92.5)" text-anchor="middle" dominant-baseline="middle">1650</text>
-      <text x="323.1" y="46.0" transform="rotate(27 323.1 46.0)" text-anchor="middle" dominant-baseline="middle">1750</text>
+    <g fill="#fff" stroke="#1F4D3A" stroke-width="3" paint-order="stroke" font-size="8" font-family="Barlow, Arial, sans-serif" font-weight="600">
+      <text x="320.0" y="120.0" transform="rotate(2 320.0 120.0)" text-anchor="middle" dominant-baseline="middle">1800</text>
     </g>
   </symbol>
   <symbol id="logo" viewBox="0 0 64 64">
@@ -930,7 +905,8 @@ const SLOTS={
   sarapan:{n:["Sarapan","Breakfast"],t:["Pagi, sebelum jalan","Morning, before hiking"],share:.22},
   cemilan:{n:["Camilan jalur","Trail snacks"],t:["Beberapa suap di setiap titik ngemil","A few bites at each snack stop"],share:.23},
   siang:{n:["Makan siang","Lunch"],t:["Di jalur atau pos istirahat","On the trail or at a rest stop"],share:.25},
-  malam:{n:["Makan malam","Dinner"],t:["Di camp","At camp"],share:.30}
+  malam:{n:["Makan malam","Dinner"],t:["Di camp","At camp"],share:.30},
+  summit:{n:["Bekal summit attack","Summit snacks"],t:["Ringan, padat energi, dimakan sedikit-sedikit","Light, energy-dense, eaten bit by bit"],share:.08}
 };
 const ORDER=["sarapan","cemilan","siang","malam"];
 const PACE={slow:1.25,normal:1,fast:.85};
@@ -1022,7 +998,7 @@ const TOPO='<svg class="topo" aria-hidden="true"><use href="#topo"/></svg>';
 const LOGO='<svg class="logo" aria-hidden="true"><use href="#logo"/></svg>';
 
 /* ===================== PERHITUNGAN ===================== */
-function slotsOfDay(i,n){return ORDER.filter(s=>!(s==="malam"&&i===n-1))}
+function slotsOfDay(i,n){const o=ORDER.filter(s=>!(s==="malam"&&i===n-1)); if(n>1&&i===n-1&&S.summitAtk!==false) o.splice(1,0,"summit"); return o;}
 function defaultMealOn(i,slot,n){
   const h=parseInt(S.startTime,10); const startH=isFinite(h)?h:8;
   if(n===1) return slot==="cemilan"||(slot==="siang"&&startH<13);
@@ -1120,6 +1096,7 @@ function template(slot,i){
     case "sarapan": return [["oat",2,1],["pisang",1,0],["kopi",1,0]];
     case "cemilan": return light?[["kacang",3,1],["coklat",2,1],["kurma",2,1],["energybar",1,1]]:SNACK_PACKS[(S.snackShift&&S.snackShift["d"+i]||0)+i&3].map(([id,q])=>[id,q,1]);
     case "cadangan": return [["mie",1,0],["biskuit",1,1],["coklat",1,1],["aren",1,1]];
+    case "summit": return [["coklat",1,1],["kurma",1,1],["aren",1,1],["energybar",1,1],["elektrolit",1,0]];
   }
   return [];
 }
@@ -1130,10 +1107,11 @@ const TAGS={
   dairy:["kopisusukemasan","keju","susububuk","skm","coklatpanas","energen","kejustik","susuuht"],
   egg:["telur","telurmentah","nasibtelur"],
   sugar:["juskotak","tehkotak","kacanghijau","kopisusukemasan","aren","gula","madu","permen","jelly","skm","selaicoklat","teh","jahe","coklatpanas","energen","gummy","dodol","permenjahe","waferkaramel"],
+  fiber:["sayurmix","sawi","kismis","oat","kacang","apel","jeruk","pisangsale","granola","keripikpisang","kurma"],
   meat:["abon","sosis","sarden","kornet","rendang","dendeng","ayamungkep","teri","tuna","nugget","saustiram","karipouch","semurpouch","nasibayam"]
 };
-const AVOID_LBL={nuts:["Tanpa kacang","No nuts"],seafood:["Tanpa seafood","No seafood"],dairy:["Tanpa susu","No dairy"],egg:["Tanpa telur","No eggs"],sugar:["Kurangi gula","Less sugar"]};
-const ALT={karbo:["beras","oat","roti"],protein:["tempe","tempegoreng","tahubacem","abon","ayamungkep","telurmentah","sosis","kornet"],camilan:["kurma","biskuitkelapa","crackers","keripikpisang","pisangsale","serealbar","kismis","biskuit","energybar","pisang","coklat","wafer"],minum:["kopi","elektrolit"],karbo:["beras","oat","roti"]};
+const AVOID_LBL={fiber:["Kurangi serat","Less fibre"],nuts:["Tanpa kacang","No nuts"],seafood:["Tanpa seafood","No seafood"],dairy:["Tanpa susu","No dairy"],egg:["Tanpa telur","No eggs"],sugar:["Kurangi gula","Less sugar"]};
+const ALT={sayur:["sop","tomat","pisang"],karbo:["beras","roti","bubur"],protein:["tempe","tempegoreng","tahubacem","abon","ayamungkep","telurmentah","sosis","kornet"],camilan:["kurma","biskuitkelapa","crackers","keripikpisang","pisangsale","serealbar","kismis","biskuit","energybar","pisang","coklat","wafer"],minum:["kopi","elektrolit"],karbo:["beras","oat","roti"]};
 function avoidTags(){ const t=Object.keys(S.avoid||{}).filter(k=>S.avoid[k]); if(S.veg) t.push("meat"); return t; }
 function avoidedBy(id){ return avoidTags().filter(t=>TAGS[t].includes(id)); }
 const isAvoided=id=>avoidedBy(id).length>0;
@@ -1178,7 +1156,7 @@ function calc(){
     const campW=n>1?((i<n-1?1.0:0)+(i>0?0.4:0)):0.3;
     const water=Math.round((trekH*0.6+campW)*(S.adjWater||1)*2)/2;
     const adj=S.adjFood||1, stops=snackStops(trekH);
-    const T={}; ORDER.forEach(sl=>{ const raw=need*SLOTS[sl].share; T[sl]=sl==="cemilan"?Math.min(raw,Math.max(150,stops*SNACK_CAP)):Math.min(raw,CAP[sl]); });
+    const T={}; ORDER.concat(["summit"]).forEach(sl=>{ const raw=need*SLOTS[sl].share; T[sl]=sl==="cemilan"?Math.min(raw,Math.max(150,stops*SNACK_CAP)):sl==="summit"?Math.min(raw,450):Math.min(raw,CAP[sl]); });
     const extra=Math.max(0,need*SLOTS.cemilan.share-T.cemilan);
     const recv=["siang","malam"].filter(sl=>slotsOfDay(i,n).includes(sl)&&mealOn(i,sl));
     recv.forEach(sl=>{ T[sl]=Math.min(sl==="siang"?1000:1200,T[sl]+extra/recv.length); });
@@ -1254,7 +1232,7 @@ const INTRO=[
   {il:"menu",t:["Menu ala pendaki, lengkap dengan resep","Hiker-style meals, with recipes"],d:["Puluhan resep, dari nasi goreng kampung sampai wedang jahe, lengkap dengan bahan, bumbu, dan cara masak.","Dozens of recipes, from village fried rice to ginger tea, with ingredients, seasoning, and steps."]},
   {il:"sched",t:["Kapan ngemil, di ketinggian berapa","When to snack, and at what height"],d:["Jadwal per jam memberi tahu kapan makan dan apa yang dimakan, supaya tidak lemas di jalur.","An hourly schedule tells you when and what to eat, so you don't run out of energy on the trail."]},
   {il:"team",t:["Belanja dan bagi tugas rombongan","Shop and split tasks as a group"],d:["Checklist belanja, biaya per orang, dan kirim tugas ke setiap anggota lewat WhatsApp.","A shopping checklist, cost per person, and tasks sent to each member by WhatsApp."]},
-  {il:"begin",t:["Dibuat untuk pemula","Made for beginners"],d:["Istilah dijelaskan, tips disesuaikan, dan data tetap di HP-mu tanpa login.","Terms are explained, tips are tailored, and your data stays on your phone with no login."]}
+  {il:"begin",t:["Mudah dipakai siapa saja","Easy for anyone"],d:["Istilah dijelaskan, alurnya singkat, dan data tetap di HP-mu.","Terms are explained, the flow is short, and your data stays on your phone."]}
 ];
 function vIntro(){
   const i=clamp(S.introI||0,0,INTRO.length-1), it=INTRO[i], last=i===INTRO.length-1;
@@ -1328,6 +1306,7 @@ function vSchedule(){
         <div class="times"><label class="field"><span>${L("Hari 1","Day 1")}</span>${timeField(`data-k="startTime" aria-label="${L("Jam mulai","Start time")}"`,S.startTime)}</label>
           ${Array.from({length:Math.max(0,n-2)},(_,k)=>k+1).map(i=>`<label class="field"><span>${L("Hari","Day")} ${i+1}</span>${timeField(`data-daystart="${i}"`,(S.dayStart&&S.dayStart[i])||"06:00")}</label>`).join("")}
           ${S.summitAtk!==false?`<label class="field"><span>${L(`Hari ${n}, summit attack`,`Day ${n}, summit push`)}</span>${timeField(`data-k="summitTime"`,S.summitTime||"03:00")}</label>`:`<label class="field"><span>${L("Hari","Day")} ${n}</span>${timeField(`data-daystart="${n-1}"`,(S.dayStart&&S.dayStart[n-1])||"06:00")}</label>`}</div>
+        ${S.summitAtk!==false?`<p class="sub2">${L("Waktu di camp setelah summit","Time at camp after the summit")}</p><div class="seg" style="--n:4">${[1.5,2,2.5,3].map(v=>`<button data-act="campStop" data-v="${v}" aria-pressed="${(+(S.campStop||2))===v}">${nf(v)} ${L("jam","h")}</button>`).join("")}</div>`:""}
         <button class="switch first" role="switch" data-act="toggle" data-k="summitAtk" aria-checked="${S.summitAtk!==false}"><span><b>${L(`Summit attack dini hari di hari ${n}`,`Early summit push on day ${n}`)}</b><small>${L("Naik ke puncak dari camp, kembali sarapan, lalu turun.","Climb from camp to the summit, back for breakfast, then descend.")}</small></span><span class="sw"></span></button>`:""}
       <p class="err" role="status">${err}</p>
       ${!multi&&rd&&rd.up+rd.down>12?`<p class="alert" style="margin:10px 0 0">${L(`Jalur ini butuh ±${dec(rd.up+rd.down)} jam jalan kalau tektok. Untuk pemula, sebaiknya pilih Ngecamp.`,`This trail takes about ${dec(rd.up+rd.down)} hours of walking as a day hike. Beginners should choose Camping.`)}</p>`:""}</div>
@@ -1353,6 +1332,7 @@ function vBody(){
       ${sw("instant",L("Utamakan siap saji","Prefer ready-to-eat"),L("Cukup air panas. Hemat gas, tapi lebih mahal dan sampahnya lebih banyak.","Just add hot water. Saves gas, but costs more and makes more packaging waste."))}
       ${sw("light",L("Utamakan carrier ringan","Keep the pack light"),L("Lebih banyak makanan padat kalori, tanpa nasi bungkus.","More calorie-dense food, no packed rice meals."))}
       <div class="avoid"><b>${L("Alergi dan pantangan","Allergies and avoids")}</b><small>${L("Menu saran otomatis menghindari bahan ini.","Suggested menus will avoid these.")}</small>
+        ${S.avoid&&S.avoid.fiber?`<small class="hint" style="margin-bottom:6px">${L("Kurangi serat: untuk yang tidak nyaman BAB di gunung. Tetap minum cukup supaya tidak sembelit.","Less fibre: for those who'd rather not need the toilet on the mountain. Keep drinking to avoid constipation.")}</small>`:""}
         <div class="pills">${Object.keys(AVOID_LBL).map(k=>`<button class="pill" data-act="avoid" data-v="${k}" aria-pressed="${!!(S.avoid&&S.avoid[k])}">${L(...AVOID_LBL[k])}</button>`).join("")}</div></div>
       ${sw("veg",L("Vegetarian","Vegetarian"),L("Tanpa daging, lauk diganti kering tempe.","No meat; sides are swapped for crispy tempeh."))}</div>
   </main>`+bar(L("Lanjut","Next"));
@@ -1360,7 +1340,7 @@ function vBody(){
 
 function whyOff(i,slot,n){
   const t=S.startTime||"08:00";
-  if(slot==="sarapan") return L(`Jangan lupa sarapan di rumah atau basecamp sebelum mulai jalan pukul ${t}.`,`Don't forget breakfast at home or basecamp before you start at ${t}.`);
+  if(slot==="sarapan") return L(`Jangan lupa sarapan di rumah atau basecamp ±1 jam sebelum mulai jalan pukul ${t}.`,`Don't forget breakfast at home or basecamp before you start at ${t}.`);
   if(slot==="siang"&&i===0) return L(`Makan siang dulu sebelum mulai jalan pukul ${t}.`,`Have lunch before you start at ${t}.`);
   if(slot==="siang") return L("Makan siang setelah sampai basecamp.","Have lunch once you're back at basecamp.");
   if(slot==="malam") return L("Kamu sudah turun, jadi makan malam di rumah atau warung basecamp.","You'll be down by then, so have dinner at home or a basecamp stall.");
@@ -1399,13 +1379,14 @@ function dayPlan(R,d){
     const from=sAtk?e0:eTop, p=dT?(t-upT-dcT)/dT:1; return from-(from-rd.base)*Math.pow(p,1.1); };
   const has=slot=>d.meals.find(m=>m.slot===slot);
   const lunch=has("siang"); let tL=null;
-  const pauses=[]; if(sAtk){ pauses.push([upT,0.5]); pauses.push([upT+dcT,1.5]); }
+  const campStop=+(S.campStop||2);
+  const pauses=[]; if(sAtk){ pauses.push([upT,0.5]); pauses.push([upT+dcT,campStop]); }
   const clock0=t=>start+t+pauses.filter(([a])=>t>a).reduce((s,[,x])=>s+x,0);
   if(lunch&&lunch.on&&walk>0){ const c12=12; for(let t=0;t<walk;t+=0.05){ if(clock0(t)>=c12){ if(t>0.3&&t<walk-0.3) tL=t; break; } } }
   if(tL!=null) pauses.push([tL,0.5]);
   const clock=t=>start+t+pauses.filter(([a])=>t>a).reduce((s,[,x])=>s+x,0);
   const I=(S.snackEvery||60)/60, snackM=has("cemilan"), stops=[];
-  for(let t=I;t<walk-0.25;t+=I){ if(pauses.some(([a])=>Math.abs(t-a)<0.4)) continue; stops.push(t); }
+  for(let t=I;t<walk-0.25;t+=I){ if(pauses.some(([a])=>Math.abs(t-a)<0.4)) continue; if(sAtk&&has("summit")&&has("summit").on&&t<upT+dcT) continue; stops.push(t); }
   const bins=stops.map(()=>({k:0,it:{}}));
   if(snackM&&snackM.on&&bins.length){
     const units=[]; snackM.items.forEach(([id,q])=>{for(let u=0;u<q;u++) units.push(id)});
@@ -1417,14 +1398,18 @@ function dayPlan(R,d){
   const meal=(m,time,e,where)=>ev.push({kind:"meal",slot:m.slot,time,e,label:L(...SLOTS[m.slot].n),on:m.on,where,what:mealTxt(m),k:m.on?kOf(m.items):0});
   const sar=has("sarapan");
   if(sAtk){
-    ev.push({kind:"meal",slot:"pre",time:start-0.25,e:e0,label:L("Minuman hangat dan camilan ringan","Warm drink and a light snack"),on:true,where:L("sebelum summit attack","before the summit push"),what:L("Teh atau jahe hangat, 1–2 camilan kecil","Hot tea or ginger, 1–2 small snacks"),k:0});
+    ev.push({kind:"meal",slot:"pre",time:start-0.25,e:e0,label:L("Minuman hangat dan camilan ringan","Warm drink and a light snack"),on:true,where:L("sebelum summit attack","before the summit push"),what:L("Teh atau jahe hangat, 1–2 camilan kecil. Jangan makan berat.","Hot tea or ginger, 1–2 small snacks. Nothing heavy."),k:0});
+    const sm=has("summit"); if(sm&&sm.on){ meal(sm,start-0.1,e0,L("dibawa, dimakan sedikit-sedikit sampai puncak","carried, eaten bit by bit to the top")); ev[ev.length-1].what+=", "+L("air ±0,5–1 L","water ±0.5–1 L"); }
     ev.push({kind:"start",time:start,e:e0,label:L("Mulai summit attack","Start the summit push")});
     ev.push({kind:"peak",t:upT,time:clock(upT),e:eTop,label:L("Puncak","Summit")});
-    ev.push({kind:"start",time:clock(upT+dcT),e:e0,label:L("Kembali ke camp","Back at camp")});
-    if(sar) meal(sar,clock(upT+dcT)+0.1,e0,L("di camp, setelah summit","at camp, after the summit"));
-    ev.push({kind:"start",time:clock(upT+dcT)+1.5,e:e0,label:L("Bongkar tenda, lalu turun","Pack up and head down")});
+    const back=clock(upT+dcT);
+    ev.push({kind:"start",time:back,e:e0,label:L("Kembali ke camp","Back at camp")});
+    if(sar){ meal(sar,back+0.1,e0,L("di camp, setelah summit","at camp, after the summit")); ev[ev.length-1].label=L("Makan besar","Big meal"); }
+    ev.push({kind:"start",time:back+Math.min(1,campStop*0.5),e:e0,label:L("Packing dan bongkar tenda","Pack up and strike the tent")});
+    ev.push({kind:"start",time:back+Math.min(campStop-0.25,campStop*0.8),e:e0,label:L("Istirahat dan persiapan turun","Rest and get ready to descend")});
+    ev.push({kind:"start",time:back+campStop,e:e0,label:L("Mulai turun","Start the descent")});
   } else {
-    if(sar) meal(sar,start-.5,e0,d.i===0?L("di basecamp","at basecamp"):L("di camp","at camp"));
+    if(sar) meal(sar,start-1,e0,(d.i===0?L("di basecamp","at basecamp"):L("di camp","at camp"))+", "+L("±1 jam sebelum jalan supaya perut tidak kram","about 1 h before walking so you don't cramp"));
     if(lunch&&walk>0&&start>=12) meal(lunch,Math.max(11.5,start-1),e0,L("sebelum jalan","before hiking"));
     ev.push({kind:"start",time:start,e:e0,label:d.i===0?L("Mulai dari basecamp","Leave basecamp"):L("Mulai jalan dari camp","Leave camp")});
     if(summit) ev.push({kind:"peak",t:upT,time:clock(upT),e:eTop,label:L("Puncak","Summit")});
@@ -1687,6 +1672,7 @@ const IC={
   book:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5c3-1 6-1 10 1v14c-4-2-7-2-10-1z"/><path d="M22 5c-3-1-6-1-10 1v14c4-2 7-2 10-1z"/></svg>'
 };
 const scope=(grp,n)=>`<span class="scope">${grp?IC.grp:IC.one} ${grp?L(`Rombongan ${n} orang`,`Group of ${n}`):L("Per orang","Per person")}</span>`;
+const PLAY_URL=""; // isi setelah rilis, contoh: https://play.google.com/store/apps/details?id=com.miraiteam.bekalnanjak
 const APP_URL=()=>location.origin+location.pathname;
 
 /* ===================== AIR ===================== */
@@ -1736,7 +1722,7 @@ function lateFor(id,i,slot){ const f=food(id); return f&&f.keep!=null&&f.keep<i+
 function altsFor(slot,key,i){
   const cur=mealRecipes(key,slot,i), shift=(S.altShift&&S.altShift[key])||0;
   let list=[];
-  if(slot==="cemilan"||slot==="cadangan") list=SNACK_PACKS.map((p,k)=>({id:"pack"+k,n:PACK_NAME[k],items:p}));
+  if(slot==="cemilan"||slot==="cadangan"||slot==="summit") list=SNACK_PACKS.map((p,k)=>({id:"pack"+k,n:PACK_NAME[k],items:p}));
   else {
     if(slot==="siang"&&i===0) list=NB.map(([id,n,items])=>({id,n,items}));
     list=list.concat(PRESETS.filter(pr=>pr.for.includes(slot)).map(pr=>({id:pr.id,n:pr.n,items:pr.items})));
@@ -1749,7 +1735,7 @@ function altsFor(slot,key,i){
 const MAXQ={mie:2,miecup:2,beras:2,nasiinstan:2,spaghetti:2,makaroni:2,bihun:2,roti:3,rotisi:3,oat:3,bubur:3,granola:3,kentang:3,tortilla:3};
 const capQ=(id,q,snack)=>Math.min(q,snack?3:(MAXQ[id]||q));
 function scaleItems(items,target,slot){
-  const snack=slot==="cemilan"||slot==="cadangan";
+  const snack=slot==="cemilan"||slot==="cadangan"||slot==="summit";
   const kb=items.find(([id])=>FOODS[id]&&FOODS[id].c==="karbo");
   let t=filterAvoid(items.map(([id,q])=>[id,q,snack?1:(kb&&id===kb[0]?1:0)]));
   let fixed=0,flexK=0; t.forEach(([id,q,f])=>{ if(f) flexK+=FOODS[id].k*q; else fixed+=FOODS[id].k*q; });
@@ -1857,7 +1843,7 @@ function vResult(){
     const doneN=shared.filter(([id])=>A[id]!=null).length+GT.filter(g=>S.assignGear&&S.assignGear[g.k]!=null).length+(CP.waterPP&&S.assignWater!=null?1:0);
     body=`<div class="card"><div class="row-h"><h2>${L("Anggota","Members")}</h2><button class="linkbtn" data-act="goto" data-step="2">${P} ${L("orang","people")}</button></div>
         ${ML.map(m=>{ const b=m.m>0&&S.mbody&&S.mbody[m.m]; return `<div class="mbr"><input data-member="${m.m}" maxlength="20" value="${esc((S.members||[])[m.m]||"")}" placeholder="${esc(m.m===0?L("Kamu","You"):L(`Orang ${m.m+1}`,`Person ${m.m+1}`))}" aria-label="${L("Nama anggota","Member name")} ${m.m+1}">
-          ${m.m===0?`<small>${L("Data dari langkah 3","Data from step 3")}</small>`:`<button class="chip sm${b?"":" on"}" data-act="mbSame" data-v="${m.m}">${b?L("Data sendiri","Own data"):L("Sama dengan saya","Same as me")}</button>`}
+          ${m.m===0?`<small>${L("Data dari langkah 3","Data from step 3")}</small>`:`<div class="seg mtog" style="--n:2;margin:0"><button data-act="mbSet" data-m="${m.m}" data-v="same" aria-pressed="${!b}">${L("Sama dengan saya","Same as me")}</button><button data-act="mbSet" data-m="${m.m}" data-v="own" aria-pressed="${!!b}">${L("Data sendiri","Own data")}</button></div>`}
           ${b?`<div class="mbd"><div class="seg" style="--n:2;margin:0"><button data-act="mbSex" data-m="${m.m}" data-v="m" aria-pressed="${(b.sex||"m")==="m"}">L</button><button data-act="mbSex" data-m="${m.m}" data-v="f" aria-pressed="${b.sex==="f"}">P</button></div>
             <label>${L("Usia","Age")}<input type="number" inputmode="numeric" data-mb="age" data-m="${m.m}" value="${b.age||""}"></label><label>${L("Berat (kg)","Weight (kg)")}<input type="number" inputmode="numeric" data-mb="weight" data-m="${m.m}" value="${b.weight||""}"></label></div>`:""}</div>`}).join("")}</div>
       <div class="card"><div class="row-h"><h2>${L("Bagi barang bersama","Split shared items")}</h2><span class="kcal-tag">${doneN}/${total}</span></div>
@@ -1872,7 +1858,8 @@ function vResult(){
         <div class="kv"><span>${L("Belanja bersama","Shared shopping")}</span><b>${rp(PT.shared)}</b></div>
         <div class="kv"><span>${L("Per orang","Per person")}</span><b>${rp(PT.share)}</b></div>
         ${PT.open?`<p class="note">${L(`${rp(PT.open)} belum dibagi.`,`${rp(PT.open)} not assigned yet.`)}</p>`:""}
-        ${PT.tr.length?PT.tr.map(([a,b,x])=>`<div class="kv"><span>${esc(memberName(a))} → ${esc(memberName(b))}</span><b>${rp(x)}</b></div>`).join(""):(PT.open?"":`<p class="note">${L("Sudah seimbang.","Already even.")}</p>`)}</div>
+        ${PT.tr.length?[...new Set(PT.tr.map(t=>t[1]))].map(b=>`<label class="field acct"><span>${L("Rekening atau e-wallet","Bank or e-wallet")} ${esc(memberName(b))}</span><input data-acct="${b}" maxlength="60" value="${esc((S.accounts&&S.accounts[b])||"")}" placeholder="${L("Contoh: BCA 1234567 a.n. ","e.g. BCA 1234567 ")}${esc(memberName(b))}"></label>`).join(""):""}
+        ${PT.tr.length?PT.tr.map(([a,b,x])=>{const k=a+"-"+b, paid=!!(S.paidT&&S.paidT[k]), billed=!!(S.billed&&S.billed[k]); return `<div class="trw${paid?" got":""}"><button class="ck" data-act="paidT" data-v="${k}" role="checkbox" aria-checked="${paid}" aria-label="${L("Lunas","Paid")}"></button><span><b>${esc(memberName(a))} → ${esc(memberName(b))}</b><small>${paid?L("Lunas","Paid"):rp(x)}</small></span>${paid?"":`<button class="edit" data-act="bill" data-a="${a}" data-b="${b}" data-x="${Math.round(x)}">${billed?L("Ingatkan lagi","Remind"):L("Tagih","Request")}</button>`}</div>`}).join(""):(PT.open?"":`<p class="note">${L("Sudah seimbang.","Already even.")}</p>`)}</div>
       <div class="card"><h2>${L("Kirim ke grup","Send to the group")}</h2>
         <div class="jump"><button class="opt" data-act="shareGroup"><span><b>${L("Siapa membawa apa","Who brings what")}</b><small>${L("Lihat dan ubah dulu sebelum dikirim","Preview and edit before sending")}</small></span>›</button>
         <button class="opt" data-act="sharePrep"><span><b>${L("Jadwal persiapan","Prep schedule")}</b><small>${L("Lihat dan ubah dulu sebelum dikirim","Preview and edit before sending")}</small></span>›</button></div></div>`;
@@ -2031,7 +2018,9 @@ function vDone(){
       <p class="note" style="margin:8px 0 0">${L("Berguna kalau baterai habis atau ganti HP.","Handy if your battery dies or you change phones.")}</p></div>
     <div class="jump">
       <a class="opt" href="https://mirai-organization-team.github.io/" style="text-decoration:none;color:inherit"><span><b>${L("Siapkan perlengkapan di Siap Nanjak","Pack your gear with Siap Nanjak")}</b></span>›</a>
-      <a class="opt" href="${feedbackLink()}" style="text-decoration:none;color:inherit"><span><b>${L("Kirim masukan","Send feedback")}</b></span>›</a></div>
+      <a class="opt" href="${feedbackLink()}" style="text-decoration:none;color:inherit"><span><b>${L("Kirim masukan","Send feedback")}</b></span>›</a>
+      <a class="opt" href="mailto:contact@mirai.co.id" style="text-decoration:none;color:inherit"><span><b>${L("Hubungi kami","Contact us")}</b><small>contact@mirai.co.id</small></span>›</a>
+      ${PLAY_URL?`<a class="opt" href="${PLAY_URL}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><span><b>${L("Beri rating","Rate us")}</b></span>›</a>`:""}</div>
   </main><div class="bar"><div class="wrap"><button class="btn" data-act="home">${L("Ke menu utama","Main menu")}</button></div></div>`;
 }
 function feedbackLink(kind){ const sub=kind==="data"?L("Koreksi data Bekal Nanjak","Bekal Nanjak data correction"):L("Masukan Bekal Nanjak","Bekal Nanjak feedback"); return `mailto:contact@mirai.co.id?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent((S.mountain?planName()+"\n":"")+L("Tulis masukanmu di sini:","Write your feedback here:")+"\n")}`; }
@@ -2057,7 +2046,9 @@ function vHelp(){
   else if(t==="terms") body=`<div class="card">${Object.keys(GLOSS).map(k=>`<div class="gl"><b>${esc(L(...GLOSS[k][0]))}</b><p>${esc(L(...GLOSS[k][1]))}</p></div>`).join("")}</div>`;
   else body=[["Kenapa bekalnya lebih kecil dari kebutuhan?","Why is the food less than I need?","Sebagian energi ditutup dari makan di rumah atau basecamp, dan saat berjalan tubuh hanya bisa mencerna ±200–300 kkal per jam.","Some energy comes from meals at home or basecamp, and while walking you can only digest about 200–300 kcal an hour."],["Data saya disimpan di mana?","Where is my data stored?","Hanya di HP ini, tanpa login. Simpan file cadangan dari halaman Selesai.","Only on this phone, no login. Save a backup file from the Done page."],["Bisa dipakai tanpa sinyal?","Does it work offline?","Bisa, setelah dibuka sekali dengan internet.","Yes, after opening it once online."],["Kalori di aplikasi beda dengan label?","Calories differ from the label?","Ubah di tab Belanja lewat Ubah harga & kalori.","Change them in Shopping with Edit prices & kcal."],["Pengingat tidak muncul saat aplikasi ditutup?","No reminders when the app is closed?","Pakai tombol Ingatkan saya di halaman Selesai untuk menambah pengingat ke kalender.","Use Remind me on the Done page to add calendar reminders."]].map(([a,b,c,d])=>`<details class="card"><summary><b>${L(a,b)}</b>${CHEV}</summary><p class="note" style="margin:8px 0 0;color:var(--ink)">${L(c,d)}</p></details>`).join("");
   return header(L("Panduan","Guide"),"Bekal Nanjak")+`<main class="wrap">${seg}${body}
-    <div class="jump" style="margin-top:14px"><a class="opt" href="${feedbackLink()}" style="text-decoration:none;color:inherit"><span><b>${L("Kirim masukan","Send feedback")}</b></span>›</a>
+    <div class="jump" style="margin-top:14px">${PLAY_URL?`<a class="opt" href="${PLAY_URL}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><span><b>${L("Beri rating di Play Store","Rate us on Play Store")}</b></span>›</a>`:""}
+    <a class="opt" href="mailto:contact@mirai.co.id" style="text-decoration:none;color:inherit"><span><b>${L("Hubungi kami","Contact us")}</b><small>contact@mirai.co.id</small></span>›</a>
+    <a class="opt" href="${feedbackLink()}" style="text-decoration:none;color:inherit"><span><b>${L("Kirim masukan","Send feedback")}</b></span>›</a>
     <a class="opt" href="${feedbackLink("data")}" style="text-decoration:none;color:inherit"><span><b>${L("Laporkan koreksi data jalur atau kalori","Report a trail or calorie correction")}</b></span>›</a></div>
   </main><div class="bar"><div class="wrap"><button class="btn" data-act="back">${L("Kembali","Back")}</button></div></div>`;
 }
@@ -2089,7 +2080,7 @@ function vWelcome(){
 }
 
 /* ===================== EDITOR ===================== */
-const PREF_CATS={cemilan:["camilan","minum"],cadangan:["camilan","karbo"],sarapan:["karbo","protein","minum","sayur"],siang:["karbo","protein","sayur"],malam:["karbo","protein","sayur","bumbu","minum"]};
+const PREF_CATS={summit:["camilan","minum"],cemilan:["camilan","minum"],cadangan:["camilan","karbo"],sarapan:["karbo","protein","minum","sayur"],siang:["karbo","protein","sayur"],malam:["karbo","protein","sayur","bumbu","minum"]};
 function editorHTML(){
   const E=editorData(S.edit); if(!E){S.edit=null;return ""}
   const cur=kOf(E.items), pct=E.target?Math.min(100,cur/E.target*100):0, gap=Math.round(E.target-cur);
@@ -2170,7 +2161,7 @@ function back(){
   go("plan",S.step-1);
 }
 function newPlan(){
-  const keep={kcalOv:S.kcalOv,people:S.people,members:S.members,instant:S.instant,avoid:S.avoid,bcPhone:S.bcPhone,adjFood:S.adjFood,adjWater:S.adjWater,seenIntro:true,lang:S.lang,sex:S.sex,age:S.age,height:S.height,weight:S.weight,load:S.load,veg:S.veg,light:S.light,cold:S.cold,prices:S.prices,ownFoods:S.ownFoods,tipsOpen:S.tipsOpen};
+  const keep={accounts:S.accounts,kcalOv:S.kcalOv,people:S.people,members:S.members,instant:S.instant,avoid:S.avoid,bcPhone:S.bcPhone,adjFood:S.adjFood,adjWater:S.adjWater,seenIntro:true,lang:S.lang,sex:S.sex,age:S.age,height:S.height,weight:S.weight,load:S.load,veg:S.veg,light:S.light,cold:S.cold,prices:S.prices,ownFoods:S.ownFoods,tipsOpen:S.tipsOpen};
   S={...defaults(),...keep}; go("plan",1);
 }
 
@@ -2182,8 +2173,13 @@ document.addEventListener("click",e=>{
   const a=b.dataset.act, v=b.dataset.v;
   switch(a){
     case "lang": S.lang=v; save(); return render();
+    case "paidT": S.paidT=S.paidT||{}; S.paidT[v]=!S.paidT[v]; save(); storeHistory(); return render();
+    case "bill": { const a2=+b.dataset.a, b2=+b.dataset.b, x=+b.dataset.x, acct=(S.accounts&&S.accounts[b2])||"";
+      S.billed=S.billed||{}; S.billed[a2+"-"+b2]=true; save();
+      S.msg={t:L("Tagih patungan","Request payment"),x:L(`Hai ${memberName(a2)}, patungan bekal ${planName()} ${rp(x)}. Transfer ke ${acct||memberName(b2)} ya. Terima kasih!`,`Hi ${memberName(a2)}, your share for ${planName()} is ${rp(x)}. Please transfer to ${acct||memberName(b2)}. Thanks!`)}; render(); return renderSheet(); }
+    case "campStop": S.campStop=+v; save(); return render();
     case "snackEvery": S.snackEvery=+v; save(); return render();
-    case "mbSame": { const m=+v; S.mbody=S.mbody||[]; S.mbody[m]=S.mbody[m]?null:{sex:S.sex,age:S.age,weight:S.weight}; save(); return render(); }
+    case "mbSet": { const m=+b.dataset.m; S.mbody=S.mbody||[]; if(v==="same") S.mbody[m]=null; else if(!S.mbody[m]) S.mbody[m]={sex:S.sex,age:S.age,weight:S.weight}; save(); storeHistory(); return render(); }
     case "mbSex": { const m=+b.dataset.m; S.mbody=S.mbody||[]; S.mbody[m]=S.mbody[m]||{}; S.mbody[m].sex=v; save(); return render(); }
     case "waterSrc": S.waterSrc=v; save(); return render();
     case "solo": S.people=+v===1?1:Math.max(2,S.people||2); S.sent={}; save(); return render();
@@ -2323,6 +2319,7 @@ document.addEventListener("input",e=>{
   if(el.id==="edSearch"){ const q=el.value.trim().toLowerCase().replace(/cokelat/g,"coklat"); document.querySelectorAll(".sheet .fchip").forEach(c=>{ c.hidden=!!q&&!c.dataset.name.includes(q); }); const od=document.querySelector(".sheet details.mini-d"); if(od&&q) od.open=true; return; }
   if(el.dataset.prepdate){ const sp=el.parentElement&&el.parentElement.querySelector(".dval"); if(sp) sp.textContent=dmy(el.value); if(fullDate(el.value)){ S.prepDate=S.prepDate||{}; S.prepDate[el.dataset.prepdate]=el.value; save(); storeHistory(); } return; }
   if(el.type==="time"){ const sp=el.parentElement&&el.parentElement.querySelector(".dval"); if(sp) sp.textContent=el.value||"--:--"; }
+  if(el.dataset.acct!=null){ S.accounts=S.accounts||{}; S.accounts[el.dataset.acct]=el.value; save(); return; }
   if(el.dataset.daystart!=null){ S.dayStart=S.dayStart||{}; S.dayStart[el.dataset.daystart]=el.value; save(); return; }
   if(el.dataset.mb){ const m=+el.dataset.m; S.mbody=S.mbody||[]; S.mbody[m]=S.mbody[m]||{}; S.mbody[m][el.dataset.mb]=+el.value||""; save(); return; }
   if(el.dataset.cost){ S.costs=S.costs||{}; S.costs[el.dataset.cost]=+el.value||0; save(); return; }
